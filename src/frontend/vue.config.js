@@ -9,21 +9,21 @@ module.exports = {
 
   devServer: {
     proxy: {
-      "^/api": {
-        target: "http://backend:3000/",
+      '^/api': {
+        target: 'http://backend:3000/',
         changeOrigin: false,
-        pathRewrite: { "^/api/": "/" },
+        pathRewrite: { '^/api/': '/' },
       },
-      "^/public": {
-        target: "http://backend:3000/",
+      '^/public': {
+        target: 'http://backend:3000/',
         changeOrigin: false,
-        pathRewrite: { "^/public/": "/public/" },
+        pathRewrite: { '^/public/': '/public/' },
       },
-      "/explorer": {
-        target: "http://backend:3000/",
+      '/explorer': {
+        target: 'http://backend:3000/',
         changeOrigin: false,
         proxyTimeout: 1000 * 60 * 10,
-        pathRewrite: { "/docs/explorer": "/explorer" },
+        pathRewrite: { '/docs/explorer': '/explorer' },
       },
     },
 

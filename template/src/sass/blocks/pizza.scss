@@ -49,6 +49,8 @@
 
   &::before,
   &::after {
+    display: none;
+
     position: absolute;
     top: 0;
     left: 0;
@@ -173,4 +175,3 @@
     background-image: url("../img/filling-big/tomatoes.svg");
   }
 }
-

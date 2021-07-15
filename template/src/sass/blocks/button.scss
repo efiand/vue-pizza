@@ -21,19 +21,19 @@
 
   background-color: $green-500;
 
-  &:hover:not(:active):not(#{$bl}--disabled) {
+  &:hover:not(:active):not(:disabled) {
     background-color: $green-400;
   }
 
-  &:active:not(#{$bl}--disabled) {
+  &:active:not(:disabled) {
     background-color: $green-600;
   }
 
-  &:focus:not(#{$bl}--disabled) {
+  &:focus:not(:disabled) {
     opacity: 0.5;
   }
 
-  &--disabled {
+  &:disabled {
     background-color: $green-300;
     color: rgba($white, 0.2);
     cursor: default;
@@ -45,19 +45,19 @@
     color: $black;
     box-shadow: none;
 
-    &:hover:not(:active):not(#{$bl}--disabled) {
+    &:hover:not(:active):not(:disabled) {
       color: $green-500;
       border-color: $green-500;
       background-color: transparent;
     }
 
-    &:active:not(#{$bl}--disabled) {
+    &:active:not(:disabled) {
       color: $green-600;
       border-color: $green-600;
       background-color: transparent;
     }
 
-    &#{$bl}--disabled {
+    &:disabled {
       opacity: 0.5;
     }
   }
@@ -68,17 +68,17 @@
     box-shadow: none;
     color: $black;
 
-    &:hover:not(:active):not(#{$bl}--disabled) {
+    &:hover:not(:active):not(:disabled) {
       color: $red-800;
       background-color: transparent;
     }
 
-    &:active:not(#{$bl}--disabled) {
+    &:active:not(:disabled) {
       color: $red-900;
       background-color: transparent;
     }
 
-    &#{$bl}--disabled {
+    &:disabled {
       opacity: 0.25;
     }
   }
