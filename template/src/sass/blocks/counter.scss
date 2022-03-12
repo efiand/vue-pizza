@@ -40,19 +40,19 @@
       background-color: $black;
     }
 
-    &:hover:not(:active):not(#{el}--disabled) {
+    &:hover:not(:active):not(:disabled) {
       background-color: $purple-200;
     }
 
-    &:active:not(#{el}--disabled) {
+    &:active:not(:disabled) {
       background-color: $purple-300;
     }
 
-    &:focus:not(#{el}--disabled) {
+    &:focus:not(:disabled) {
       box-shadow: $shadow-regular;
     }
 
-    &#{el}--disabled {
+    &:disabled {
       cursor: default;
 
       &::before {
@@ -89,19 +89,19 @@
       background-color: $white;
     }
 
-    &:hover:not(:active):not(#{el}--disabled) {
+    &:hover:not(:active):not(:disabled) {
       background-color: $green-400;
     }
 
-    &:active:not(#{el}--disabled) {
+    &:active:not(:disabled) {
       background-color: $green-600;
     }
 
-    &:focus:not(#{el}--disabled) {
+    &:focus:not(:disabled) {
       box-shadow: $shadow-regular;
     }
 
-    &#{el}--disabled {
+    &:disabled {
       cursor: default;
 
       opacity: 0.3;
@@ -111,11 +111,11 @@
   &--orange {
     background-color: $orange-200;
 
-    &:hover:not(:active):not(#{el}--disabled) {
+    &:hover:not(:active):not(:disabled) {
       background-color: $orange-100;
     }
 
-    &:active:not(#{el}--disabled) {
+    &:active:not(:disabled) {
       background-color: $orange-300;
     }
   }

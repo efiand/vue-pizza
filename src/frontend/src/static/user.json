@@ -1,4 +1,5 @@
 {
+  "id": "uuid",
   "name": "Вася Пупкин",
   "email": "user@example.com",
   "password": "user@example.com",

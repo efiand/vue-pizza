@@ -13,8 +13,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "format": "npx pretty-quick"
+    "lint": "vue-cli-service lint"
   },
   "husky": {
     "hooks": {
