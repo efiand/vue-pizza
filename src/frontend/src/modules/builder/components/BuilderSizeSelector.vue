@@ -1,3 +1,47 @@
+<template>
+  <div class="diameter" :class="className">
+    <RadioButton
+      v-for="size of sizes"
+      :key="`size-${size.id}`"
+      :className="`diameter__input diameter__input--${size.alias}`"
+      name="diameter"
+      :value="size.alias"
+      :label="size.name"
+      :checked="size.checked"
+      inputIsHidden
+      @change="changeSizes(size)"
+    />
+  </div>
+</template>
+
+<script>
+import { changeRadio } from "@/common/utils";
+import RadioButton from "@/common/components/RadioButton.vue";
+
+export default {
+  name: "BuilderSizeSelector",
+  components: {
+    RadioButton,
+  },
+  props: {
+    className: {
+      type: String,
+      default: "",
+    },
+    sizes: {
+      type: Array,
+      required: true,
+    },
+  },
+  methods: {
+    changeSizes(size) {
+      this.$emit("change", changeRadio(this.sizes, size));
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .diameter__input {
   margin-right: 8.7%;
   margin-bottom: 20px;
@@ -64,3 +108,4 @@
     }
   }
 }
+</style>

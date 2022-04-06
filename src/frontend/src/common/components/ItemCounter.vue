@@ -1,3 +1,58 @@
+<template>
+  <div class="counter counter--orange ingredients__counter">
+    <button
+      type="button"
+      class="counter__button counter__button--minus"
+      :disabled="value === 0"
+      @click="value--"
+    >
+      <span class="visually-hidden">Меньше</span>
+    </button>
+    <input
+      type="text"
+      name="counter"
+      class="counter__input"
+      v-model.number="value"
+    />
+    <button
+      type="button"
+      class="counter__button counter__button--plus"
+      :disabled="value === max"
+      @click="value++"
+    >
+      <span class="visually-hidden">Больше</span>
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "ItemCounter",
+  props: {
+    quantity: {
+      type: Number,
+      default: 0,
+    },
+    max: {
+      type: Number,
+      required: true,
+    },
+  },
+  computed: {
+    value: {
+      get() {
+        return this.quantity;
+      },
+      set(value) {
+        const newValue = Math.min(Math.max(value, 0) || 0, this.max);
+        this.$emit("change", newValue);
+      },
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .counter {
   display: flex;
 
@@ -141,3 +196,4 @@
     box-shadow: inset $shadow-regular;
   }
 }
+</style>

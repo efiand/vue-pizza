@@ -1,3 +1,86 @@
+<template>
+  <div
+    class="pizza"
+    :class="`pizza--foundation--${dough}-${sauce} pizza--size--${size}`"
+  >
+    <AppDrop className="pizza__wrapper" @drop="onDrop">
+      <div
+        v-for="{ alias, key, second, third } of currentIngredients"
+        :key="key"
+        class="pizza__filling"
+        :class="{
+          [`pizza__filling--${alias}`]: true,
+          'pizza__filling--second': second,
+          'pizza__filling--third': third,
+        }"
+      />
+    </AppDrop>
+  </div>
+</template>
+
+<script>
+import { cloneDeep } from "lodash";
+import { MAX_INGREDIENT_QUANTITY } from "@/common/constants";
+import AppDrop from "@/common/components/AppDrop.vue";
+
+export default {
+  name: "BuilderPizzaView",
+  components: {
+    AppDrop,
+  },
+  props: {
+    pizza: {
+      type: Object,
+      required: true,
+    },
+  },
+  computed: {
+    dough() {
+      const [thin] = this.pizza.dough;
+      return thin.checked ? "small" : "big";
+    },
+    size() {
+      return this.pizza.sizes.find(({ checked }) => checked).alias;
+    },
+    sauce() {
+      const [tomato] = this.pizza.sauces;
+      return tomato.checked ? "tomato" : "creamy";
+    },
+    currentIngredients() {
+      const list = [];
+
+      this.pizza.ingredients.forEach(({ alias, quantity }) => {
+        for (let i = 1; i <= quantity; i++) {
+          list.push({
+            alias,
+            key: `${alias}-${i}`,
+            second: i === 2,
+            third: i === 3,
+          });
+        }
+      });
+
+      return list;
+    },
+  },
+  methods: {
+    onDrop({ ingredient }) {
+      const newPizza = cloneDeep(this.pizza);
+      const currentIngredient = newPizza.ingredients.find(
+        ({ alias }) => alias === ingredient
+      );
+      if (currentIngredient.quantity >= MAX_INGREDIENT_QUANTITY) {
+        return;
+      }
+
+      currentIngredient.quantity++;
+      this.$emit("change", newPizza);
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .pizza {
   position: relative;
 
@@ -24,6 +107,14 @@
 
   &--foundation--small-tomato {
     background-image: url("~@/assets/img/foundation/small-tomato.svg");
+  }
+
+  &--size--small {
+    transform: scale(0.9);
+  }
+
+  &--size--big {
+    transform: scale(1.1);
   }
 }
 
@@ -114,3 +205,4 @@
     background-image: url("~@/assets/img/filling-big/tomatoes.svg");
   }
 }
+</style>
