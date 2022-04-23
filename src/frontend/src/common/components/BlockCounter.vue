@@ -1,5 +1,5 @@
 <template>
-  <div class="counter counter--orange ingredients__counter">
+  <div class="counter counter--orange">
     <button
       type="button"
       class="counter__button counter__button--minus"
@@ -26,8 +26,10 @@
 </template>
 
 <script>
+import { getPositiveIntFromValue } from "@/common/utils.js";
+
 export default {
-  name: "ItemCounter",
+  name: "BlockCounter",
   props: {
     quantity: {
       type: Number,
@@ -44,8 +46,10 @@ export default {
         return this.quantity;
       },
       set(value) {
-        const newValue = Math.min(Math.max(value, 0) || 0, this.max);
-        this.$emit("change", newValue);
+        this.$emit(
+          "change",
+          Math.min(getPositiveIntFromValue(value), this.max)
+        );
       },
     },
   },

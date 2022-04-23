@@ -6,8 +6,6 @@
 
 // layout
 @import "layout/main.scss";
-@import "layout/content.scss";
-@import "layout/sheet.scss";
 @import "layout/container.scss";
 @import "layout/layout.scss";
 @import "layout/popup.scss";
@@ -16,13 +14,8 @@
 
 // blocks
 @import "blocks/icon.scss";
-@import "blocks/logo.scss";
 @import "blocks/close.scss";
-@import "blocks/input.scss";
 @import "blocks/select.scss";
-@import "blocks/button.scss";
-@import "blocks/title.scss";
-@import "blocks/filling.scss";
 @import "blocks/cart-list.scss";
 @import "blocks/cart.scss";
 @import "blocks/product.scss";

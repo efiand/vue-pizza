@@ -1,18 +1,38 @@
+<template>
+  <button class="button" :type="type" :disabled="disabled" v-on="$listeners">
+    {{ title }}
+  </button>
+</template>
+
+<script>
+export default {
+  name: "BlockButton",
+  props: {
+    type: {
+      type: String,
+      default: "button",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    title: {
+      type: String,
+      default: "OK",
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .button {
-  $bl: &;
-
   @include b-s18-h21;
+
   font-family: inherit;
-  display: block;
-
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
+  padding: 16px 45px;
   cursor: pointer;
   transition: 0.3s;
   text-align: center;
-
   color: $white;
   border: none;
   border-radius: 8px;
@@ -21,7 +41,7 @@
 
   background-color: $green-500;
 
-  &:hover:not(:active):not(:disabled) {
+  &:hover {
     background-color: $green-400;
   }
 
@@ -29,7 +49,7 @@
     background-color: $green-600;
   }
 
-  &:focus:not(:disabled) {
+  &:focus {
     opacity: 0.5;
   }
 
@@ -45,9 +65,8 @@
     color: $black;
     box-shadow: none;
 
-    &:hover:not(:active):not(:disabled) {
+    &:hover:not(:disabled) {
       color: $green-500;
-      border-color: $green-500;
       background-color: transparent;
     }
 
@@ -68,7 +87,7 @@
     box-shadow: none;
     color: $black;
 
-    &:hover:not(:active):not(:disabled) {
+    &:hover:not(:disabled) {
       color: $red-800;
       background-color: transparent;
     }
@@ -103,3 +122,4 @@
     color: $green-500;
   }
 }
+</style>

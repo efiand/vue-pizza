@@ -1,15 +1,7 @@
 <template>
   <header class="header">
-    <div class="header__logo">
-      <a class="logo" href="index.html">
-        <img
-          src="@/assets/img/logo.svg"
-          alt="V!U!E! Pizza logo"
-          width="90"
-          height="40"
-        />
-      </a>
-    </div>
+    <BlockLogo class="header__logo" />
+
     <div class="header__cart">
       <a href="cart.html">{{ price }} ₽</a>
     </div>
@@ -21,9 +13,13 @@
 
 <script>
 import { accumulateSumByKey } from "@/common/utils";
+import BlockLogo from "@/common/components/BlockLogo.vue";
 
 export default {
   name: "AppLayoutHeader",
+  components: {
+    BlockLogo,
+  },
   props: {
     orders: {
       type: Array,
@@ -42,18 +38,14 @@ export default {
 .header {
   position: relative;
   z-index: 2;
-
   display: flex;
-
   padding: 0 2.12%;
-
   background-color: $green-500;
   box-shadow: $shadow-light;
 }
 
 .header__logo {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin-top: 10px;
 }
 
 .header__cart {
