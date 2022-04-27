@@ -1,6 +1,6 @@
 <template>
   <div class="sheet">
-    <BlockSubheading class="sheet__title" :title="title" />
+    <BlockSubheading class="sheet__title">{{ title }}</BlockSubheading>
 
     <div class="sheet__content">
       <slot />

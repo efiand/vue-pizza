@@ -1,6 +1,6 @@
 <template>
   <main class="index">
-    <BlockHeading title="Конструктор пиццы" />
+    <BlockHeading>Конструктор пиццы</BlockHeading>
 
     <form
       class="index__body"
@@ -49,7 +49,7 @@
         <BuilderFillingSelector
           :ingredients="ingredients"
           :value="pizza.ingredients"
-          @change="pizza.ingredients = $event"
+          @input="pizza.ingredients = $event"
         />
       </BlockSheet>
 
@@ -58,19 +58,23 @@
           title="Название пиццы"
           placeholder="Введите название пиццы"
           name="pizza_name"
-          :value="pizza.name"
-          @change="pizza.name = $event"
+          v-model="pizza.name"
         />
 
         <BuilderPizza
           class="index__pizza"
-          :pizza="pizza"
+          :dough="pizza.dough"
+          :size="pizza.size"
+          :sauce="pizza.sauce"
+          :ingredients="pizza.ingredients"
           @change="pizza.ingredients = $event"
         />
 
         <div class="index__result">
           <p>Итого: {{ price }} ₽</p>
-          <BlockButton type="submit" :disabled="!isReady" title="Готовьте!" />
+          <BlockButton type="submit" :disabled="!isReady">
+            Готовьте!
+          </BlockButton>
         </div>
       </div>
     </form>

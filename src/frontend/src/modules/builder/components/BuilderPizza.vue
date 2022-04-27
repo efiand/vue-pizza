@@ -1,11 +1,11 @@
 <template>
   <AppDrop
     class="pizza"
-    :class="`pizza--foundation--${pizza.dough}-${pizza.sauce} pizza--size--${pizza.size}`"
+    :class="`pizza--foundation--${dough}-${sauce} pizza--size--${size}`"
     @drop="onDrop"
   >
     <BuilderPizzaFilling
-      v-for="(quantity, alias) in pizza.ingredients"
+      v-for="(quantity, alias) in ingredients"
       :key="alias"
       :alias="alias"
       :quantity="quantity"
@@ -25,19 +25,38 @@ export default {
     BuilderPizzaFilling,
   },
   props: {
-    pizza: {
+    dough: {
+      type: String,
+      required: true,
+    },
+    sauce: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: true,
+    },
+    ingredients: {
       type: Object,
       required: true,
     },
   },
+  data() {
+    return {
+      mutableIngredients: this,
+    };
+  },
   methods: {
     onDrop({ ingredient }) {
-      if (this.pizza.ingredients[ingredient] >= MAX_INGREDIENT_QUANTITY) {
+      const ingredients = { ...this.ingredients };
+
+      if (ingredients[ingredient] >= MAX_INGREDIENT_QUANTITY) {
         return;
       }
 
-      this.pizza.ingredients[ingredient]++;
-      this.$emit("change", this.pizza.ingredients);
+      ingredients[ingredient]++;
+      this.$emit("change", ingredients);
     },
   },
 };

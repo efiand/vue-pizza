@@ -3,8 +3,8 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      :disabled="value === 0"
-      @click="value--"
+      :disabled="currentValue === 0"
+      @click="currentValue--"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -12,13 +12,13 @@
       type="text"
       name="counter"
       class="counter__input"
-      v-model.number="value"
+      v-model.number="currentValue"
     />
     <button
       type="button"
       class="counter__button counter__button--plus"
-      :disabled="value === max"
-      @click="value++"
+      :disabled="currentValue === max"
+      @click="currentValue++"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -31,7 +31,7 @@ import { getPositiveIntFromValue } from "@/common/utils.js";
 export default {
   name: "BlockCounter",
   props: {
-    quantity: {
+    value: {
       type: Number,
       default: 0,
     },
@@ -41,15 +41,12 @@ export default {
     },
   },
   computed: {
-    value: {
+    currentValue: {
       get() {
-        return this.quantity;
+        return this.value;
       },
       set(value) {
-        this.$emit(
-          "change",
-          Math.min(getPositiveIntFromValue(value), this.max)
-        );
+        this.$emit("input", Math.min(getPositiveIntFromValue(value), this.max));
       },
     },
   },

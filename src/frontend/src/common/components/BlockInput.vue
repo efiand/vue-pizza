@@ -5,8 +5,7 @@
       type="text"
       :name="name"
       :placeholder="placeholder"
-      :value="value"
-      @input="$emit('change', $event.target.value)"
+      v-model="currentValue"
     />
   </label>
 </template>
@@ -34,6 +33,16 @@ export default {
     isBig: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    currentValue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
     },
   },
 };

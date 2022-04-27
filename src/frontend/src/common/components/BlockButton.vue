@@ -1,6 +1,11 @@
 <template>
-  <button class="button" :type="type" :disabled="disabled" v-on="$listeners">
-    {{ title }}
+  <button
+    class="button"
+    :type="type"
+    :disabled="disabled"
+    @click="$emit('click')"
+  >
+    <slot />
   </button>
 </template>
 
@@ -15,10 +20,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
-    },
-    title: {
-      type: String,
-      default: "OK",
     },
   },
 };

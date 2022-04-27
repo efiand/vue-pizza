@@ -1,16 +1,10 @@
 <template>
-  <h2 class="subheading">{{ title }}</h2>
+  <h2 class="subheading"><slot /></h2>
 </template>
 
 <script>
 export default {
-  name: "BlockSubsubheading",
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-  },
+  name: "BlockSubheading",
 };
 </script>
 

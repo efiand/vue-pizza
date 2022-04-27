@@ -1,6 +1,7 @@
 export function getPositiveIntFromValue(value) {
   const number = parseInt(value, 10);
-  return isNaN(number) || number < 0 ? 0 : number;
+  const notPositive = isNaN(number) || number < 0;
+  return notPositive ? 0 : number;
 }
 
 export function findItemByAlias(list, checkableAlias) {

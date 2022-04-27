@@ -1,16 +1,10 @@
 <template>
-  <h1 class="heading">{{ title }}</h1>
+  <h1 class="heading"><slot /></h1>
 </template>
 
 <script>
 export default {
   name: "BlockHeading",
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-  },
 };
 </script>
 

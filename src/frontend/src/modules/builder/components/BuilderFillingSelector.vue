@@ -19,9 +19,9 @@
 
         <BlockCounter
           class="filling__counter"
-          :quantity="value[alias]"
+          v-model.number="value[alias]"
           :max="max"
-          @change="changeIngredients(alias, $event)"
+          @input="changeIngredients(alias, $event)"
         />
       </li>
     </ul>
@@ -56,8 +56,10 @@ export default {
   },
   methods: {
     changeIngredients(alias, quantity) {
-      this.value[alias] = quantity;
-      this.$emit("change", this.value);
+      this.$emit("input", {
+        ...this.value,
+        [alias]: quantity,
+      });
     },
   },
 };
