@@ -42,11 +42,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      mutableIngredients: this,
-    };
-  },
   methods: {
     onDrop({ ingredient }) {
       const ingredients = { ...this.ingredients };
