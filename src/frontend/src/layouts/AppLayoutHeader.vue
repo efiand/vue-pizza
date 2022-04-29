@@ -1,18 +1,51 @@
+<template>
+  <header class="header">
+    <BlockLogo class="header__logo" />
+
+    <div class="header__cart">
+      <a href="cart.html">{{ price }} ₽</a>
+    </div>
+    <div class="header__user">
+      <a class="header__login" href="#"><span>Войти</span></a>
+    </div>
+  </header>
+</template>
+
+<script>
+import { accumulateSumByKey } from "@/common/utils";
+import BlockLogo from "@/common/components/BlockLogo.vue";
+
+export default {
+  name: "AppLayoutHeader",
+  components: {
+    BlockLogo,
+  },
+  props: {
+    orders: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    price() {
+      return accumulateSumByKey(this.orders, "price");
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .header {
   position: relative;
   z-index: 2;
-
   display: flex;
-
   padding: 0 2.12%;
-
   background-color: $green-500;
   box-shadow: $shadow-light;
 }
 
 .header__logo {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin-top: 10px;
 }
 
 .header__cart {
@@ -112,7 +145,7 @@
     height: 32px;
     margin-right: 8px;
 
-    content: '';
+    content: "";
     vertical-align: middle;
 
     background: url("~@/assets/img/login.svg") no-repeat center;
@@ -128,10 +161,11 @@
     height: 32px;
     margin-left: 8px;
 
-    content: '';
+    content: "";
     vertical-align: middle;
 
     background: url("~@/assets/img/login.svg") no-repeat center;
     background-size: auto 50%;
   }
 }
+</style>

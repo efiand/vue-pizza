@@ -1,38 +1,36 @@
-.pizza {
-  position: relative;
+<template>
+  <div>
+    <div
+      v-for="i in quantity"
+      :key="i"
+      class="pizza-filling"
+      :class="{
+        [`pizza-filling--${alias}`]: true,
+        'pizza-filling--second': i === 2,
+        'pizza-filling--third': i === 3,
+      }"
+    />
+  </div>
+</template>
 
-  display: block;
+<script>
+export default {
+  name: "BuilderPizzaFilling",
+  props: {
+    alias: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+  },
+};
+</script>
 
-  box-sizing: border-box;
-  width: 100%;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-
-  &--foundation--big-creamy {
-    background-image: url("~@/assets/img/foundation/big-creamy.svg");
-  }
-
-  &--foundation--big-tomato {
-    background-image: url("~@/assets/img/foundation/big-tomato.svg");
-  }
-
-  &--foundation--small-creamy {
-    background-image: url("~@/assets/img/foundation/small-creamy.svg");
-  }
-
-  &--foundation--small-tomato {
-    background-image: url("~@/assets/img/foundation/small-tomato.svg");
-  }
-}
-
-.pizza__wrapper {
-  width: 100%;
-  padding-bottom: 100%;
-}
-
-.pizza__filling {
+<style lang="scss">
+.pizza-filling {
   position: absolute;
   top: 0;
   left: 0;
@@ -114,3 +112,4 @@
     background-image: url("~@/assets/img/filling-big/tomatoes.svg");
   }
 }
+</style>
