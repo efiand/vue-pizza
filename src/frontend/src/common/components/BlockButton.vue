@@ -1,6 +1,10 @@
 <template>
   <button
     class="button"
+    :class="{
+      'button--bordered': bordered,
+      'button--transparent': transparent,
+    }"
     :type="type"
     :disabled="disabled"
     @click="$emit('click')"
@@ -21,6 +25,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    bordered: {
+      type: Boolean,
+      default: false,
+    },
+    transparent: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -35,19 +47,20 @@ export default {
   transition: 0.3s;
   text-align: center;
   color: $white;
-  border: none;
+  border: 1px solid $green-500;
   border-radius: 8px;
   outline: none;
-  box-shadow: $shadow-medium;
-
   background-color: $green-500;
+  box-shadow: $shadow-medium;
 
   &:hover {
     background-color: $green-400;
+    border-color: $green-400;
   }
 
-  &:active:not(:disabled) {
+  &:active {
     background-color: $green-600;
+    border-color: $green-600;
   }
 
   &:focus {
@@ -56,24 +69,24 @@ export default {
 
   &:disabled {
     background-color: $green-300;
+    border-color: $green-300;
     color: rgba($white, 0.2);
     cursor: default;
   }
 
-  &--border {
+  &--bordered {
     background-color: transparent;
-    border: 1px solid $green-500;
     color: $black;
     box-shadow: none;
 
-    &:hover:not(:disabled) {
+    &:hover {
       color: $green-500;
       background-color: transparent;
+      border-color: $green-400;
     }
 
-    &:active:not(:disabled) {
+    &:active {
       color: $green-600;
-      border-color: $green-600;
       background-color: transparent;
     }
 
@@ -85,42 +98,25 @@ export default {
   &--transparent {
     @include b-s14-h16;
     background-color: transparent;
+    border-color: transparent;
     box-shadow: none;
     color: $black;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:active):not(:disabled) {
       color: $red-800;
       background-color: transparent;
+      border-color: transparent;
     }
 
     &:active:not(:disabled) {
       color: $red-900;
       background-color: transparent;
+      border-color: transparent;
     }
 
     &:disabled {
       opacity: 0.25;
     }
-  }
-
-  &--arrow {
-    &::before {
-      content: "";
-      background-image: url("~@/assets/img/button-arrow.svg");
-      background-position: center;
-      background-repeat: no-repeat;
-      margin-right: 16px;
-      width: 18px;
-      height: 18px;
-      display: inline-block;
-      vertical-align: middle;
-      transform: translateY(-1px);
-    }
-  }
-
-  &--white {
-    background-color: $white;
-    color: $green-500;
   }
 }
 </style>

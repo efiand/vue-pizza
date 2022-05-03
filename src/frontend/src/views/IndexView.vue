@@ -1,7 +1,5 @@
 <template>
-  <main class="index">
-    <BlockHeading>Конструктор пиццы</BlockHeading>
-
+  <BlockContent class="index" title="Конструктор пиццы">
     <form
       class="index__body"
       action="#"
@@ -9,53 +7,60 @@
       @submit.prevent="addToCart"
     >
       <BlockSheet title="Выберите тесто">
-        <BlockRadio
-          v-for="option of dough"
-          :key="`dough-${option.alias}`"
-          :class="`index__dough-radio index__dough-radio--${option.alias}`"
-          name="dough"
-          :option="option"
-          :checked="option.alias === pizza.dough"
-          big
-          @change="pizza.dough = option.alias"
-        />
+        <div class="index__content">
+          <BlockRadio
+            v-for="option of content.dough"
+            :key="`dough-${option.alias}`"
+            :class="`index__dough-radio index__dough-radio--${option.alias}`"
+            name="dough"
+            :option="option"
+            :checked="option.alias === pizza.dough"
+            big
+            @change="pizza.dough = option.alias"
+          />
+        </div>
       </BlockSheet>
 
       <BlockSheet title="Выберите размер">
-        <BlockRadio
-          v-for="option of sizes"
-          :key="`size-${option.alias}`"
-          :class="`index__size-radio index__size-radio--${option.alias}`"
-          name="size"
-          :option="option"
-          :checked="option.alias === pizza.size"
-          big
-          @change="pizza.size = option.alias"
-        />
+        <div class="index__content">
+          <BlockRadio
+            v-for="option of content.sizes"
+            :key="`size-${option.alias}`"
+            :class="`index__size-radio index__size-radio--${option.alias}`"
+            name="size"
+            :option="option"
+            :checked="option.alias === pizza.size"
+            big
+            @change="pizza.size = option.alias"
+          />
+        </div>
       </BlockSheet>
 
       <BlockSheet title="Выберите ингредиенты">
-        <p>Основной соус:</p>
-        <BlockRadio
-          v-for="option of sauces"
-          :key="`sauce-${option.alias}`"
-          class="index__sauce-radio"
-          name="sauce"
-          :option="option"
-          :checked="option.alias === pizza.sauce"
-          @change="pizza.sauce = option.alias"
-        />
+        <div class="index__content">
+          <p>Основной соус:</p>
+          <BlockRadio
+            v-for="option of content.sauces"
+            :key="`sauce-${option.alias}`"
+            class="index__sauce-radio"
+            name="sauce"
+            :option="option"
+            :checked="option.alias === pizza.sauce"
+            @change="pizza.sauce = option.alias"
+          />
 
-        <BuilderFillingSelector
-          :ingredients="ingredients"
-          :value="pizza.ingredients"
-          @input="pizza.ingredients = $event"
-        />
+          <BuilderFillingSelector
+            :ingredients="content.ingredients"
+            :value="pizza.ingredients"
+            @input="pizza.ingredients = $event"
+          />
+        </div>
       </BlockSheet>
 
       <div>
         <BlockInput
-          title="Название пиццы"
+          label="Название пиццы:"
+          hideLabel
           placeholder="Введите название пиццы"
           name="pizza_name"
           v-model="pizza.name"
@@ -71,58 +76,50 @@
         />
 
         <div class="index__result">
-          <p>Итого: {{ price }} ₽</p>
+          <p>Итого: {{ pizzaPrice }} ₽</p>
           <BlockButton type="submit" :disabled="!isReady">
             Готовьте!
           </BlockButton>
         </div>
       </div>
     </form>
-  </main>
+
+    <RouterView @login="$emit('login')" />
+  </BlockContent>
 </template>
 
 <script>
-import { dough, sauces, ingredients, sizes } from "@/static/pizza.json";
-import { findItemByAlias, accumulateSumByKey } from "@/common/utils.js";
-import BlockHeading from "@/common/components/BlockHeading.vue";
-import BlockSheet from "@/common/components/BlockSheet.vue";
-import BlockRadio from "@/common/components/BlockRadio.vue";
-import BlockInput from "@/common/components/BlockInput.vue";
-import BlockButton from "@/common/components/BlockButton.vue";
+import { cloneDeep } from "lodash";
+import { accumulateStructureByAliases } from "@/common/utils";
+import { contentPropMixin, pizzaPriceMixin } from "@/common/mixins";
 import BuilderFillingSelector from "@/modules/builder/components/BuilderFillingSelector.vue";
 import BuilderPizza from "@/modules/builder/components/BuilderPizza.vue";
 
-function createPizza() {
-  return {
-    name: "",
-    ingredients: ingredients.reduce((obj, { alias }) => {
-      obj[alias] = 0;
-      return obj;
-    }, {}),
-    dough: "light",
-    sauce: "tomato",
-    size: "normal",
-  };
-}
-
 export default {
   name: "IndexView",
+  mixins: [contentPropMixin, pizzaPriceMixin],
   components: {
-    BlockHeading,
-    BlockSheet,
-    BlockRadio,
-    BlockInput,
-    BlockButton,
     BuilderPizza,
     BuilderFillingSelector,
   },
+  props: {
+    currentOrder: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
+    const { pizzaName = "" } = this.$route.query;
+    const changedPizza = this.currentOrder.pizzas.find(
+      ({ name }) => name === pizzaName
+    );
+    if (!changedPizza && pizzaName) {
+      this.$router.push({ query: {} });
+    }
+
     return {
-      dough,
-      sauces,
-      ingredients,
-      sizes,
-      pizza: createPizza(),
+      changedPizza,
+      pizza: changedPizza ? cloneDeep(changedPizza) : this.createPizza(),
     };
   },
   computed: {
@@ -132,28 +129,33 @@ export default {
         Object.values(this.pizza.ingredients).some((quantity) => quantity)
       );
     },
-    price() {
-      const { dough, sauce, size, ingredients } = this.pizza;
-      const doughPrice = findItemByAlias(this.dough, dough).price;
-      const saucesPrice = findItemByAlias(this.sauces, sauce).price;
-      const ingredientsPrice = accumulateSumByKey(
-        this.ingredients,
-        "price",
-        ({ alias }) => ingredients[alias]
-      );
-      const { multiplier } = findItemByAlias(this.sizes, size);
-
-      return (doughPrice + saucesPrice + ingredientsPrice) * multiplier;
+    pizzaPrice() {
+      return this.getFormattedPizzaPrice(this.pizza, 1);
     },
   },
   methods: {
     addToCart() {
-      this.$emit("order", {
-        ...this.pizza,
-        price: this.price,
-      });
+      if (this.changedPizza) {
+        this.$emit("updatePizza", {
+          pizza: this.pizza,
+          index: this.currentOrder.pizzas.indexOf(this.changedPizza),
+        });
+        this.$router.push("/cart");
+      } else {
+        this.$emit("createPizza", this.pizza);
+      }
 
-      this.pizza = createPizza();
+      this.pizza = this.createPizza();
+    },
+    createPizza() {
+      return {
+        name: "",
+        ingredients: accumulateStructureByAliases(this.content.ingredients),
+        dough: "light",
+        sauce: "tomato",
+        size: "normal",
+        counter: 1,
+      };
     },
   },
 };
@@ -162,15 +164,19 @@ export default {
 <style lang="scss">
 .index {
   width: 920px;
-  margin: 0 auto;
-  padding: 20px 2.12% 30px;
 }
 
 .index__body {
   display: grid;
   grid-template-columns: 1fr 373px;
   gap: 30px 20px;
-  padding-top: 15px;
+}
+
+.index__content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 16px 18px 18px;
 }
 
 .index__dough-radio {

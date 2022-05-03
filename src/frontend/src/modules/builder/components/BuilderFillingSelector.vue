@@ -21,7 +21,7 @@
           class="filling__counter"
           v-model.number="value[alias]"
           :max="max"
-          @input="changeIngredients(alias, $event)"
+          @input="changeStructure(alias, $event)"
         />
       </li>
     </ul>
@@ -30,15 +30,11 @@
 
 <script>
 import { MAX_INGREDIENT_QUANTITY } from "@/common/constants";
-import BlockCounter from "@/common/components/BlockCounter.vue";
-import AppDrag from "@/common/components/AppDrag.vue";
+import { changeStructureMixin } from "@/common/mixins";
 
 export default {
   name: "BuilderFillingSelector",
-  components: {
-    BlockCounter,
-    AppDrag,
-  },
+  mixins: [changeStructureMixin],
   props: {
     ingredients: {
       type: Array,
@@ -53,14 +49,6 @@ export default {
     return {
       max: MAX_INGREDIENT_QUANTITY,
     };
-  },
-  methods: {
-    changeIngredients(alias, quantity) {
-      this.$emit("input", {
-        ...this.value,
-        [alias]: quantity,
-      });
-    },
   },
 };
 </script>

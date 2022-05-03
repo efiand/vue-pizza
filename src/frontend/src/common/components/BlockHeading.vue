@@ -10,8 +10,6 @@ export default {
 
 <style lang="scss">
 .heading {
-  margin: 0;
-
   @include b-s36-h42;
 }
 </style>
