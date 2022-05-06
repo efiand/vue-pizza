@@ -1,10 +1,13 @@
 <template>
-  <label class="input" :class="{ 'input--big-label': isBig }">
-    <span class="visually-hidden">{{ title }}</span>
+  <label class="input" :class="{ 'input--big-label': bigLabel }">
+    <span :class="{ 'visually-hidden': hideLabel }">{{ label }}</span>
+
     <input
-      type="text"
+      :type="type"
       :name="name"
       :placeholder="placeholder"
+      :readonly="readonly"
+      :required="required && !readonly"
       v-model="currentValue"
     />
   </label>
@@ -14,7 +17,27 @@
 export default {
   name: "BlockInput",
   props: {
-    title: {
+    label: {
+      type: String,
+      required: true,
+    },
+    bigLabel: {
+      type: Boolean,
+      default: false,
+    },
+    hideLabel: {
+      type: Boolean,
+      default: false,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      default: "text",
+    },
+    value: {
       type: String,
       required: true,
     },
@@ -22,15 +45,11 @@ export default {
       type: String,
       default: "",
     },
-    name: {
-      type: String,
-      required: true,
+    readonly: {
+      type: Boolean,
+      default: false,
     },
-    value: {
-      type: String,
-      required: true,
-    },
-    isBig: {
+    required: {
       type: Boolean,
       default: false,
     },

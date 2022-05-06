@@ -15,13 +15,11 @@
 
 <script>
 import { MAX_INGREDIENT_QUANTITY } from "@/common/constants";
-import AppDrop from "@/common/components/AppDrop.vue";
 import BuilderPizzaFilling from "@/modules/builder/components/BuilderPizzaFilling.vue";
 
 export default {
   name: "BuilderPizza",
   components: {
-    AppDrop,
     BuilderPizzaFilling,
   },
   props: {

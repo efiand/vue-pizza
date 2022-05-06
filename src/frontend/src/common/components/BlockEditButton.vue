@@ -1,4 +1,23 @@
-.icon {
+<template>
+  <button class="edit" :type="type" @click="$emit('click')">
+    <span class="visually-hidden"><slot /></span>
+  </button>
+</template>
+
+<script>
+export default {
+  name: "BlockEditButton",
+  props: {
+    type: {
+      type: String,
+      default: "button",
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.edit {
   display: block;
   overflow: hidden;
 
@@ -27,3 +46,4 @@
     box-shadow: $shadow-regular;
   }
 }
+</style>

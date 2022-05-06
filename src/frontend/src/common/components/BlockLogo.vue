@@ -1,12 +1,12 @@
 <template>
-  <a class="logo" href="/">
-    <img
-      src="@/assets/img/logo.svg"
+  <RouterLink class="logo" to="/">
+    <BlockPicture
+      :srcset="['logo.svg']"
       alt="V!U!E! Pizza logo"
       width="90"
       height="40"
     />
-  </a>
+  </RouterLink>
 </template>
 
 <script>

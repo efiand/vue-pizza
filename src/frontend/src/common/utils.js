@@ -13,3 +13,14 @@ export function accumulateSumByKey(arr, key, getMultiplier = () => 1) {
     return sum + item[key] * getMultiplier(item);
   }, 0);
 }
+
+export function accumulateStructureByAliases(list) {
+  return list.reduce((obj, { alias }) => {
+    obj[alias] = 0;
+    return obj;
+  }, {});
+}
+
+export function spacifyNumber(number, delimiter = "\u00A0") {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter);
+}

@@ -17,6 +17,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
+      :class="{ 'counter__button--orange': secondaryStyle }"
       :disabled="currentValue === max"
       @click="currentValue++"
     >
@@ -28,6 +29,8 @@
 <script>
 import { getPositiveIntFromValue } from "@/common/utils.js";
 
+const MAX_COUNT = 99;
+
 export default {
   name: "BlockCounter",
   props: {
@@ -37,7 +40,11 @@ export default {
     },
     max: {
       type: Number,
-      required: true,
+      default: MAX_COUNT,
+    },
+    secondaryStyle: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

@@ -4,11 +4,12 @@ body {
 
   min-width: 960px;
   min-height: 100vh;
+  overflow-y: scroll; // Чтобы при переходе на роут с малым числом контента не скакали шапка и контентная область
 
   color: $black;
   background-color: $white;
 
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: "Roboto", "Arial", sans-serif;
   font-size: 14px;
   line-height: 16px;
 

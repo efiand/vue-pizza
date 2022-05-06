@@ -3,32 +3,52 @@
     <BlockLogo class="header__logo" />
 
     <div class="header__cart">
-      <a href="cart.html">{{ price }} ₽</a>
+      <RouterLink to="/cart">{{ formattedOrderPrice }} ₽</RouterLink>
     </div>
     <div class="header__user">
-      <a class="header__login" href="#"><span>Войти</span></a>
+      <template v-if="user.name">
+        <RouterLink to="/profile">
+          <BlockPicture
+            :srcset="['users/user5.jpg', 'users/user5@2x.jpg']"
+            :webpset="['users/user5.webp', 'users/user5@2x.webp']"
+            :alt="user.name"
+            width="32"
+            height="32"
+          />
+          <span>{{ user.name }}</span>
+        </RouterLink>
+
+        <a class="header__logout" href="/" @click.prevent="logoutHandler">
+          <span>Выйти</span>
+        </a>
+      </template>
+      <RouterLink v-else class="header__login" to="/login">
+        <span>Войти</span>
+      </RouterLink>
     </div>
   </header>
 </template>
 
 <script>
-import { accumulateSumByKey } from "@/common/utils";
-import BlockLogo from "@/common/components/BlockLogo.vue";
+import { orderPriceMixin } from "@/common/mixins";
 
 export default {
   name: "AppLayoutHeader",
-  components: {
-    BlockLogo,
-  },
+  mixins: [orderPriceMixin],
   props: {
-    orders: {
-      type: Array,
+    user: {
+      type: Object,
       required: true,
     },
   },
-  computed: {
-    price() {
-      return accumulateSumByKey(this.orders, "price");
+  methods: {
+    logoutHandler() {
+      // Временное решение
+      this.$emit("logout");
+
+      if (this.$route.path !== "/") {
+        this.$router.push("/");
+      }
     },
   },
 };
