@@ -1,10 +1,13 @@
 import { findItemByAlias, spacifyNumber } from "@/common/utils";
-import contentPropMixin from "@/common/mixins/content-prop";
 import pizzaPriceMixin from "@/common/mixins/pizza-price";
 
 export default {
-  mixins: [contentPropMixin, pizzaPriceMixin],
+  mixins: [pizzaPriceMixin],
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     currentOrder: {
       type: Object,
       required: true,

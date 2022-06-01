@@ -12,14 +12,16 @@
 </template>
 
 <script>
-import { contentPropMixin } from "@/common/mixins";
 import CartItem from "@/modules/cart/components/CartItem.vue";
 
 export default {
   name: "CartList",
-  mixins: [contentPropMixin],
   components: { CartItem },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     pizzas: {
       type: Array,
       required: true,

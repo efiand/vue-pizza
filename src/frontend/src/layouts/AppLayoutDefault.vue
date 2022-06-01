@@ -24,16 +24,18 @@
 </template>
 
 <script>
-import { contentPropMixin } from "@/common/mixins";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader.vue";
 
 export default {
   name: "AppLayoutDefault",
-  mixins: [contentPropMixin],
   components: {
     AppLayoutHeader,
   },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     currentOrder: {
       type: Object,
       required: true,

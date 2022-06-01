@@ -29,18 +29,20 @@
 </template>
 
 <script>
-import { contentPropMixin } from "@/common/mixins";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader.vue";
 import AppSidebar from "@/layouts/AppSidebar.vue";
 
 export default {
   name: "AppLayoutWithSidebar",
-  mixins: [contentPropMixin],
   components: {
     AppLayoutHeader,
     AppSidebar,
   },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     currentOrder: {
       type: Object,
       required: true,

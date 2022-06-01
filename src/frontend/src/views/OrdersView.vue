@@ -13,16 +13,18 @@
 </template>
 
 <script>
-import { contentPropMixin } from "@/common/mixins";
 import OrderCard from "@/modules/orders/components/OrderCard.vue";
 
 export default {
   name: "OrdersView",
-  mixins: [contentPropMixin],
   components: {
     OrderCard,
   },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     orders: {
       type: Array,
       required: true,

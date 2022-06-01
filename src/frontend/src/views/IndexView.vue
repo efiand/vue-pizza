@@ -91,18 +91,22 @@
 <script>
 import { cloneDeep } from "lodash";
 import { accumulateStructureByAliases } from "@/common/utils";
-import { contentPropMixin, pizzaPriceMixin } from "@/common/mixins";
+import { pizzaPriceMixin } from "@/common/mixins";
 import BuilderFillingSelector from "@/modules/builder/components/BuilderFillingSelector.vue";
 import BuilderPizza from "@/modules/builder/components/BuilderPizza.vue";
 
 export default {
   name: "IndexView",
-  mixins: [contentPropMixin, pizzaPriceMixin],
+  mixins: [pizzaPriceMixin],
   components: {
     BuilderPizza,
     BuilderFillingSelector,
   },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     currentOrder: {
       type: Object,
       required: true,

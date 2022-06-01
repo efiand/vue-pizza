@@ -22,14 +22,18 @@
 </template>
 
 <script>
-import { contentPropMixin, pizzaPriceMixin } from "@/common/mixins";
+import { pizzaPriceMixin } from "@/common/mixins";
 import ProductCard from "@/modules/product/components/ProductCard.vue";
 
 export default {
   name: "CartItem",
-  mixins: [contentPropMixin, pizzaPriceMixin],
+  mixins: [pizzaPriceMixin],
   components: { ProductCard },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     pizza: {
       type: Object,
       required: true,

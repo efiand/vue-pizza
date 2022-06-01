@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import { contentPropMixin } from "@/common/mixins";
 import CartList from "@/modules/cart/components/CartList.vue";
 import CartAdditionalList from "@/modules/cart/components/CartAdditionalList.vue";
 import CartForm from "@/modules/cart/components/CartForm.vue";
@@ -46,7 +45,6 @@ import CartFooter from "@/modules/cart/components/CartFooter.vue";
 
 export default {
   name: "CartView",
-  mixins: [contentPropMixin],
   components: {
     CartList,
     CartAdditionalList,
@@ -54,6 +52,10 @@ export default {
     CartFooter,
   },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     currentOrder: {
       type: Object,
       required: true,
