@@ -7,12 +7,14 @@
       :content="content"
       :currentOrder="order"
       @deleteOrder="$emit('deleteOrder', $event)"
-      @changeOrder="$emit('changeOrder', $event)"
+      @changeOrder="changeOrder"
     />
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { CHANGE_ORDER } from "@/store/mutation-types";
 import OrderCard from "@/modules/orders/components/OrderCard.vue";
 
 export default {
@@ -29,6 +31,11 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  methods: {
+    ...mapMutations("Cart", {
+      changeOrder: CHANGE_ORDER,
+    }),
   },
 };
 </script>

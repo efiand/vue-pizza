@@ -2,7 +2,6 @@
   <div>
     <AppLayoutHeader
       :content="content"
-      :currentOrder="currentOrder"
       :user="user"
       @logout="$emit('logout')"
     />
@@ -10,13 +9,7 @@
     <RouterView
       :content="content"
       :orders="orders"
-      :currentOrder="currentOrder"
       :user="user"
-      @createPizza="$emit('createPizza', $event)"
-      @updatePizza="$emit('updatePizza', $event)"
-      @changeOrder="$emit('changeOrder', $event)"
-      @changeAdditions="$emit('changeAdditions', $event)"
-      @changeDelivery="$emit('changeDelivery', $event)"
       @order="$emit('order')"
       @login="$emit('login')"
     />
@@ -33,10 +26,6 @@ export default {
   },
   props: {
     content: {
-      type: Object,
-      required: true,
-    },
-    currentOrder: {
       type: Object,
       required: true,
     },

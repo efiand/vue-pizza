@@ -11,7 +11,7 @@
           v-if="currentOrder.pizzas.length"
           :content="content"
           :pizzas="currentOrder.pizzas"
-          @changePizzas="changeOrder"
+          @changePizzas="changePizzas"
         />
         <p v-else>В корзине нет ни одного товара</p>
       </BlockSheet>
@@ -20,14 +20,14 @@
         <CartAdditionalList
           :additions="content.additions"
           :value="currentOrder.additions"
-          @input="$emit('changeAdditions', $event)"
+          @input="changeAdditions"
         />
       </div>
 
       <div class="cart__form">
         <CartForm
           :delivery="currentOrder.delivery"
-          @input="$emit('changeDelivery', $event)"
+          @input="changeDelivery"
           @order="$emit('order')"
         />
       </div>
@@ -38,6 +38,12 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import {
+  CHANGE_ADDITIONS,
+  CHANGE_DELIVERY,
+  CHANGE_ORDER,
+} from "@/store/mutation-types";
 import CartList from "@/modules/cart/components/CartList.vue";
 import CartAdditionalList from "@/modules/cart/components/CartAdditionalList.vue";
 import CartForm from "@/modules/cart/components/CartForm.vue";
@@ -56,19 +62,23 @@ export default {
       type: Object,
       required: true,
     },
-    currentOrder: {
-      type: Object,
-      required: true,
-    },
   },
   data() {
     return {
       address: "",
     };
   },
+  computed: {
+    ...mapState("Cart", ["currentOrder"]),
+  },
   methods: {
-    changeOrder(pizzas) {
-      this.$emit("changeOrder", {
+    ...mapMutations("Cart", {
+      changeOrder: CHANGE_ORDER,
+      changeAdditions: CHANGE_ADDITIONS,
+      changeDelivery: CHANGE_DELIVERY,
+    }),
+    changePizzas(pizzas) {
+      this.changeOrder({
         ...this.currentOrder,
         pizzas,
       });
