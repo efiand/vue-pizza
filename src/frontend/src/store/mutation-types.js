@@ -6,3 +6,5 @@ export const CHANGE_ORDER = "CHANGE_ORDER";
 export const CHANGE_ADDITIONS = "CHANGE_ADDITIONS";
 export const CHANGE_DELIVERY = "CHANGE_DELIVERY";
 export const RESET_ORDER = "RESET_ORDER";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
