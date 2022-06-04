@@ -34,6 +34,10 @@
     </BlockContent>
 
     <CartFooter :content="content" :currentOrder="currentOrder" />
+
+    <BlockPopup v-if="isSubmitted" :to="popupLink">
+      <CartStatus :to="popupLink" />
+    </BlockPopup>
   </form>
 </template>
 
@@ -50,6 +54,7 @@ import CartList from "@/modules/cart/components/CartList.vue";
 import CartAdditionalList from "@/modules/cart/components/CartAdditionalList.vue";
 import CartForm from "@/modules/cart/components/CartForm.vue";
 import CartFooter from "@/modules/cart/components/CartFooter.vue";
+import CartStatus from "@/modules/cart/components/CartStatus.vue";
 
 export default {
   name: "CartView",
@@ -58,9 +63,14 @@ export default {
     CartAdditionalList,
     CartForm,
     CartFooter,
+    CartStatus,
   },
   props: {
     content: {
+      type: Object,
+      required: true,
+    },
+    user: {
       type: Object,
       required: true,
     },
@@ -68,10 +78,14 @@ export default {
   data() {
     return {
       address: "",
+      isSubmitted: false,
     };
   },
   computed: {
     ...mapState("Cart", ["currentOrder"]),
+    popupLink() {
+      return this.user.id ? "/orders" : "/";
+    },
   },
   methods: {
     ...mapMutations("Cart", {
@@ -90,6 +104,8 @@ export default {
       });
     },
     handleOrder() {
+      this.isSubmitted = true;
+
       this.addOrder(this.currentOrder);
       this.resetOrder();
     },
