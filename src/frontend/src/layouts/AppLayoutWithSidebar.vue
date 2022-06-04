@@ -14,12 +14,7 @@
           {{ $route.meta.title }}
         </BlockHeading>
 
-        <RouterView
-          :content="content"
-          :orders="orders"
-          :user="user"
-          @deleteOrder="$emit('deleteOrder', $event)"
-        />
+        <RouterView :content="content" :user="user" />
       </div>
     </main>
   </div>
@@ -38,10 +33,6 @@ export default {
   props: {
     content: {
       type: Object,
-      required: true,
-    },
-    orders: {
-      type: Array,
       required: true,
     },
     user: {

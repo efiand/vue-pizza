@@ -3,7 +3,7 @@
     class="cart"
     action="test.html"
     method="post"
-    @submit.prevent="$emit('order')"
+    @submit.prevent="handleOrder"
   >
     <BlockContent class="cart__content" title="Корзина">
       <BlockSheet :class="{ cart__empty: !currentOrder.pizzas.length }">
@@ -28,7 +28,7 @@
         <CartForm
           :delivery="currentOrder.delivery"
           @input="changeDelivery"
-          @order="$emit('order')"
+          @order="handleOrder"
         />
       </div>
     </BlockContent>
@@ -40,9 +40,11 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import {
+  ADD_ORDER,
   CHANGE_ADDITIONS,
   CHANGE_DELIVERY,
   CHANGE_ORDER,
+  RESET_ORDER,
 } from "@/store/mutation-types";
 import CartList from "@/modules/cart/components/CartList.vue";
 import CartAdditionalList from "@/modules/cart/components/CartAdditionalList.vue";
@@ -76,12 +78,20 @@ export default {
       changeOrder: CHANGE_ORDER,
       changeAdditions: CHANGE_ADDITIONS,
       changeDelivery: CHANGE_DELIVERY,
+      resetOrder: RESET_ORDER,
+    }),
+    ...mapMutations("Orders", {
+      addOrder: ADD_ORDER,
     }),
     changePizzas(pizzas) {
       this.changeOrder({
         ...this.currentOrder,
         pizzas,
       });
+    },
+    handleOrder() {
+      this.addOrder(this.currentOrder);
+      this.resetOrder();
     },
   },
 };

@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import { cloneDeep } from "lodash";
 import { findItemByAlias } from "@/common/utils";
 import { formatAddress } from "@/modules/profile/helpers";
@@ -79,9 +78,12 @@ export default {
       type: Object,
       required: true,
     },
+    currentOrder: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
-    ...mapState("Cart", ["currentOrder"]),
     additions() {
       return Object.entries(this.currentOrder.additions)
         .filter(([, counter]) => counter)

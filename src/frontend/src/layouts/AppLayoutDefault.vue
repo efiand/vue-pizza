@@ -6,13 +6,7 @@
       @logout="$emit('logout')"
     />
 
-    <RouterView
-      :content="content"
-      :orders="orders"
-      :user="user"
-      @order="$emit('order')"
-      @login="$emit('login')"
-    />
+    <RouterView :content="content" :user="user" @login="$emit('login')" />
   </div>
 </template>
 
@@ -27,10 +21,6 @@ export default {
   props: {
     content: {
       type: Object,
-      required: true,
-    },
-    orders: {
-      type: Array,
       required: true,
     },
     user: {

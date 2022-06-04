@@ -6,15 +6,15 @@
       class="orders__card"
       :content="content"
       :currentOrder="order"
-      @deleteOrder="$emit('deleteOrder', $event)"
+      @deleteOrder="deleteOrder"
       @changeOrder="changeOrder"
     />
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import { CHANGE_ORDER } from "@/store/mutation-types";
+import { mapState, mapMutations } from "vuex";
+import { DELETE_ORDER, CHANGE_ORDER } from "@/store/mutation-types";
 import OrderCard from "@/modules/orders/components/OrderCard.vue";
 
 export default {
@@ -27,14 +27,16 @@ export default {
       type: Object,
       required: true,
     },
-    orders: {
-      type: Array,
-      required: true,
-    },
+  },
+  computed: {
+    ...mapState("Orders", ["orders"]),
   },
   methods: {
     ...mapMutations("Cart", {
       changeOrder: CHANGE_ORDER,
+    }),
+    ...mapMutations("Orders", {
+      deleteOrder: DELETE_ORDER,
     }),
   },
 };
