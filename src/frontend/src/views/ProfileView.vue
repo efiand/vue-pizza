@@ -25,7 +25,7 @@ import ProfileUser from "@/modules/profile/components/ProfileUser.vue";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.vue";
 
 export default {
-  name: "OrdersView",
+  name: "ProfileView",
   components: {
     ProfileUser,
     ProfileAddressForm,
