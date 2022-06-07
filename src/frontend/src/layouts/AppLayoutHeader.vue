@@ -12,7 +12,7 @@
       </RouterLink>
     </div>
     <div class="header__user">
-      <template v-if="user.name">
+      <template v-if="user">
         <RouterLink to="/profile">
           <BlockPicture
             :srcset="['users/user5.jpg', 'users/user5@2x.jpg']"
@@ -49,7 +49,7 @@ export default {
     },
     user: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
   },
   computed: {

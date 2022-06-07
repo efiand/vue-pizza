@@ -25,7 +25,7 @@ export default {
     },
     user: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
   },
 };

@@ -4,14 +4,14 @@ import { LOGIN, LOGOUT } from "@/store/mutation-types";
 export default {
   namespaced: true,
   state: {
-    currentUser: {},
+    currentUser: null,
   },
   mutations: {
     [LOGIN](state) {
       state.currentUser = user;
     },
     [LOGOUT](state) {
-      state.currentUser = {};
+      state.currentUser = null;
     },
   },
   actions: {},

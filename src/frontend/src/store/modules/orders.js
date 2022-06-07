@@ -6,11 +6,15 @@ export default {
     orders: [],
   },
   mutations: {
-    [ADD_ORDER]({ orders }, newOrder) {
-      orders.push(newOrder);
+    [ADD_ORDER](state, newOrder) {
+      state.orders.push(newOrder);
     },
-    [DELETE_ORDER]({ orders }, order) {
-      orders.splice(orders.indexOf(order), 1);
+    [DELETE_ORDER](state, order) {
+      const index = state.orders.indexOf(order);
+
+      if (index !== -1) {
+        state.orders.splice(index, 1);
+      }
     },
   },
 };

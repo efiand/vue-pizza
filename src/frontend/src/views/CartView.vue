@@ -72,7 +72,7 @@ export default {
     },
     user: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
   },
   data() {
@@ -84,7 +84,7 @@ export default {
   computed: {
     ...mapState("Cart", ["currentOrder"]),
     popupLink() {
-      return this.user.id ? "/orders" : "/";
+      return this.user ? "/orders" : "/";
     },
   },
   methods: {

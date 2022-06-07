@@ -1,3 +1,4 @@
+import Vue from "vue";
 import additions from "@/static/misc.json";
 import { accumulateStructureByAliases } from "@/common/utils";
 import {
@@ -29,25 +30,25 @@ export default {
     currentOrder: createOrder(),
   },
   mutations: {
-    [ADD_PIZZA]({ currentOrder }, pizza) {
-      currentOrder.pizzas.push(pizza);
+    [ADD_PIZZA](state, pizza) {
+      state.currentOrder.pizzas.push(pizza);
     },
-    [UPDATE_PIZZA]({ currentOrder }, { pizza, index }) {
-      const { counter } = currentOrder.pizzas[index];
+    [UPDATE_PIZZA](state, { pizza, index }) {
+      const { pizzas } = state.currentOrder;
 
-      currentOrder.pizzas[index] = {
+      Vue.set(pizzas, index, {
         ...pizza,
-        counter,
-      };
+        counter: pizzas[index].counter,
+      });
     },
     [CHANGE_ORDER](state, newOrder) {
       state.currentOrder = newOrder;
     },
-    [CHANGE_ADDITIONS]({ currentOrder }, additions) {
-      currentOrder.additions = additions;
+    [CHANGE_ADDITIONS](state, additions) {
+      state.currentOrder.additions = additions;
     },
-    [CHANGE_DELIVERY]({ currentOrder }, delivery) {
-      currentOrder.delivery = delivery;
+    [CHANGE_DELIVERY](state, delivery) {
+      state.currentOrder.delivery = delivery;
     },
     [RESET_ORDER](state) {
       state.currentOrder = createOrder();
