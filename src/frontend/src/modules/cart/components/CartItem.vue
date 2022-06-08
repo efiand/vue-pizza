@@ -10,7 +10,9 @@
     />
 
     <div class="cart-item__price">
-      <b>{{ getFormattedPizzaPrice(pizza) }} ₽</b>
+      <b>
+        <OrderPrice :content="content" :pizzas="[pizza]" />
+      </b>
     </div>
 
     <div class="cart-item__button">
@@ -22,14 +24,17 @@
 </template>
 
 <script>
-import { contentPropMixin, pizzaPriceMixin } from "@/common/mixins";
+import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 import ProductCard from "@/modules/product/components/ProductCard.vue";
 
 export default {
   name: "CartItem",
-  mixins: [contentPropMixin, pizzaPriceMixin],
-  components: { ProductCard },
+  components: { OrderPrice, ProductCard },
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     pizza: {
       type: Object,
       required: true,

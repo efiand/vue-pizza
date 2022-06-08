@@ -1,3 +1,24 @@
+<template>
+  <div class="popup">
+    <BlockClose :to="to">Закрыть попап.</BlockClose>
+
+    <slot />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "BlockPopup",
+  props: {
+    to: {
+      type: String,
+      required: true,
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .popup {
   @include pf_center-all;
 
@@ -39,23 +60,5 @@
 
     background-image: url("~@/assets/img/filling/tomatoes.svg");
   }
-
-  p {
-    margin-top: 24px;
-    margin-bottom: 24px;
-
-    text-align: center;
-  }
 }
-
-.popup__title {
-  text-align: center;
-
-  font-size: 1.3em;
-}
-
-.popup__button {
-  a {
-    padding: 16px 32px;
-  }
-}
+</style>

@@ -3,10 +3,16 @@
     <BlockLogo class="header__logo" />
 
     <div class="header__cart">
-      <RouterLink to="/cart">{{ formattedOrderPrice }} ₽</RouterLink>
+      <RouterLink to="/cart">
+        <OrderPrice
+          :content="content"
+          :pizzas="currentOrder.pizzas"
+          :additions="currentOrder.additions"
+        />
+      </RouterLink>
     </div>
     <div class="header__user">
-      <template v-if="user.name">
+      <template v-if="user">
         <RouterLink to="/profile">
           <BlockPicture
             :srcset="['users/user5.jpg', 'users/user5@2x.jpg']"
@@ -30,16 +36,23 @@
 </template>
 
 <script>
-import { orderPriceMixin } from "@/common/mixins";
+import { mapState } from "vuex";
+import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 
 export default {
   name: "AppLayoutHeader",
-  mixins: [orderPriceMixin],
+  components: { OrderPrice },
   props: {
-    user: {
+    content: {
       type: Object,
       required: true,
     },
+    user: {
+      type: Object,
+    },
+  },
+  computed: {
+    ...mapState("Cart", ["currentOrder"]),
   },
   methods: {
     logoutHandler() {

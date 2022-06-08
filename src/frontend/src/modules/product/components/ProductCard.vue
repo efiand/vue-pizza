@@ -19,12 +19,14 @@
 
 <script>
 import { findItemByAlias } from "@/common/utils";
-import { contentPropMixin } from "@/common/mixins";
 
 export default {
   name: "ProductCard",
-  mixins: [contentPropMixin],
   props: {
+    content: {
+      type: Object,
+      required: true,
+    },
     pizza: {
       type: Object,
       required: true,

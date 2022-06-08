@@ -6,13 +6,20 @@
       Перейти к конструктору<br />чтоб собрать ещё одну пиццу
     </p>
     <div class="cart-footer__price">
-      <b>Итого: {{ formattedOrderPrice }} ₽</b>
+      <b>
+        Итого:
+        <OrderPrice
+          :content="content"
+          :pizzas="currentOrder.pizzas"
+          :additions="currentOrder.additions"
+        />
+      </b>
     </div>
 
     <div class="cart-footer__submit">
       <BlockButton
         type="submit"
-        :disabled="!(orderPrice && currentOrder.delivery.tel)"
+        :disabled="!(currentOrder.pizzas.length && currentOrder.delivery.tel)"
       >
         Оформить заказ
       </BlockButton>
@@ -21,14 +28,24 @@
 </template>
 
 <script>
-import { orderPriceMixin } from "@/common/mixins";
+import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 import CartMore from "@/modules/cart/components/CartMore.vue";
 
 export default {
   name: "AppLayoutFooter",
-  mixins: [orderPriceMixin],
   components: {
+    OrderPrice,
     CartMore,
+  },
+  props: {
+    content: {
+      type: Object,
+      required: true,
+    },
+    currentOrder: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

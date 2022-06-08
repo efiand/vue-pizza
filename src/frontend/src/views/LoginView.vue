@@ -1,8 +1,6 @@
 <template>
   <div class="login">
-    <RouterLink class="close close--white" to="/">
-      <span class="visually-hidden">Закрыть форму авторизации</span>
-    </RouterLink>
+    <BlockClose to="/" isWhite>Закрыть форму авторизации.</BlockClose>
 
     <div class="login__title">
       <BlockSubheading>Авторизуйтесь на сайте</BlockSubheading>

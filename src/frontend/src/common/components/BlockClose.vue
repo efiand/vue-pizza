@@ -1,3 +1,26 @@
+<template>
+  <RouterLink class="close" :class="{ 'close--white': isWhite }" :to="to">
+    <span class="visually-hidden"><slot /></span>
+  </RouterLink>
+</template>
+
+<script>
+export default {
+  name: "BlockClose",
+  props: {
+    to: {
+      type: String,
+      required: true,
+    },
+    isWhite: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .close {
   position: absolute;
   top: 16px;
@@ -59,3 +82,4 @@
     }
   }
 }
+</style>

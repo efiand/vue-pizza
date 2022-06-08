@@ -6,7 +6,14 @@
       </div>
 
       <div class="order__sum">
-        <span>Сумма заказа: {{ formattedOrderPrice }} ₽</span>
+        <span>
+          Сумма заказа:
+          <OrderPrice
+            :content="content"
+            :pizzas="currentOrder.pizzas"
+            :additions="currentOrder.additions"
+          />
+        </span>
       </div>
 
       <div class="order__button">
@@ -28,12 +35,8 @@
         <ProductCard :content="content" :pizza="pizza" />
 
         <p class="order__price">
-          {{
-            `${
-              pizza.counter > 1 ? `${pizza.counter}x` : ""
-            }${getFormattedPizzaPrice(pizza, 1)}`
-          }}
-          ₽
+          {{ pizza.counter > 1 ? `${pizza.counter}x` : "" }}
+          <OrderPrice :content="content" :pizzas="[pizza]" :customCounter="1" />
         </p>
       </li>
     </ul>
@@ -60,15 +63,25 @@
 <script>
 import { cloneDeep } from "lodash";
 import { findItemByAlias } from "@/common/utils";
-import { orderPriceMixin } from "@/common/mixins";
 import { formatAddress } from "@/modules/profile/helpers";
+import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 import ProductCard from "@/modules/product/components/ProductCard.vue";
 
 export default {
   name: "OrderCard",
-  mixins: [orderPriceMixin],
   components: {
+    OrderPrice,
     ProductCard,
+  },
+  props: {
+    content: {
+      type: Object,
+      required: true,
+    },
+    currentOrder: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     additions() {

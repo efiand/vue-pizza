@@ -6,27 +6,38 @@
       class="orders__card"
       :content="content"
       :currentOrder="order"
-      @deleteOrder="$emit('deleteOrder', $event)"
-      @changeOrder="$emit('changeOrder', $event)"
+      @deleteOrder="deleteOrder"
+      @changeOrder="changeOrder"
     />
   </div>
 </template>
 
 <script>
-import { contentPropMixin } from "@/common/mixins";
+import { mapState, mapMutations } from "vuex";
+import { DELETE_ORDER, CHANGE_ORDER } from "@/store/mutation-types";
 import OrderCard from "@/modules/orders/components/OrderCard.vue";
 
 export default {
   name: "OrdersView",
-  mixins: [contentPropMixin],
   components: {
     OrderCard,
   },
   props: {
-    orders: {
-      type: Array,
+    content: {
+      type: Object,
       required: true,
     },
+  },
+  computed: {
+    ...mapState("Orders", ["orders"]),
+  },
+  methods: {
+    ...mapMutations("Cart", {
+      changeOrder: CHANGE_ORDER,
+    }),
+    ...mapMutations("Orders", {
+      deleteOrder: DELETE_ORDER,
+    }),
   },
 };
 </script>

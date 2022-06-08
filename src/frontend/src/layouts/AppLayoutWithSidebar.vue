@@ -2,7 +2,6 @@
   <div>
     <AppLayoutHeader
       :content="content"
-      :currentOrder="currentOrder"
       :user="user"
       @logout="$emit('logout')"
     />
@@ -15,43 +14,29 @@
           {{ $route.meta.title }}
         </BlockHeading>
 
-        <RouterView
-          :content="content"
-          :orders="orders"
-          :currentOrder="currentOrder"
-          :user="user"
-          @deleteOrder="$emit('deleteOrder', $event)"
-          @changeOrder="$emit('changeOrder', $event)"
-        />
+        <RouterView :content="content" :user="user" />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import { contentPropMixin } from "@/common/mixins";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader.vue";
 import AppSidebar from "@/layouts/AppSidebar.vue";
 
 export default {
   name: "AppLayoutWithSidebar",
-  mixins: [contentPropMixin],
   components: {
     AppLayoutHeader,
     AppSidebar,
   },
   props: {
-    currentOrder: {
+    content: {
       type: Object,
-      required: true,
-    },
-    orders: {
-      type: Array,
       required: true,
     },
     user: {
       type: Object,
-      required: true,
     },
   },
 };

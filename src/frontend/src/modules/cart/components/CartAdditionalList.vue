@@ -22,7 +22,7 @@
           />
 
           <div class="additional-list__price">
-            <b>× {{ value[alias] * price }} ₽</b>
+            <b>× {{ spacifyNumber(value[alias] * price) }} ₽</b>
           </div>
         </div>
       </li>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { spacifyNumber } from "@/common/utils";
 import { changeStructureMixin } from "@/common/mixins";
 
 export default {
@@ -45,6 +46,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  methods: {
+    spacifyNumber,
   },
 };
 </script>

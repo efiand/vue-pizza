@@ -76,7 +76,14 @@
         />
 
         <div class="index__result">
-          <p>Итого: {{ pizzaPrice }} ₽</p>
+          <p>
+            Итого:
+            <OrderPrice
+              :content="content"
+              :pizzas="[pizza]"
+              :customCounter="1"
+            />
+          </p>
           <BlockButton type="submit" :disabled="!isReady">
             Готовьте!
           </BlockButton>
@@ -89,60 +96,67 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import { ADD_PIZZA, UPDATE_PIZZA } from "@/store/mutation-types";
 import { cloneDeep } from "lodash";
 import { accumulateStructureByAliases } from "@/common/utils";
-import { contentPropMixin, pizzaPriceMixin } from "@/common/mixins";
 import BuilderFillingSelector from "@/modules/builder/components/BuilderFillingSelector.vue";
 import BuilderPizza from "@/modules/builder/components/BuilderPizza.vue";
+import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 
 export default {
   name: "IndexView",
-  mixins: [contentPropMixin, pizzaPriceMixin],
   components: {
     BuilderPizza,
     BuilderFillingSelector,
+    OrderPrice,
   },
   props: {
-    currentOrder: {
+    content: {
       type: Object,
       required: true,
     },
   },
   data() {
-    const { pizzaName = "" } = this.$route.query;
-    const changedPizza = this.currentOrder.pizzas.find(
-      ({ name }) => name === pizzaName
-    );
-    if (!changedPizza && pizzaName) {
-      this.$router.push({ query: {} });
-    }
-
     return {
-      changedPizza,
-      pizza: changedPizza ? cloneDeep(changedPizza) : this.createPizza(),
+      changedPizza: null,
+      pizza: this.createPizza(),
     };
   },
   computed: {
+    ...mapState("Cart", ["currentOrder"]),
     isReady() {
       return (
         this.pizza.name &&
         Object.values(this.pizza.ingredients).some((quantity) => quantity)
       );
     },
-    pizzaPrice() {
-      return this.getFormattedPizzaPrice(this.pizza, 1);
-    },
+  },
+  created() {
+    const { pizzaName = "" } = this.$route.query;
+    this.changedPizza = this.currentOrder.pizzas.find(
+      ({ name }) => name === pizzaName
+    );
+    if (this.changedPizza) {
+      this.pizza = cloneDeep(this.changedPizza);
+    } else if (pizzaName) {
+      this.$router.push({ query: {} });
+    }
   },
   methods: {
+    ...mapMutations("Cart", {
+      addPizza: ADD_PIZZA,
+      updatePizza: UPDATE_PIZZA,
+    }),
     addToCart() {
       if (this.changedPizza) {
-        this.$emit("updatePizza", {
+        this.updatePizza({
           pizza: this.pizza,
           index: this.currentOrder.pizzas.indexOf(this.changedPizza),
         });
         this.$router.push("/cart");
       } else {
-        this.$emit("createPizza", this.pizza);
+        this.addPizza(this.pizza);
       }
 
       this.pizza = this.createPizza();
