@@ -72,7 +72,6 @@ export default {
     },
     user: {
       type: Object,
-      default: () => ({}),
     },
   },
   data() {
