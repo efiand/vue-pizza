@@ -37,6 +37,7 @@ export default {
     },
     user: {
       type: Object,
+      default: null,
     },
   },
 };
