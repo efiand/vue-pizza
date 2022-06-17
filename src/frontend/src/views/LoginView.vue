@@ -6,7 +6,7 @@
       <BlockSubheading>Авторизуйтесь на сайте</BlockSubheading>
     </div>
 
-    <form action="test.html" method="post" @submit.prevent="submitHandler">
+    <form method="post" @submit.prevent="login">
       <div class="login__input">
         <BlockInput
           label="E-mail"
@@ -27,11 +27,7 @@
         />
       </div>
 
-      <BlockButton
-        class="login__button"
-        type="submit"
-        :disabled="!email || !password"
-      >
+      <BlockButton class="login__button" type="submit" :disabled="invalid">
         Авторизоваться
       </BlockButton>
     </form>
@@ -41,18 +37,30 @@
 <script>
 export default {
   name: "LoginView",
-  methods: {
-    submitHandler() {
-      // Временное решение
-      this.$router.push("/");
-      this.$emit("login");
-    },
-  },
   data() {
     return {
       email: "",
       password: "",
     };
+  },
+  computed: {
+    invalid() {
+      return !this.email || !this.password;
+    },
+  },
+  methods: {
+    async login() {
+      if (this.invalid) {
+        return;
+      }
+
+      await this.$store.dispatch("User/login", {
+        email: this.email,
+        password: this.password,
+      });
+
+      await this.$router.push("/");
+    },
   },
 };
 </script>

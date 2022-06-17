@@ -2,7 +2,7 @@
   <picture>
     <source v-if="webpset.length" type="image/webp" :srcset="webpSrcset" />
     <img
-      :src="require(`@/assets/img/${srcset[0]}`)"
+      :src="remote ? srcset[0] : require(`@/assets/img/${srcset[0]}`)"
       :[attrSrcset]="imgSrcset"
       :alt="alt"
       :[attrWidth]="width"
@@ -14,10 +14,7 @@
 <script>
 function accumulateSrc(srcset, firstIndex = 1) {
   return srcset
-    .map(
-      (filename, i) =>
-        `${require(`@/assets/img/${filename}`)} ${i + firstIndex}x`
-    )
+    .map((filename, i) => `${filename} ${i + firstIndex}x`)
     .join(", ");
 }
 
@@ -43,6 +40,10 @@ export default {
     height: {
       type: String,
       default: "",
+    },
+    remote: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
