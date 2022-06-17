@@ -3,34 +3,59 @@
     <label class="cart-form__select">
       <span class="cart-form__label">Получение заказа:</span>
 
-      <BlockSelect name="test" v-model="mode" :options="modes" />
-    </label>
+      <BlockSelect
+        name="mode"
+        v-model="currentMode"
+        :options="modes"
+        @input="changeAddressByMode"
+      >
+      </BlockSelect
+    ></label>
 
     <BlockInput
+      name="phone"
       label="Контактный телефон:"
       bigLabel
       placeholder="+7 999-999-99-99"
-      name="tel"
-      v-model="tel"
+      v-model="currentPhone"
     />
 
-    <div class="cart-form__address" v-if="mode !== 'no'">
-      <span class="cart-form__label">Новый адрес:</span>
+    <div class="cart-form__address" v-if="address">
+      <span class="cart-form__label">
+        {{ currentMode === "new" ? "Новый адрес" : "Адрес" }}:
+      </span>
 
-      <div
-        v-for="field of addressFields"
-        :key="field.name"
-        class="cart-form__input"
-        :class="{ 'cart-form__input--small': field.small }"
-      >
+      <div class="cart-form__input">
         <BlockInput
-          :label="`${field.label}${field.required ? '*' : ''}`"
-          :name="field.name"
-          :readonly="mode === 'profile'"
-          :required="field.required"
-          v-model="field.value"
-          @input="changeDelivery({ [field.name]: $event })"
-        />
+          name="street"
+          label="Улица*"
+          :readonly="currentMode !== 'new'"
+          required
+          v-model="address.street"
+          @input="$emit('updateAddress', { street: $event })"
+        >
+        </BlockInput>
+      </div>
+      <div class="cart-form__input cart-form__input--small">
+        <BlockInput
+          name="building"
+          label="Дом*"
+          :readonly="currentMode !== 'new'"
+          required
+          v-model="address.building"
+          @input="$emit('updateAddress', { building: $event })"
+        >
+        </BlockInput>
+      </div>
+      <div class="cart-form__input cart-form__input--small">
+        <BlockInput
+          name="flat"
+          label="Квартира"
+          :readonly="currentMode !== 'new'"
+          v-model="address.flat"
+          @input="$emit('updateAddress', { flat: $event })"
+        >
+        </BlockInput>
       </div>
     </div>
   </div>
@@ -40,69 +65,78 @@
 export default {
   name: "CartForm",
   props: {
-    delivery: {
-      type: Object,
+    addresses: {
+      type: Array,
       required: true,
+    },
+    address: {
+      type: Object,
+      default: null,
+    },
+    phone: {
+      type: String,
+      default: "",
+    },
+    mode: {
+      type: String,
     },
   },
   data() {
     return {
-      modes: {
-        no: "Заберу сам",
-        new: "Новый адрес",
-        profile: "Существующий адрес",
-      },
+      currentMode: this.chooseMode(),
     };
   },
   computed: {
-    mode: {
+    currentPhone: {
       get() {
-        return this.delivery.mode;
+        return this.phone;
       },
-      set(mode) {
-        this.changeDelivery({ mode });
+      set(phone) {
+        this.$emit("changePhone", phone);
       },
     },
-    tel: {
-      get() {
-        return this.delivery.tel;
-      },
-      set(tel) {
-        this.changeDelivery({ tel });
-      },
-    },
-    addressFields() {
+    modes() {
       return [
         {
-          small: false,
-          label: "Улица",
-          name: "street",
-          value: this.delivery.street,
-          required: true,
+          id: "self",
+          name: "Заберу сам",
         },
         {
-          small: true,
-          label: "Дом",
-          name: "house",
-          value: this.delivery.house,
-          required: true,
+          id: "new",
+          name: "Новый адрес",
         },
-        {
-          small: true,
-          label: "Квартира",
-          name: "apartment",
-          value: this.delivery.apartment,
-          required: false,
-        },
+        ...this.addresses.map(({ id, name }) => ({
+          id: `${id}`,
+          name,
+        })),
       ];
     },
   },
   methods: {
-    changeDelivery(addition) {
-      this.$emit("input", {
-        ...this.delivery,
-        ...addition,
-      });
+    chooseMode() {
+      if (this.address) {
+        return `${this.address.id || "new"}`;
+      }
+      return "self";
+    },
+    changeAddressByMode() {
+      switch (this.currentMode) {
+        case "self":
+          this.$emit("changeAddress", null);
+          break;
+        case "new":
+          this.$emit("changeAddress", {
+            street: "",
+            building: "",
+            flat: "",
+          });
+          break;
+        default:
+          this.$emit(
+            "changeAddress",
+            this.addresses.find(({ id }) => id === +this.currentMode) || null
+          );
+      }
     },
   },
 };

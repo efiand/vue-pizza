@@ -4,7 +4,7 @@
 
     <BlockCounter
       class="cart-item__counter"
-      v-model.number="pizza.counter"
+      v-model.number="pizza.quantity"
       secondaryStyle
       @input="addPizza"
     />
@@ -16,7 +16,7 @@
     </div>
 
     <div class="cart-item__button">
-      <RouterLink class="cart-item__edit" :to="`/?pizzaName=${pizza.name}`">
+      <RouterLink class="cart-item__edit" :to="`/?i=${index}`">
         Изменить
       </RouterLink>
     </div>
@@ -39,12 +39,16 @@ export default {
       type: Object,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
-    addPizza(counter) {
+    addPizza(quantity) {
       this.$emit("input", {
         ...this.pizza,
-        counter,
+        quantity,
       });
     },
   },

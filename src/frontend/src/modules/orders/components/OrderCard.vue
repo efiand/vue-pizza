@@ -11,7 +11,7 @@
           <OrderPrice
             :content="content"
             :pizzas="currentOrder.pizzas"
-            :additions="currentOrder.additions"
+            :misc="currentOrder.misc"
           />
         </span>
       </div>
@@ -22,7 +22,7 @@
         </BlockButton>
       </div>
       <div class="order__button">
-        <BlockButton @click="repeatHandler"> Повторить </BlockButton>
+        <BlockButton @click="repeatHandler">Повторить</BlockButton>
       </div>
     </div>
 
@@ -41,28 +41,29 @@
       </li>
     </ul>
 
-    <ul v-if="additions.length" class="order__additional">
-      <li v-for="{ alias, name, price, counter } of additions" :key="alias">
+    <ul v-if="misc.length" class="order__additional">
+      <li v-for="{ id, image, name, price, quantity } of misc" :key="id">
         <BlockPicture
-          :srcset="[`${alias}.svg`]"
+          :srcset="[image]"
           :alt="name"
           width="20"
           height="30"
+          remote
         />
         <p>
           <span>{{ name }}</span>
-          <b>{{ counter > 1 ? `${counter}x` : "" }}{{ price }} ₽</b>
+          <b>{{ quantity > 1 ? `${quantity}x` : "" }}{{ price }} ₽</b>
         </p>
       </li>
     </ul>
 
-    <p class="order__address">Адрес доставки: {{ address }}</p>
+    <p v-if="address" class="order__address">Адрес доставки: {{ address }}</p>
   </BlockSheet>
 </template>
 
 <script>
 import { cloneDeep } from "lodash";
-import { findItemByAlias } from "@/common/utils";
+import { findItemById } from "@/common/utils";
 import { formatAddress } from "@/modules/profile/helpers";
 import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 import ProductCard from "@/modules/product/components/ProductCard.vue";
@@ -84,21 +85,28 @@ export default {
     },
   },
   computed: {
-    additions() {
-      return Object.entries(this.currentOrder.additions)
-        .filter(([, counter]) => counter)
-        .map(([alias, counter]) => ({
-          ...findItemByAlias(this.content.additions, alias),
-          counter,
+    misc() {
+      return this.currentOrder.misc
+        .filter(({ quantity }) => quantity)
+        .map(({ miscId, quantity }) => ({
+          ...findItemById(this.content.misc, miscId),
+          quantity,
         }));
     },
     address() {
-      return formatAddress(this.currentOrder.delivery);
+      if (!this.currentOrder.address) {
+        return null;
+      }
+
+      return formatAddress(this.currentOrder.address);
     },
   },
   methods: {
     repeatHandler() {
-      this.$emit("changeOrder", cloneDeep(this.currentOrder));
+      const newOrder = cloneDeep(this.currentOrder);
+      delete newOrder.id;
+
+      this.$emit("updateOrder", newOrder);
       this.$router.push("/cart");
     },
   },

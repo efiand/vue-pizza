@@ -3,17 +3,24 @@
     <ProfileUser class="profile__user" :user="user" />
 
     <ProfileAddressForm
-      v-for="(address, i) of addresses"
-      :key="`address-${i}`"
+      v-for="address of addresses"
+      :key="`address-${address.id}`"
       class="profile__address"
       :address="address"
-      :index="i + 1"
-      @change="changeHandler(address, i)"
-      @delete="addresses.splice(i, 1)"
+      @change="updateAddress(address)"
+      @delete="deleteAddress(address.id)"
     />
 
-    <div class="profile__button">
-      <BlockButton bordered @click="addNewAddress">
+    <ProfileAddressForm
+      v-if="newAddress"
+      class="profile__address"
+      :address="newAddress"
+      @change="addAddress"
+      @delete="newAddress = null"
+    />
+
+    <div v-if="!newAddress" class="profile__button">
+      <BlockButton bordered @click="newAddress = createAddress(user.id)">
         Добавить новый адрес
       </BlockButton>
     </div>
@@ -21,6 +28,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import { createAddress } from "@/common/helpers";
 import ProfileUser from "@/modules/profile/components/ProfileUser.vue";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.vue";
 
@@ -38,25 +47,25 @@ export default {
   },
   data() {
     return {
-      addresses: [],
+      newAddress: null,
     };
   },
+  computed: {
+    ...mapState("User", ["addresses"]),
+  },
   methods: {
-    changeHandler(address, index) {
-      delete address.template;
+    ...mapActions("User", ["updateAddress", "deleteAddress"]),
+    async addAddress() {
+      const { id = null } = await this.$store.dispatch(
+        "User/addAddress",
+        this.newAddress
+      );
 
-      this.addresses[index] = address;
+      if (id) {
+        this.newAddress = null;
+      }
     },
-    addNewAddress() {
-      this.addresses.push({
-        name: "",
-        street: "",
-        house: "",
-        apartment: "",
-        comment: "",
-        template: true,
-      });
-    },
+    createAddress,
   },
 };
 </script>

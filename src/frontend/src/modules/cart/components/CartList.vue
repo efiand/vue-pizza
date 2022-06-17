@@ -2,9 +2,10 @@
   <ul class="cart-list">
     <CartItem
       class="cart-list__item"
-      v-for="pizza of pizzas"
-      :key="pizza.name"
+      v-for="(pizza, i) of pizzas"
+      :key="`pizza-${i}`"
       :content="content"
+      :index="i"
       :pizza="pizza"
       @input="changePizzas"
     />
@@ -32,7 +33,7 @@ export default {
       const pizzas = this.pizzas.slice();
       const currentIndex = pizzas.findIndex(({ name }) => name === pizza.name);
 
-      if (pizza.counter < 1) {
+      if (pizza.quantity < 1) {
         pizzas.splice(currentIndex, 1);
       } else {
         pizzas[currentIndex] = pizza;

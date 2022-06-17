@@ -1,57 +1,67 @@
 <template>
-  <form
-    class="cart"
-    action="test.html"
-    method="post"
-    @submit.prevent="handleOrder"
-  >
-    <BlockContent class="cart__content" title="Корзина">
-      <BlockSheet :class="{ cart__empty: !currentOrder.pizzas.length }">
-        <CartList
-          v-if="currentOrder.pizzas.length"
-          :content="content"
-          :pizzas="currentOrder.pizzas"
-          @changePizzas="changePizzas"
-        />
-        <p v-else>В корзине нет ни одного товара</p>
+  <div>
+    <form
+      v-if="currentOrder.pizzas.length"
+      class="cart"
+      action="test.html"
+      method="post"
+      @submit.prevent="handleOrder"
+    >
+      <BlockContent class="cart__content" title="Корзина">
+        <BlockSheet>
+          <CartList
+            :content="content"
+            :pizzas="currentOrder.pizzas"
+            @changePizzas="updateOrder({ pizzas: $event })"
+          />
+        </BlockSheet>
+
+        <div class="cart__additional">
+          <CartMiscList
+            :misc="content.misc"
+            :value="currentOrder.misc"
+            @input="updateOrder({ misc: $event })"
+          />
+        </div>
+
+        <div class="cart__form">
+          <CartForm
+            :addresses="addresses"
+            :address="currentOrder.address"
+            :phone="currentOrder.phone"
+            @changePhone="updateOrder({ phone: $event })"
+            @changeAddress="updateOrder({ address: $event })"
+            @updateAddress="updateAddress"
+            @order="handleOrder"
+          />
+        </div>
+      </BlockContent>
+
+      <CartFooter
+        :content="content"
+        :currentOrder="currentOrder"
+        :isValid="isValid"
+        :isSending="isSending"
+      />
+    </form>
+    <BlockContent v-else class="cart__content" title="Корзина">
+      <BlockSheet class="cart__empty">
+        <p>В корзине нет ни одного товара</p>
       </BlockSheet>
-
-      <div class="cart__additional">
-        <CartAdditionalList
-          :additions="content.additions"
-          :value="currentOrder.additions"
-          @input="changeAdditions"
-        />
-      </div>
-
-      <div class="cart__form">
-        <CartForm
-          :delivery="currentOrder.delivery"
-          @input="changeDelivery"
-          @order="handleOrder"
-        />
-      </div>
     </BlockContent>
 
-    <CartFooter :content="content" :currentOrder="currentOrder" />
-
-    <BlockPopup v-if="isSubmitted" :to="popupLink">
+    <BlockPopup v-if="isSended" :to="popupLink">
       <CartStatus :to="popupLink" />
     </BlockPopup>
-  </form>
+  </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import {
-  ADD_ORDER,
-  CHANGE_ADDITIONS,
-  CHANGE_DELIVERY,
-  CHANGE_ORDER,
-  RESET_ORDER,
-} from "@/store/mutation-types";
+import { ADD_ORDER, UPDATE_ORDER } from "@/store/mutation-types";
+import { createOrder } from "@/common/helpers";
 import CartList from "@/modules/cart/components/CartList.vue";
-import CartAdditionalList from "@/modules/cart/components/CartAdditionalList.vue";
+import CartMiscList from "@/modules/cart/components/CartMiscList.vue";
 import CartForm from "@/modules/cart/components/CartForm.vue";
 import CartFooter from "@/modules/cart/components/CartFooter.vue";
 import CartStatus from "@/modules/cart/components/CartStatus.vue";
@@ -60,7 +70,7 @@ export default {
   name: "CartView",
   components: {
     CartList,
-    CartAdditionalList,
+    CartMiscList,
     CartForm,
     CartFooter,
     CartStatus,
@@ -77,37 +87,60 @@ export default {
   },
   data() {
     return {
-      address: "",
-      isSubmitted: false,
+      isSending: false,
+      isSended: false,
     };
   },
   computed: {
+    ...mapState("User", ["addresses"]),
     ...mapState("Cart", ["currentOrder"]),
     popupLink() {
       return this.user ? "/orders" : "/";
     },
+    isValid() {
+      return Boolean(
+        this.currentOrder.phone &&
+          (!this.currentOrder.address ||
+            (this.currentOrder.address.street &&
+              this.currentOrder.address.building))
+      );
+    },
   },
   methods: {
     ...mapMutations("Cart", {
-      changeOrder: CHANGE_ORDER,
-      changeAdditions: CHANGE_ADDITIONS,
-      changeDelivery: CHANGE_DELIVERY,
-      resetOrder: RESET_ORDER,
+      updateOrder: UPDATE_ORDER,
     }),
     ...mapMutations("Orders", {
       addOrder: ADD_ORDER,
     }),
-    changePizzas(pizzas) {
-      this.changeOrder({
-        ...this.currentOrder,
-        pizzas,
+    updateAddress(override) {
+      this.$emit("updateOrder", {
+        address: {
+          ...this.currentOrder.address,
+          ...override,
+        },
       });
     },
-    handleOrder() {
-      this.isSubmitted = true;
+    async handleOrder() {
+      this.isSending = true;
 
-      this.addOrder(this.currentOrder);
-      this.resetOrder();
+      const data = await this.$store.dispatch(
+        "Orders/addOrder",
+        this.currentOrder
+      );
+      this.isSending = false;
+
+      if (data) {
+        this.addOrder(this.currentOrder);
+        this.isSended = true;
+        this.updateOrder({
+          ...createOrder(),
+          misc: this.content.misc.map(({ id }) => ({
+            miscId: id,
+            quantity: 0,
+          })),
+        });
+      }
     },
   },
 };
