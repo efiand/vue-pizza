@@ -5,7 +5,7 @@
       :key="i"
       class="pizza-filling"
       :class="{
-        [`pizza-filling--${alias}`]: true,
+        [`pizza-filling--ingredient--${id}`]: true,
         'pizza-filling--second': i === 2,
         'pizza-filling--third': i === 3,
       }"
@@ -17,8 +17,8 @@
 export default {
   name: "BuilderPizzaFilling",
   props: {
-    alias: {
-      type: String,
+    id: {
+      type: Number,
       required: true,
     },
     quantity: {
@@ -52,64 +52,64 @@ export default {
     transform: rotate(-45deg);
   }
 
-  &--ananas {
-    background-image: url("~@/assets/img/filling-big/ananas.svg");
-  }
-
-  &--bacon {
-    background-image: url("~@/assets/img/filling-big/bacon.svg");
-  }
-
-  &--blue_cheese {
-    background-image: url("~@/assets/img/filling-big/blue_cheese.svg");
-  }
-
-  &--cheddar {
-    background-image: url("~@/assets/img/filling-big/cheddar.svg");
-  }
-
-  &--chile {
-    background-image: url("~@/assets/img/filling-big/chile.svg");
-  }
-
-  &--ham {
-    background-image: url("~@/assets/img/filling-big/ham.svg");
-  }
-
-  &--jalapeno {
-    background-image: url("~@/assets/img/filling-big/jalapeno.svg");
-  }
-
-  &--mozzarella {
-    background-image: url("~@/assets/img/filling-big/mozzarella.svg");
-  }
-
-  &--mushrooms {
+  &--ingredient--1 {
     background-image: url("~@/assets/img/filling-big/mushrooms.svg");
   }
 
-  &--olives {
-    background-image: url("~@/assets/img/filling-big/olives.svg");
+  &--ingredient--2 {
+    background-image: url("~@/assets/img/filling-big/cheddar.svg");
   }
 
-  &--onion {
-    background-image: url("~@/assets/img/filling-big/onion.svg");
+  &--ingredient--3 {
+    background-image: url("~@/assets/img/filling-big/tomatoes.svg");
   }
 
-  &--parmesan {
-    background-image: url("~@/assets/img/filling-big/parmesan.svg");
-  }
-
-  &--salami {
-    background-image: url("~@/assets/img/filling-big/salami.svg");
-  }
-
-  &--salmon {
+  &--ingredient--4 {
     background-image: url("~@/assets/img/filling-big/salmon.svg");
   }
 
-  &--tomatoes {
-    background-image: url("~@/assets/img/filling-big/tomatoes.svg");
+  &--ingredient--5 {
+    background-image: url("~@/assets/img/filling-big/mozzarella.svg");
+  }
+
+  &--ingredient--6 {
+    background-image: url("~@/assets/img/filling-big/parmesan.svg");
+  }
+
+  &--ingredient--7 {
+    background-image: url("~@/assets/img/filling-big/salami.svg");
+  }
+
+  &--ingredient--8 {
+    background-image: url("~@/assets/img/filling-big/ham.svg");
+  }
+
+  &--ingredient--9 {
+    background-image: url("~@/assets/img/filling-big/ananas.svg");
+  }
+
+  &--ingredient--10 {
+    background-image: url("~@/assets/img/filling-big/blue_cheese.svg");
+  }
+
+  &--ingredient--11 {
+    background-image: url("~@/assets/img/filling-big/bacon.svg");
+  }
+
+  &--ingredient--12 {
+    background-image: url("~@/assets/img/filling-big/onion.svg");
+  }
+
+  &--ingredient--13 {
+    background-image: url("~@/assets/img/filling-big/chile.svg");
+  }
+
+  &--ingredient--14 {
+    background-image: url("~@/assets/img/filling-big/jalapeno.svg");
+  }
+
+  &--ingredient--15 {
+    background-image: url("~@/assets/img/filling-big/olives.svg");
   }
 }
 </style>

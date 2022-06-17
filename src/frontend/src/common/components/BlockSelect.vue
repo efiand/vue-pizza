@@ -1,7 +1,7 @@
 <template>
-  <select class="select" name="address" v-model="currentValue">
-    <option v-for="(title, value) in options" :key="value" :value="value">
-      {{ title }}
+  <select class="select" :name="name" v-model="currentValue">
+    <option v-for="{ id, name } in options" :key="id" :value="id">
+      {{ name }}
     </option>
   </select>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: "BlockSelect",
   props: {
     options: {
-      type: Object,
+      type: Array,
       required: true,
     },
     name: {
