@@ -73,11 +73,14 @@ export const getSrcset = (url, targetExt = "jpg") => {
 };
 
 export const adaptUserData = (userData) => {
-  userData.avatar = `${API_URL}${userData.avatar}`;
-  userData.srcset = getSrcset(userData.avatar);
-  userData.webpset = getSrcset(userData.avatar, "webp");
+  const avatar = `${API_URL}${userData.avatar}`;
 
-  return userData;
+  return {
+    ...userData,
+    avatar,
+    srcset: getSrcset(avatar),
+    webpset: getSrcset(avatar, "webp"),
+  };
 };
 
 export const adaptContentEntity = (contentEntity) => {

@@ -8,11 +8,13 @@
 <script>
 import { setAuth } from "@/common/helpers";
 import AppLayout from "@/layouts/AppLayout.vue";
+import AppNotifications from "@/common/components/AppNotifications";
 
 export default {
   name: "App",
   components: {
     AppLayout,
+    AppNotifications,
   },
   created() {
     window.onerror = function (msg, url, line, col, error) {

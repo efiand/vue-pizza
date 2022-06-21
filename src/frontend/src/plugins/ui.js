@@ -1,7 +1,6 @@
 import Vue from "vue";
 import AppDrag from "@/common/components/AppDrag.vue";
 import AppDrop from "@/common/components/AppDrop.vue";
-import AppNotifications from "@/common/components/AppNotifications";
 import BlockButton from "@/common/components/BlockButton.vue";
 import BlockClose from "@/common/components/BlockClose.vue";
 import BlockContent from "@/common/components/BlockContent.vue";
@@ -19,7 +18,6 @@ import BlockSubheading from "@/common/components/BlockSubheading.vue";
 
 Vue.component("AppDrag", AppDrag);
 Vue.component("AppDrop", AppDrop);
-Vue.component("AppNotifications", AppNotifications);
 Vue.component("BlockButton", BlockButton);
 Vue.component("BlockClose", BlockClose);
 Vue.component("BlockContent", BlockContent);

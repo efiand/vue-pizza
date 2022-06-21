@@ -1,8 +1,8 @@
 <template>
   <ul v-if="notifications.length" class="notifications">
     <li
-      v-for="({ text, type }, i) in notifications"
-      :key="i"
+      v-for="{ id, text, type } in notifications"
+      :key="id"
       :class="`notifications__item notifications__item--${type}`"
     >
       <span>{{ text }}</span>

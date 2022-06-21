@@ -6,15 +6,9 @@ import { createResources } from "@/common/helpers";
 
 const plugins = {
   install(Vue) {
-    Vue.mixin({
-      computed: {
-        $jwt: () => JWTService,
-        $notifier: () => new Notifier(store),
-        $api() {
-          return createResources(this.$notifier);
-        },
-      },
-    });
+    Vue.prototype.$notifier = new Notifier(store);
+    Vue.prototype.$api = createResources(Vue.prototype.$notifier);
+    Vue.prototype.$jwt = JWTService;
   },
 };
 
