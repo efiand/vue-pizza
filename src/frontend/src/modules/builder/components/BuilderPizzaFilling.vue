@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <TransitionGroup
+    name="pizza-filling"
+    enter-class="pizza-filling--enter"
+    enter-active-class="pizza-filling--enter-active"
+    leave-active-class="pizza-filling--leave-active"
+    leave-to-class="pizza-filling--leave-to"
+  >
     <div
       v-for="i in quantity"
       :key="i"
@@ -10,7 +16,7 @@
         'pizza-filling--third': i === 3,
       }"
     />
-  </div>
+  </TransitionGroup>
 </template>
 
 <script>
@@ -110,6 +116,18 @@ export default {
 
   &--ingredient--15 {
     background-image: url("~@/assets/img/filling-big/olives.svg");
+  }
+
+  &--enter-active,
+  &--leave-active {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  &--enter,
+  &--leave-to {
+    transform: scale(1.1);
+
+    opacity: 0;
   }
 }
 </style>

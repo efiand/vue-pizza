@@ -93,7 +93,9 @@
       </div>
     </form>
 
-    <RouterView />
+    <Transition appear appear-active-class="fade-appear-active">
+      <RouterView />
+    </Transition>
   </BlockContent>
 </template>
 

@@ -1,5 +1,9 @@
 <template>
   <div class="profile">
+    <BlockHeading class="profile__title">
+      {{ $route.meta.title }}
+    </BlockHeading>
+
     <ProfileUser class="profile__user" :user="user" />
 
     <ProfileAddressForm
@@ -71,6 +75,10 @@ export default {
 </script>
 
 <style lang="scss">
+.profile__title {
+  margin: 0 0 27px;
+}
+
 .profile__user {
   margin-bottom: 33px;
 }

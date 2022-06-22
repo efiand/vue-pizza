@@ -1,5 +1,9 @@
 <template>
   <div class="orders">
+    <BlockHeading class="orders__title">
+      {{ $route.meta.title }}
+    </BlockHeading>
+
     <template v-if="orders.length">
       <OrderCard
         v-for="(order, i) of orders"
@@ -49,5 +53,9 @@ export default {
 <style lang="scss">
 .orders__card {
   margin-bottom: 32px;
+}
+
+.orders__title {
+  margin: 0 0 27px;
 }
 </style>

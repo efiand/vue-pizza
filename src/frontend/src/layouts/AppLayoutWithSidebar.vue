@@ -11,11 +11,14 @@
         <AppSidebar class="layout__sidebar" />
 
         <div class="layout__content">
-          <BlockHeading class="layout__title">
-            {{ $route.meta.title }}
-          </BlockHeading>
-
-          <RouterView :content="content" :user="user" />
+          <Transition
+            name="slide"
+            appear
+            appear-class="slide-appear"
+            appear-active-class="slide-appear-active"
+          >
+            <RouterView :content="content" :user="user" />
+          </Transition>
         </div>
       </template>
       <div v-else class="layout__content">
@@ -63,9 +66,5 @@ export default {
   padding-top: 22px;
   padding-right: 2.12%;
   padding-left: 200px;
-}
-
-.layout__title {
-  margin: 0 0 27px;
 }
 </style>

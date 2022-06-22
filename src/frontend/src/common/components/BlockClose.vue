@@ -1,7 +1,22 @@
 <template>
-  <RouterLink class="close" :class="{ 'close--white': isWhite }" :to="to">
-    <span class="visually-hidden"><slot /></span>
-  </RouterLink>
+  <div>
+    <RouterLink
+      v-if="to"
+      class="close"
+      :class="{ 'close--white': isWhite }"
+      :to="to"
+    >
+      <span class="visually-hidden"><slot /></span>
+    </RouterLink>
+    <button
+      v-else
+      class="close"
+      :class="{ 'close--white': isWhite }"
+      @click="$emit('close')"
+    >
+      <span class="visually-hidden"><slot /></span>
+    </button>
+  </div>
 </template>
 
 <script>
@@ -10,7 +25,7 @@ export default {
   props: {
     to: {
       type: String,
-      required: true,
+      default: null,
     },
     isWhite: {
       type: Boolean,
@@ -25,17 +40,16 @@ export default {
   position: absolute;
   top: 16px;
   right: 16px;
-
   width: 25px;
   height: 25px;
-
   cursor: pointer;
   transition: 0.3s;
   text-decoration: none;
-
   color: $black;
   border-radius: 50%;
   outline: none;
+  background-color: transparent;
+  border: none;
 
   &::before,
   &::after {
