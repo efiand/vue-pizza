@@ -1,20 +1,23 @@
 <template>
   <div class="orders">
-    <OrderCard
-      v-for="(order, i) of orders"
-      :key="`order-${i}`"
-      class="orders__card"
-      :content="content"
-      :currentOrder="order"
-      @deleteOrder="deleteOrder"
-      @changeOrder="changeOrder"
-    />
+    <template v-if="orders.length">
+      <OrderCard
+        v-for="(order, i) of orders"
+        :key="`order-${i}`"
+        class="orders__card"
+        :content="content"
+        :currentOrder="order"
+        @deleteOrder="deleteOrder"
+        @updateOrder="updateOrder"
+      />
+    </template>
+    <p v-else>У вас нет ни одного заказа</p>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import { DELETE_ORDER, CHANGE_ORDER } from "@/store/mutation-types";
+import { mapState, mapMutations, mapActions } from "vuex";
+import { UPDATE_ORDER } from "@/store/mutation-types";
 import OrderCard from "@/modules/orders/components/OrderCard.vue";
 
 export default {
@@ -31,13 +34,14 @@ export default {
   computed: {
     ...mapState("Orders", ["orders"]),
   },
+  beforeCreate() {
+    this.$store.dispatch("Orders/getOrders");
+  },
   methods: {
     ...mapMutations("Cart", {
-      changeOrder: CHANGE_ORDER,
+      updateOrder: UPDATE_ORDER,
     }),
-    ...mapMutations("Orders", {
-      deleteOrder: DELETE_ORDER,
-    }),
+    ...mapActions("Orders", ["deleteOrder"]),
   },
 };
 </script>

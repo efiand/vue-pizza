@@ -1,13 +1,13 @@
 <template>
   <AppDrop
     class="pizza"
-    :class="`pizza--foundation--${dough}-${sauce} pizza--size--${size}`"
+    :class="`pizza--foundation--${doughId}-${sauceId} pizza--size--${sizeId}`"
     @drop="onDrop"
   >
     <BuilderPizzaFilling
-      v-for="(quantity, alias) in ingredients"
-      :key="alias"
-      :alias="alias"
+      v-for="{ quantity, ingredientId } in ingredients"
+      :key="ingredientId"
+      :id="ingredientId"
       :quantity="quantity"
     />
   </AppDrop>
@@ -23,32 +23,35 @@ export default {
     BuilderPizzaFilling,
   },
   props: {
-    dough: {
-      type: String,
+    doughId: {
+      type: Number,
       required: true,
     },
-    sauce: {
-      type: String,
+    sauceId: {
+      type: Number,
       required: true,
     },
-    size: {
-      type: String,
+    sizeId: {
+      type: Number,
       required: true,
     },
     ingredients: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },
   methods: {
-    onDrop({ ingredient }) {
-      const ingredients = { ...this.ingredients };
+    onDrop({ ingredientId }) {
+      const ingredients = this.ingredients.slice();
+      const targetIngredient = this.ingredients.find(
+        (item) => item.ingredientId === ingredientId
+      );
 
-      if (ingredients[ingredient] >= MAX_INGREDIENT_QUANTITY) {
+      if (targetIngredient.quantity >= MAX_INGREDIENT_QUANTITY) {
         return;
       }
 
-      ingredients[ingredient]++;
+      targetIngredient.quantity++;
       this.$emit("change", ingredients);
     },
   },
@@ -60,27 +63,27 @@ export default {
   position: relative;
   background-size: 100%;
 
-  &--foundation--large-creamy {
-    background-image: url("~@/assets/img/foundation/big-creamy.svg");
-  }
-
-  &--foundation--large-tomato {
-    background-image: url("~@/assets/img/foundation/big-tomato.svg");
-  }
-
-  &--foundation--light-creamy {
+  &--foundation--1-1 {
     background-image: url("~@/assets/img/foundation/small-creamy.svg");
   }
 
-  &--foundation--light-tomato {
+  &--foundation--1-2 {
     background-image: url("~@/assets/img/foundation/small-tomato.svg");
   }
 
-  &--size--small {
+  &--foundation--2-1 {
+    background-image: url("~@/assets/img/foundation/big-creamy.svg");
+  }
+
+  &--foundation--2-2 {
+    background-image: url("~@/assets/img/foundation/big-tomato.svg");
+  }
+
+  &--size--1 {
     transform: scale(0.9);
   }
 
-  &--size--big {
+  &--size--3 {
     transform: scale(1.1);
   }
 }

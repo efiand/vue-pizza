@@ -8,7 +8,7 @@
       }"
       type="radio"
       :name="name"
-      :value="option.alias"
+      :value="option.id"
       :checked="checked"
       @change="$emit('change')"
     />
@@ -63,6 +63,7 @@ export default {
   &--big {
     width: 36px;
     height: 36px;
+    background-image: var(--bg, none);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

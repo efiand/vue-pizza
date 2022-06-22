@@ -11,16 +11,13 @@
         <OrderPrice
           :content="content"
           :pizzas="currentOrder.pizzas"
-          :additions="currentOrder.additions"
+          :misc="currentOrder.misc"
         />
       </b>
     </div>
 
     <div class="cart-footer__submit">
-      <BlockButton
-        type="submit"
-        :disabled="!(currentOrder.pizzas.length && currentOrder.delivery.tel)"
-      >
+      <BlockButton type="submit" :disabled="!isValid || isSending">
         Оформить заказ
       </BlockButton>
     </div>
@@ -45,6 +42,14 @@ export default {
     currentOrder: {
       type: Object,
       required: true,
+    },
+    isSending: {
+      type: Boolean,
+      default: false,
+    },
+    isValid: {
+      type: Boolean,
+      default: false,
     },
   },
 };

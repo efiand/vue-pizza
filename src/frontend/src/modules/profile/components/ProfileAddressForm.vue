@@ -2,7 +2,7 @@
   <BlockSheet class="address-form" :class="{ 'address-form--opened': edited }">
     <div class="address-form__header">
       <b>
-        Адрес №{{ index
+        {{ currentAddress.id ? `Адрес № ${currentAddress.id}` : "Новый адрес"
         }}{{ edited || !currentAddress.name ? "" : `. ${currentAddress.name}` }}
       </b>
 
@@ -18,7 +18,7 @@
         <div class="address-form__input">
           <BlockInput
             label="Название адреса*"
-            name="addr-name"
+            name="name"
             placeholder="Введите название адреса"
             required
             v-model="currentAddress.name"
@@ -27,7 +27,7 @@
         <div class="address-form__input address-form__input--size--normal">
           <BlockInput
             label="Улица*"
-            name="addr-street"
+            name="street"
             placeholder="Введите название улицы"
             required
             v-model="currentAddress.street"
@@ -36,24 +36,24 @@
         <div class="address-form__input address-form__input--size--small">
           <BlockInput
             label="Дом*"
-            name="addr-house"
+            name="building"
             placeholder="Введите номер дома"
             required
-            v-model="currentAddress.house"
+            v-model="currentAddress.building"
           />
         </div>
         <div class="address-form__input address-form__input--size--small">
           <BlockInput
             label="Квартира"
-            name="addr-apartment"
+            name="flat"
             placeholder="Введите № квартиры"
-            v-model="currentAddress.apartment"
+            v-model="currentAddress.flat"
           />
         </div>
         <div class="address-form__input">
           <BlockInput
             label="Комментарий"
-            name="addr-comment"
+            name="comment"
             placeholder="Введите комментарий"
             v-model="currentAddress.comment"
           />
@@ -71,7 +71,7 @@
     </template>
     <template v-else>
       <p>{{ formattedAddress }}</p>
-      <span v-if="currentAddress.comment">{{ currentAddress.comment }}</span>
+      <p v-if="currentAddress.comment">{{ currentAddress.comment }}</p>
     </template>
   </BlockSheet>
 </template>
@@ -86,14 +86,10 @@ export default {
       type: Object,
       required: true,
     },
-    index: {
-      type: Number,
-      default: 1,
-    },
   },
   data() {
     return {
-      edited: this.address.template,
+      edited: !this.address.id,
     };
   },
   computed: {
@@ -104,14 +100,14 @@ export default {
       return formatAddress(this.currentAddress);
     },
     disabled() {
-      const { name, street, house } = this.currentAddress;
-      return !name || !street || !house;
+      const { name, street, building } = this.currentAddress;
+      return !name || !street || !building;
     },
   },
   methods: {
     changeHandler() {
-      this.edited = false;
       this.$emit("change");
+      this.edited = false;
     },
   },
 };

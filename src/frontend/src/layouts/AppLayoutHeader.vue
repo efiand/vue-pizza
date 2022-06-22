@@ -2,29 +2,30 @@
   <header class="header">
     <BlockLogo class="header__logo" />
 
-    <div class="header__cart">
+    <div v-if="content" class="header__cart">
       <RouterLink to="/cart">
         <OrderPrice
           :content="content"
           :pizzas="currentOrder.pizzas"
-          :additions="currentOrder.additions"
+          :misc="currentOrder.misc"
         />
       </RouterLink>
     </div>
-    <div class="header__user">
+    <div v-if="content" class="header__user">
       <template v-if="user">
         <RouterLink to="/profile">
           <BlockPicture
-            :srcset="['users/user5.jpg', 'users/user5@2x.jpg']"
-            :webpset="['users/user5.webp', 'users/user5@2x.webp']"
+            :srcset="[user.srcset.x1, user.srcset.x2]"
+            :webpset="[user.webpset.x1, user.webpset.x2]"
             :alt="user.name"
             width="32"
             height="32"
+            remote
           />
           <span>{{ user.name }}</span>
         </RouterLink>
 
-        <a class="header__logout" href="/" @click.prevent="logoutHandler">
+        <a class="header__logout" href="/" @click.prevent="logout">
           <span>Выйти</span>
         </a>
       </template>
@@ -45,19 +46,20 @@ export default {
   props: {
     content: {
       type: Object,
-      required: true,
+      default: null,
     },
     user: {
       type: Object,
+      default: null,
     },
   },
   computed: {
     ...mapState("Cart", ["currentOrder"]),
   },
   methods: {
-    logoutHandler() {
-      // Временное решение
-      this.$emit("logout");
+    async logout() {
+      await this.$store.dispatch("User/logout");
+      this.$notifier.success("Вы успешно вышли");
 
       if (this.$route.path !== "/") {
         this.$router.push("/");
@@ -72,6 +74,7 @@ export default {
   position: relative;
   z-index: 2;
   display: flex;
+  min-height: 61px;
   padding: 0 2.12%;
   background-color: $green-500;
   box-shadow: $shadow-light;

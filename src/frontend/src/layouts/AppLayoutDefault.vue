@@ -1,12 +1,8 @@
 <template>
   <div>
-    <AppLayoutHeader
-      :content="content"
-      :user="user"
-      @logout="$emit('logout')"
-    />
+    <AppLayoutHeader :content="content" :user="user" />
 
-    <RouterView :content="content" :user="user" @login="$emit('login')" />
+    <RouterView v-if="content" :content="content" :user="user" />
   </div>
 </template>
 
@@ -21,10 +17,11 @@ export default {
   props: {
     content: {
       type: Object,
-      required: true,
+      default: null,
     },
     user: {
       type: Object,
+      default: null,
     },
   },
 };

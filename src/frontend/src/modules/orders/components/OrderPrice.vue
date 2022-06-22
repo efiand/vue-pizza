@@ -3,11 +3,7 @@
 </template>
 
 <script>
-import {
-  accumulateSumByKey,
-  findItemByAlias,
-  spacifyNumber,
-} from "@/common/utils";
+import { findItemById, spacifyNumber } from "@/common/utils";
 
 export default {
   name: "OrderPrice",
@@ -20,9 +16,9 @@ export default {
       type: Array,
       required: true,
     },
-    additions: {
-      type: Object,
-      default: () => ({ cola: 0, potato: 0, sauce: 0 }),
+    misc: {
+      type: Array,
+      default: () => [],
     },
     customCounter: {
       type: Number,
@@ -33,36 +29,37 @@ export default {
     orderPrice() {
       const pizzasPrice = this.pizzas.reduce(
         (sum, pizza) =>
-          sum + this.getPizzaPrice(pizza, this.customCounter || pizza.counter),
+          sum + this.getPizzaPrice(pizza, this.customCounter || pizza.quantity),
         0
       );
-      const additionsPrice = Object.entries(this.additions).reduce(
-        (sum, [alias, counter]) => {
-          const addition = findItemByAlias(this.content.additions, alias);
-          return sum + addition.price * counter;
-        },
-        0
-      );
+      const miscPrice = this.misc.length
+        ? this.misc.reduce((sum, { miscId, quantity }) => {
+            const { price } = findItemById(this.content.misc, miscId);
+            return sum + price * quantity;
+          }, 0)
+        : 0;
 
-      return spacifyNumber(pizzasPrice + additionsPrice);
+      return spacifyNumber(pizzasPrice + miscPrice);
     },
   },
   methods: {
-    getPizzaPrice(
-      { dough, sauce, size, ingredients, counter },
-      customCounter = counter
-    ) {
-      const doughPrice = findItemByAlias(this.content.dough, dough).price;
-      const saucesPrice = findItemByAlias(this.content.sauces, sauce).price;
-      const ingredientsPrice = accumulateSumByKey(
-        this.content.ingredients,
-        "price",
-        ({ alias }) => ingredients[alias]
+    getPizzaPrice({ doughId, sauceId, sizeId, ingredients }, quantity) {
+      const doughPrice = findItemById(this.content.dough, doughId).price;
+      const saucesPrice = findItemById(this.content.sauces, sauceId).price;
+      const ingredientsPrice = ingredients.reduce(
+        (sum, { ingredientId, quantity }) => {
+          const { price } = findItemById(
+            this.content.ingredients,
+            ingredientId
+          );
+          return sum + price * quantity;
+        },
+        0
       );
-      const { multiplier } = findItemByAlias(this.content.sizes, size);
-      const sum = doughPrice + saucesPrice + ingredientsPrice;
+      const { multiplier } = findItemById(this.content.sizes, sizeId);
 
-      return sum * multiplier * customCounter;
+      const sum = doughPrice + saucesPrice + ingredientsPrice;
+      return sum * multiplier * quantity;
     },
   },
 };

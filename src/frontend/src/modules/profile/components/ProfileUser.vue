@@ -1,11 +1,12 @@
 <template>
   <div class="user">
     <BlockPicture
-      :srcset="['users/user5@2x.jpg', 'users/user5@4x.jpg']"
-      :webpset="['users/user5@2x.webp', 'users/user5@4x.webp']"
+      :srcset="[user.srcset.x2, user.srcset.x4]"
+      :webpset="[user.webpset.x2, user.webpset.x4]"
       :alt="user.name"
       width="72"
       height="72"
+      remote
     />
 
     <div class="user__name">
@@ -24,6 +25,7 @@ export default {
   props: {
     user: {
       type: Object,
+      default: null,
     },
   },
 };

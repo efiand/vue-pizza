@@ -10,13 +10,14 @@
         <div class="index__content">
           <BlockRadio
             v-for="option of content.dough"
-            :key="`dough-${option.alias}`"
-            :class="`index__dough-radio index__dough-radio--${option.alias}`"
+            :key="`dough-${option.id}`"
+            :class="`index__dough-radio`"
+            :style="`--bg: url(${option.image})`"
             name="dough"
             :option="option"
-            :checked="option.alias === pizza.dough"
+            :checked="option.id === pizza.doughId"
             big
-            @change="pizza.dough = option.alias"
+            @change="pizza.doughId = option.id"
           />
         </div>
       </BlockSheet>
@@ -25,13 +26,14 @@
         <div class="index__content">
           <BlockRadio
             v-for="option of content.sizes"
-            :key="`size-${option.alias}`"
-            :class="`index__size-radio index__size-radio--${option.alias}`"
+            :key="`size-${option.id}`"
+            :class="`index__size-radio index__size-radio--${option.id}`"
+            :style="`--bg: url(${option.image})`"
             name="size"
             :option="option"
-            :checked="option.alias === pizza.size"
+            :checked="option.id === pizza.sizeId"
             big
-            @change="pizza.size = option.alias"
+            @change="pizza.sizeId = option.id"
           />
         </div>
       </BlockSheet>
@@ -41,12 +43,12 @@
           <p>Основной соус:</p>
           <BlockRadio
             v-for="option of content.sauces"
-            :key="`sauce-${option.alias}`"
+            :key="`sauce-${option.id}`"
             class="index__sauce-radio"
             name="sauce"
             :option="option"
-            :checked="option.alias === pizza.sauce"
-            @change="pizza.sauce = option.alias"
+            :checked="option.id === pizza.sauceId"
+            @change="pizza.sauceId = option.id"
           />
 
           <BuilderFillingSelector
@@ -68,9 +70,9 @@
 
         <BuilderPizza
           class="index__pizza"
-          :dough="pizza.dough"
-          :size="pizza.size"
-          :sauce="pizza.sauce"
+          :doughId="pizza.doughId"
+          :sizeId="pizza.sizeId"
+          :sauceId="pizza.sauceId"
           :ingredients="pizza.ingredients"
           @change="pizza.ingredients = $event"
         />
@@ -91,15 +93,14 @@
       </div>
     </form>
 
-    <RouterView @login="$emit('login')" />
+    <RouterView />
   </BlockContent>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { ADD_PIZZA, UPDATE_PIZZA } from "@/store/mutation-types";
+import { UPDATE_ORDER } from "@/store/mutation-types";
 import { cloneDeep } from "lodash";
-import { accumulateStructureByAliases } from "@/common/utils";
 import BuilderFillingSelector from "@/modules/builder/components/BuilderFillingSelector.vue";
 import BuilderPizza from "@/modules/builder/components/BuilderPizza.vue";
 import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
@@ -119,7 +120,7 @@ export default {
   },
   data() {
     return {
-      changedPizza: null,
+      index: -1,
       pizza: this.createPizza(),
     };
   },
@@ -128,35 +129,34 @@ export default {
     isReady() {
       return (
         this.pizza.name &&
-        Object.values(this.pizza.ingredients).some((quantity) => quantity)
+        this.pizza.ingredients.some(({ quantity }) => quantity)
       );
     },
   },
   created() {
-    const { pizzaName = "" } = this.$route.query;
-    this.changedPizza = this.currentOrder.pizzas.find(
-      ({ name }) => name === pizzaName
-    );
-    if (this.changedPizza) {
-      this.pizza = cloneDeep(this.changedPizza);
-    } else if (pizzaName) {
-      this.$router.push({ query: {} });
+    const { i = -1 } = this.$route.query;
+    const index = parseInt(i, 10);
+    if (index > -1) {
+      this.pizza = cloneDeep(this.currentOrder.pizzas[index]);
+      this.index = index;
     }
   },
   methods: {
     ...mapMutations("Cart", {
-      addPizza: ADD_PIZZA,
-      updatePizza: UPDATE_PIZZA,
+      updateOrder: UPDATE_ORDER,
     }),
     addToCart() {
-      if (this.changedPizza) {
-        this.updatePizza({
-          pizza: this.pizza,
-          index: this.currentOrder.pizzas.indexOf(this.changedPizza),
+      if (this.index > -1) {
+        this.updateOrder({
+          pizzas: this.currentOrder.pizzas.map((pizza, i) =>
+            this.index === i ? this.pizza : pizza
+          ),
         });
         this.$router.push("/cart");
       } else {
-        this.addPizza(this.pizza);
+        this.updateOrder({
+          pizzas: [...this.currentOrder.pizzas, this.pizza],
+        });
       }
 
       this.pizza = this.createPizza();
@@ -164,11 +164,14 @@ export default {
     createPizza() {
       return {
         name: "",
-        ingredients: accumulateStructureByAliases(this.content.ingredients),
-        dough: "light",
-        sauce: "tomato",
-        size: "normal",
-        counter: 1,
+        sauceId: 2,
+        doughId: 1,
+        sizeId: 2,
+        quantity: 1,
+        ingredients: this.content.ingredients.map(({ id }) => ({
+          ingredientId: id,
+          quantity: 0,
+        })),
       };
     },
   },
@@ -199,14 +202,6 @@ export default {
   input {
     margin-right: 14px;
   }
-
-  &--light input {
-    background-image: url("~@/assets/img/dough-light.svg");
-  }
-
-  &--large input {
-    background-image: url("~@/assets/img/dough-large.svg");
-  }
 }
 
 .index__size-radio {
@@ -217,14 +212,13 @@ export default {
   input {
     margin-right: 10px;
     background-color: $green-100;
-    background-image: url("~@/assets/img/diameter.svg");
   }
 
-  &--small input {
+  &--1 input {
     background-size: 18px;
   }
 
-  &--normal input {
+  &--2 input {
     background-size: 29px;
   }
 }

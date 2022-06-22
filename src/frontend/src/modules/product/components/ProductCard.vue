@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { findItemByAlias } from "@/common/utils";
+import { findItemById } from "@/common/utils";
 
 export default {
   name: "ProductCard",
@@ -34,20 +34,25 @@ export default {
   },
   computed: {
     dough() {
-      const { name } = findItemByAlias(this.content.dough, this.pizza.dough);
+      const { name } = findItemById(this.content.dough, this.pizza.doughId);
       return `${name.slice(0, -1).toLowerCase()}м`;
     },
     sauce() {
-      const { name } = findItemByAlias(this.content.sauces, this.pizza.sauce);
+      const { name } = findItemById(this.content.sauces, this.pizza.sauceId);
       return name.toLowerCase();
     },
     size() {
-      const { name } = findItemByAlias(this.content.sizes, this.pizza.size);
+      const { name } = findItemById(this.content.sizes, this.pizza.sizeId);
       return name;
     },
     ingredients() {
       return this.content.ingredients
-        .filter(({ alias }) => this.pizza.ingredients[alias])
+        .filter(
+          ({ id }) =>
+            this.pizza.ingredients.find(
+              ({ ingredientId }) => ingredientId === id
+            ).quantity
+        )
         .map(({ name }) => name.toLowerCase())
         .join(", ");
     },

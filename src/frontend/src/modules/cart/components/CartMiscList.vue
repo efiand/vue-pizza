@@ -1,28 +1,29 @@
 <template>
   <ul class="additional-list">
-    <BlockSheet v-for="{ alias, name, price } in additions" :key="alias">
+    <BlockSheet v-for="(misc, i) in mergedMisc" :key="misc.id">
       <li class="additional-list__item">
         <p class="additional-list__description">
           <BlockPicture
             class="additional-list__img"
-            :srcset="[`${alias}.svg`]"
-            :alt="name"
+            :srcset="[misc.image]"
+            :alt="misc.name"
             width="39"
             height="60"
+            remote
           />
-          <span>{{ name }}</span>
+          <span>{{ misc.name }}</span>
         </p>
 
         <div class="additional-list__wrapper">
           <BlockCounter
             class="additional-list__counter"
-            v-model.number="value[alias]"
+            v-model.number="misc.quantity"
             secondaryStyle
-            @input="changeStructure(alias, $event)"
+            @input="inputHandler($event, i)"
           />
 
           <div class="additional-list__price">
-            <b>× {{ spacifyNumber(value[alias] * price) }} ₽</b>
+            <b>× {{ spacifyNumber(misc.quantity * misc.price) }} ₽</b>
           </div>
         </div>
       </li>
@@ -32,23 +33,41 @@
 
 <script>
 import { spacifyNumber } from "@/common/utils";
-import { changeStructureMixin } from "@/common/mixins";
 
 export default {
-  name: "CartAdditionalList",
-  mixins: [changeStructureMixin],
+  name: "CartMiscList",
   props: {
-    additions: {
+    misc: {
       type: Array,
       required: true,
     },
     value: {
-      type: Object,
+      type: Array,
       required: true,
+    },
+  },
+  computed: {
+    mergedMisc() {
+      return this.misc.map((item) => {
+        const { quantity } = this.value.find(
+          ({ miscId }) => miscId === item.id
+        );
+
+        return {
+          ...item,
+          quantity,
+        };
+      });
     },
   },
   methods: {
     spacifyNumber,
+    inputHandler(quantity, i) {
+      const newValue = this.value.slice();
+      newValue[i].quantity = quantity;
+
+      this.$emit("input", newValue);
+    },
   },
 };
 </script>

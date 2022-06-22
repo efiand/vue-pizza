@@ -4,24 +4,27 @@
 
     <ul class="filling__list">
       <li
-        v-for="{ alias, name } of ingredients"
-        :key="alias"
+        v-for="(ingredient, i) of mergedIngredients"
+        :key="ingredient.id"
         class="filling__item"
       >
         <AppDrag
-          :transferData="{ ingredient: alias }"
-          :draggable="value[alias] < max"
+          :transferData="{ ingredientId: ingredient.id }"
+          :draggable="ingredient.quantity < max"
         >
-          <span :class="`filling__name filling__name--${alias}`">
-            {{ name }}
+          <span
+            :class="`filling__name`"
+            :style="`--bg: url(${ingredient.image})`"
+          >
+            {{ ingredient.name }}
           </span>
         </AppDrag>
 
         <BlockCounter
           class="filling__counter"
-          v-model.number="value[alias]"
+          v-model.number="ingredient.quantity"
           :max="max"
-          @input="changeStructure(alias, $event)"
+          @input="inputHandler($event, i)"
         />
       </li>
     </ul>
@@ -30,18 +33,16 @@
 
 <script>
 import { MAX_INGREDIENT_QUANTITY } from "@/common/constants";
-import { changeStructureMixin } from "@/common/mixins";
 
 export default {
   name: "BuilderFillingSelector",
-  mixins: [changeStructureMixin],
   props: {
     ingredients: {
       type: Array,
       required: true,
     },
     value: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },
@@ -49,6 +50,28 @@ export default {
     return {
       max: MAX_INGREDIENT_QUANTITY,
     };
+  },
+  computed: {
+    mergedIngredients() {
+      return this.ingredients.map((item) => {
+        const { quantity } = this.value.find(
+          ({ ingredientId }) => ingredientId === item.id
+        );
+
+        return {
+          ...item,
+          quantity,
+        };
+      });
+    },
+  },
+  methods: {
+    inputHandler(quantity, i) {
+      const newValue = this.value.slice();
+      newValue[i].quantity = quantity;
+
+      this.$emit("input", newValue);
+    },
   },
 };
 </script>
@@ -103,66 +126,7 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80% 80%;
-  }
-
-  &--tomatoes::before {
-    background-image: url("~@/assets/img/filling/tomatoes.svg");
-  }
-
-  &--ananas::before {
-    background-image: url("~@/assets/img/filling/ananas.svg");
-  }
-
-  &--bacon::before {
-    background-image: url("~@/assets/img/filling/bacon.svg");
-  }
-
-  &--blue_cheese::before {
-    background-image: url("~@/assets/img/filling/blue_cheese.svg");
-  }
-
-  &--cheddar::before {
-    background-image: url("~@/assets/img/filling/cheddar.svg");
-  }
-
-  &--chile::before {
-    background-image: url("~@/assets/img/filling/chile.svg");
-  }
-
-  &--ham::before {
-    background-image: url("~@/assets/img/filling/ham.svg");
-  }
-
-  &--jalapeno::before {
-    background-image: url("~@/assets/img/filling/jalapeno.svg");
-  }
-
-  &--mozzarella::before {
-    background-image: url("~@/assets/img/filling/mozzarella.svg");
-  }
-
-  &--mushrooms::before {
-    background-image: url("~@/assets/img/filling/mushrooms.svg");
-  }
-
-  &--olives::before {
-    background-image: url("~@/assets/img/filling/olives.svg");
-  }
-
-  &--onion::before {
-    background-image: url("~@/assets/img/filling/onion.svg");
-  }
-
-  &--parmesan::before {
-    background-image: url("~@/assets/img/filling/parmesan.svg");
-  }
-
-  &--salami::before {
-    background-image: url("~@/assets/img/filling/salami.svg");
-  }
-
-  &--salmon::before {
-    background-image: url("~@/assets/img/filling/salmon.svg");
+    background-image: var(--bg);
   }
 }
 
