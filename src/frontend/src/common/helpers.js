@@ -86,10 +86,10 @@ export const adaptUserData = (userData) => {
 export const adaptContentEntity = (contentEntity) => {
   const newContentEntity = [];
 
-  contentEntity.forEach((contentItem) => {
+  for (const contentItem of contentEntity) {
     if (!newContentEntity.some(({ name }) => name === contentItem.name)) {
       newContentEntity.push(adaptContentItem(contentItem));
     }
-  });
+  }
   return newContentEntity;
 };

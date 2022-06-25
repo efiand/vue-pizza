@@ -50,9 +50,11 @@
       </BlockSheet>
     </BlockContent>
 
-    <BlockPopup v-if="isSended" :to="popupLink">
-      <CartStatus :to="popupLink" />
-    </BlockPopup>
+    <Transition name="fade" @after-leave="leaveCart">
+      <BlockPopup v-if="isSended" @close="isSended = false">
+        <CartStatus @close="isSended = false" />
+      </BlockPopup>
+    </Transition>
   </div>
 </template>
 
@@ -94,9 +96,6 @@ export default {
   computed: {
     ...mapState("User", ["addresses"]),
     ...mapState("Cart", ["currentOrder"]),
-    popupLink() {
-      return this.user ? "/orders" : "/";
-    },
     isValid() {
       return Boolean(
         this.currentOrder.phone &&
@@ -120,6 +119,9 @@ export default {
           ...override,
         },
       });
+    },
+    leaveCart() {
+      this.$router.push(this.user ? "/orders" : "/");
     },
     async handleOrder() {
       this.isSending = true;

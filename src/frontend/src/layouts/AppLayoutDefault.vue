@@ -2,7 +2,14 @@
   <div>
     <AppLayoutHeader :content="content" :user="user" />
 
-    <RouterView v-if="content" :content="content" :user="user" />
+    <Transition
+      name="slide"
+      :appear="$route.path !== '/login'"
+      appear-class="slide-appear"
+      appear-active-class="slide-appear-active"
+    >
+      <RouterView v-if="content" :content="content" :user="user" />
+    </Transition>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="popup">
-    <BlockClose :to="to">Закрыть попап.</BlockClose>
+    <BlockClose @close="$emit('close')">Закрыть попап.</BlockClose>
 
     <slot />
   </div>
@@ -9,12 +9,6 @@
 <script>
 export default {
   name: "BlockPopup",
-  props: {
-    to: {
-      type: String,
-      required: true,
-    },
-  },
 };
 </script>
 

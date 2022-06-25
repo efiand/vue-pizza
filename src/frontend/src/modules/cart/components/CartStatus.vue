@@ -6,21 +6,15 @@
 
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам &semi;&rpar;</p>
 
-    <RouterLink class="cart-status__button button" :to="to">
+    <BlockButton class="cart-status__button" @click="$emit('close')">
       Отлично, я жду!
-    </RouterLink>
+    </BlockButton>
   </div>
 </template>
 
 <script>
 export default {
   name: "CartStatus",
-  props: {
-    to: {
-      type: String,
-      required: true,
-    },
-  },
 };
 </script>
 
@@ -40,7 +34,7 @@ export default {
 }
 
 .cart-status__button {
-  display: block;
+  width: 100%;
   padding: 15px 32px;
 }
 </style>
