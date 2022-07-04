@@ -93,3 +93,6 @@ export const adaptContentEntity = (contentEntity) => {
   }
   return newContentEntity;
 };
+
+export const accumulateSrc = (srcset, firstIndex = 1) =>
+  srcset.map((filename, i) => `${filename} ${i + firstIndex}x`).join(", ");

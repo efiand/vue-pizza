@@ -11,3 +11,6 @@ export const findItemById = (list, id) => {
 export const spacifyNumber = (number, delimiter = "\u00A0") => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter);
 };
+
+export const wait = (ms = 0) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

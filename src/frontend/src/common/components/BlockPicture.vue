@@ -12,11 +12,7 @@
 </template>
 
 <script>
-function accumulateSrc(srcset, firstIndex = 1) {
-  return srcset
-    .map((filename, i) => `${filename} ${i + firstIndex}x`)
-    .join(", ");
-}
+import { accumulateSrc } from "@/common/helpers";
 
 export default {
   name: "BlockPicture",

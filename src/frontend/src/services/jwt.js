@@ -10,6 +10,7 @@ export const getToken = () => {
 export const saveToken = (token) => {
   window.localStorage.setItem(ID_TOKEN_KEY, token);
 };
+
 // метод для удаления токена по ключу из LocalStorage
 export const destroyToken = () => {
   window.localStorage.removeItem(ID_TOKEN_KEY);

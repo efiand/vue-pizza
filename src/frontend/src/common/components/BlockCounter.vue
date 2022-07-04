@@ -1,5 +1,5 @@
 <template>
-  <div class="counter counter--orange">
+  <div class="counter">
     <button
       type="button"
       class="counter__button counter__button--minus"
@@ -17,7 +17,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
-      :class="{ 'counter__button--orange': secondaryStyle }"
+      :class="{ 'counter__button--secondary': secondaryStyle }"
       :disabled="currentValue === max"
       @click="currentValue++"
     >
@@ -171,7 +171,7 @@ export default {
     }
   }
 
-  &--orange {
+  &--secondary {
     background-color: $orange-200;
 
     &:hover:not(:active):not(:disabled) {
