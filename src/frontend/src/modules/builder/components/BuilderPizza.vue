@@ -6,9 +6,10 @@
   >
     <BuilderPizzaFilling
       v-for="{ quantity, ingredientId } in ingredients"
-      :key="ingredientId"
+      :key="`filling-${ingredientId}`"
       :id="ingredientId"
       :quantity="quantity"
+      :data-test="`filling-${ingredientId}`"
     />
   </AppDrop>
 </template>

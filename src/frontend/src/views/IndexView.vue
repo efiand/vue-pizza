@@ -138,7 +138,7 @@ export default {
   created() {
     const { i = -1 } = this.$route.query;
     const index = parseInt(i, 10);
-    if (index > -1) {
+    if (index > -1 && this.currentOrder.pizzas[index]) {
       this.pizza = cloneDeep(this.currentOrder.pizzas[index]);
       this.index = index;
     }

@@ -5,12 +5,13 @@
     <ul class="filling__list">
       <li
         v-for="(ingredient, i) of mergedIngredients"
-        :key="ingredient.id"
+        :key="`ingredient-${ingredient.id}`"
         class="filling__item"
       >
         <AppDrag
           :transferData="{ ingredientId: ingredient.id }"
           :draggable="ingredient.quantity < max"
+          :data-test="`ingredient-${ingredient.id}`"
         >
           <span
             :class="`filling__name`"
