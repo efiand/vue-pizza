@@ -1,5 +1,10 @@
 <template>
-  <div @drop.stop="onDrop" @dragover.prevent @dragenter.prevent>
+  <div
+    @drop.stop="onDrop"
+    @dragover.prevent
+    @dragenter.prevent
+    data-test="AppDrop"
+  >
     <slot />
   </div>
 </template>

@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "AppNotifications",
   computed: {
-    ...mapState("Notifications", ["notifications"]),
+    notifications() {
+      return this.$store.state.Notifications.notifications;
+    },
   },
 };
 </script>

@@ -4,6 +4,7 @@
     @dragstart.self="onDrag"
     @dragover.prevent
     @dragenter.prevent
+    data-test="AppDrag"
   >
     <slot />
   </div>
