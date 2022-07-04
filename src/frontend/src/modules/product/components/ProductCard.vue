@@ -7,7 +7,7 @@
       height="56"
     />
     <div class="product__text">
-      <h2>{{ pizza.name }}</h2>
+      <h2 data-id="product-title">{{ pizza.name }}</h2>
       <ul>
         <li>{{ size }}, на {{ dough }} тесте</li>
         <li>Соус: {{ sauce }}</li>

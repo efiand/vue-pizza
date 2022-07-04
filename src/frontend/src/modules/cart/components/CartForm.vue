@@ -77,9 +77,6 @@ export default {
       type: String,
       default: "",
     },
-    mode: {
-      type: String,
-    },
   },
   data() {
     return {

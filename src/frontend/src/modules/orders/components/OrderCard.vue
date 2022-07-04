@@ -2,13 +2,14 @@
   <BlockSheet class="order">
     <div class="order__wrapper">
       <div class="order__number">
-        <b>Заказ #11199929</b>
+        <b>Заказ #{{ currentOrder.id }}</b>
       </div>
 
       <div class="order__sum">
         <span>
           Сумма заказа:
           <OrderPrice
+            class="order__price"
             :content="content"
             :pizzas="currentOrder.pizzas"
             :misc="currentOrder.misc"
@@ -17,12 +18,20 @@
       </div>
 
       <div class="order__button">
-        <BlockButton bordered @click="$emit('deleteOrder', currentOrder)">
+        <BlockButton
+          bordered
+          :data-test="`delete-order-${currentOrder.id}`"
+          @click="$emit('deleteOrder', currentOrder)"
+        >
           Удалить
         </BlockButton>
       </div>
       <div class="order__button">
-        <BlockButton @click="repeatHandler">Повторить</BlockButton>
+        <BlockButton
+          :data-test="`repeat-order-${currentOrder.id}`"
+          @click="repeatHandler"
+          >Повторить</BlockButton
+        >
       </div>
     </div>
 
@@ -42,7 +51,11 @@
     </ul>
 
     <ul v-if="misc.length" class="order__additional">
-      <li v-for="{ id, image, name, price, quantity } of misc" :key="id">
+      <li
+        v-for="{ id, image, name, price, quantity } of misc"
+        :key="id"
+        class="order__misc"
+      >
         <BlockPicture
           :srcset="[image]"
           :alt="name"
@@ -51,8 +64,10 @@
           remote
         />
         <p>
-          <span>{{ name }}</span>
-          <b>{{ quantity > 1 ? `${quantity}x` : "" }}{{ price }} ₽</b>
+          <span class="order__misc-name">{{ name }}</span>
+          <b class="order__misc-price">
+            {{ quantity > 1 ? `${quantity}x` : "" }}{{ price }} ₽
+          </b>
         </p>
       </li>
     </ul>
@@ -106,8 +121,7 @@ export default {
       const newOrder = cloneDeep(this.currentOrder);
       delete newOrder.id;
 
-      this.$emit("updateOrder", newOrder);
-      this.$router.push("/cart");
+      this.$emit("repeatOrder", newOrder);
     },
   },
 };

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="cart">
     <form
       v-if="currentOrder.pizzas.length"
-      class="cart"
+      class="cart__order"
       action="test.html"
       method="post"
       @submit.prevent="handleOrder"
@@ -10,6 +10,7 @@
       <BlockContent class="cart__content" title="Корзина">
         <BlockSheet>
           <CartList
+            class="cart__list"
             :content="content"
             :pizzas="currentOrder.pizzas"
             @changePizzas="updateOrder({ pizzas: $event })"
@@ -38,6 +39,7 @@
       </BlockContent>
 
       <CartFooter
+        class="cart__footer"
         :content="content"
         :currentOrder="currentOrder"
         :isValid="isValid"
@@ -46,12 +48,12 @@
     </form>
     <BlockContent v-else class="cart__content" title="Корзина">
       <BlockSheet class="cart__empty">
-        <p>В корзине нет ни одного товара</p>
+        <p>{{ emptyMessage }}</p>
       </BlockSheet>
     </BlockContent>
 
     <Transition name="fade" @after-leave="leaveCart">
-      <BlockPopup v-if="isSended" @close="isSended = false">
+      <BlockPopup class="cart__popup" v-if="isSended" @close="isSended = false">
         <CartStatus @close="isSended = false" />
       </BlockPopup>
     </Transition>
@@ -62,6 +64,7 @@
 import { mapState, mapMutations } from "vuex";
 import { ADD_ORDER, UPDATE_ORDER } from "@/store/mutation-types";
 import { createOrder } from "@/common/helpers";
+import { Message } from "@/common/constants";
 import CartList from "@/modules/cart/components/CartList.vue";
 import CartMiscList from "@/modules/cart/components/CartMiscList.vue";
 import CartForm from "@/modules/cart/components/CartForm.vue";
@@ -91,6 +94,7 @@ export default {
     return {
       isSending: false,
       isSended: false,
+      emptyMessage: Message.EMPTY_CART,
     };
   },
   computed: {
@@ -149,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss">
-.cart {
+.cart__order {
   display: flex;
   flex-direction: column;
   min-height: calc(

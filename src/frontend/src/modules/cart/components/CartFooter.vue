@@ -9,6 +9,7 @@
       <b>
         Итого:
         <OrderPrice
+          class="cart-footer__price-value"
           :content="content"
           :pizzas="currentOrder.pizzas"
           :misc="currentOrder.misc"
