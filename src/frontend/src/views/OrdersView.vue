@@ -10,7 +10,7 @@
         :key="`order-${i}`"
         class="orders__card"
         :content="content"
-        :currentOrder="order"
+        :current-order="order"
         @deleteOrder="deleteOrder"
         @repeatOrder="repeatOrder"
       />

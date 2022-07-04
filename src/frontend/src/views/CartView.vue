@@ -41,9 +41,9 @@
       <CartFooter
         class="cart__footer"
         :content="content"
-        :currentOrder="currentOrder"
-        :isValid="isValid"
-        :isSending="isSending"
+        :current-order="currentOrder"
+        :is-valid="isValid"
+        :is-sending="isSending"
       />
     </form>
     <BlockContent v-else class="cart__content" title="Корзина">

@@ -30,8 +30,9 @@
         <BlockButton
           :data-test="`repeat-order-${currentOrder.id}`"
           @click="repeatHandler"
-          >Повторить</BlockButton
         >
+          Повторить
+        </BlockButton>
       </div>
     </div>
 
@@ -45,7 +46,11 @@
 
         <p class="order__price">
           {{ pizza.counter > 1 ? `${pizza.counter}x` : "" }}
-          <OrderPrice :content="content" :pizzas="[pizza]" :customCounter="1" />
+          <OrderPrice
+            :content="content"
+            :pizzas="[pizza]"
+            :custom-counter="1"
+          />
         </p>
       </li>
     </ul>

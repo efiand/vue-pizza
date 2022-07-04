@@ -5,7 +5,7 @@
     <BlockCounter
       class="cart-item__counter"
       v-model.number="pizza.quantity"
-      secondaryStyle
+      secondary-style
       @input="addPizza"
     />
 

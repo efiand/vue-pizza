@@ -18,7 +18,7 @@
           <BlockCounter
             class="additional-list__counter"
             v-model.number="misc.quantity"
-            secondaryStyle
+            secondary-style
             @input="inputHandler($event, i)"
           />
 

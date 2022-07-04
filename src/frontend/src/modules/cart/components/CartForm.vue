@@ -15,7 +15,7 @@
     <BlockInput
       name="phone"
       label="Контактный телефон:"
-      bigLabel
+      big-label
       placeholder="+7 999-999-99-99"
       v-model="currentPhone"
     />
