@@ -1,7 +1,7 @@
 <template>
   <BlockSheet class="address-form" :class="{ 'address-form--opened': edited }">
     <div class="address-form__header">
-      <b>
+      <b class="address-form__title">
         {{ currentAddress.id ? `Адрес № ${currentAddress.id}` : "Новый адрес"
         }}{{ edited || !currentAddress.name ? "" : `. ${currentAddress.name}` }}
       </b>
@@ -61,17 +61,27 @@
       </div>
 
       <div class="address-form__buttons">
-        <BlockButton transparent @click="$emit('delete')">
+        <BlockButton
+          data-test="delete-address"
+          transparent
+          @click="$emit('delete')"
+        >
           Удалить
         </BlockButton>
-        <BlockButton :disabled="disabled" @click="changeHandler">
+        <BlockButton
+          data-test="save-address"
+          :disabled="disabled"
+          @click="changeHandler"
+        >
           Сохранить
         </BlockButton>
       </div>
     </template>
     <template v-else>
-      <p>{{ formattedAddress }}</p>
-      <p v-if="currentAddress.comment">{{ currentAddress.comment }}</p>
+      <p data-test="address-output">{{ formattedAddress }}</p>
+      <p data-test="comment-output" v-if="currentAddress.comment">
+        {{ currentAddress.comment }}
+      </p>
     </template>
   </BlockSheet>
 </template>
