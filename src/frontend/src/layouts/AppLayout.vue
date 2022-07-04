@@ -1,5 +1,10 @@
 <template>
-  <Component :is="layout" :content="content" :user="user" />
+  <Component
+    :is="layout"
+    :content="content"
+    :user="user"
+    :data-test="layoutName"
+  />
 </template>
 
 <script>
@@ -12,8 +17,12 @@ export default {
   computed: {
     ...mapState(["content"]),
     ...mapState("User", ["user"]),
+    layoutName() {
+      const { layout = DEFAULT_LAYOUT } = this.$route.meta || {};
+      return layout;
+    },
     layout() {
-      const { layout = DEFAULT_LAYOUT } = this.$route.meta;
+      const { layout = DEFAULT_LAYOUT } = this.$route.meta || {};
       return () => import(`@/layouts/${layout}.vue`);
     },
   },

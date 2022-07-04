@@ -1,10 +1,6 @@
 <template>
   <div>
-    <AppLayoutHeader
-      :content="content"
-      :user="user"
-      @logout="$emit('logout')"
-    />
+    <AppLayoutHeader :content="content" :user="user" />
 
     <main class="layout">
       <template v-if="content && user">
