@@ -35,7 +35,7 @@ describe("AppLayoutDefault", () => {
 
   it("Is rendered", () => {
     createComponent();
-    expect(wrapper.html()).toBeTruthy();
+    expect(wrapper.exists()).toBeTruthy();
   });
 
   it("View is not rendered if it has not content", () => {
@@ -53,6 +53,6 @@ describe("AppLayoutDefault", () => {
   it("Header is rendered", () => {
     createComponent();
     const headerWrapper = wrapper.find("header");
-    expect(headerWrapper.html()).toBeTruthy();
+    expect(headerWrapper.exists()).toBeTruthy();
   });
 });

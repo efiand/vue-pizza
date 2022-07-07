@@ -22,7 +22,7 @@ describe("AppNotifications", () => {
 
   it("Doesn't render out when no notifications", () => {
     createComponent();
-    expect(wrapper.html()).toBeFalsy();
+    expect(wrapper.find("ul.notifications").exists()).toBeFalsy();
   });
 
   it("Renders out when we have notifications", () => {

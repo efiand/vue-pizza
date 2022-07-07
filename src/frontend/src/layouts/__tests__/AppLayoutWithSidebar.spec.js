@@ -43,7 +43,7 @@ describe("AppLayoutWithSidebar", () => {
 
   it("Is rendered", () => {
     createComponent();
-    expect(wrapper.html()).toBeTruthy();
+    expect(wrapper.exists()).toBeTruthy();
   });
 
   it("Sidebar is rendered if layout has user and content", () => {
@@ -51,7 +51,7 @@ describe("AppLayoutWithSidebar", () => {
       propsData: { content: store.state.content, user: adaptUserData(USER) },
     });
     const sidebarWrapper = wrapper.find(".layout__sidebar");
-    expect(sidebarWrapper.html()).toBeTruthy();
+    expect(sidebarWrapper.exists()).toBeTruthy();
   });
 
   it("Sidebar is not rendered if layout has not content", () => {
@@ -69,6 +69,6 @@ describe("AppLayoutWithSidebar", () => {
   it("Header is rendered", () => {
     createComponent();
     const headerWrapper = wrapper.find("header");
-    expect(headerWrapper.html()).toBeTruthy();
+    expect(headerWrapper.exists()).toBeTruthy();
   });
 });
