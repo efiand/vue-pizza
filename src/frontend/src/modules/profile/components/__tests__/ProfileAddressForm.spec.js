@@ -55,8 +55,9 @@ describe("ProfileAddressForm", () => {
     });
   });
 
-  ["name", "street", "building"].forEach((field) => {
-    it(`Save button is disabled when ${field} field is empty`, async () => {
+  it.each(["name", "street", "building"])(
+    "Save button is disabled when field is empty",
+    async (field) => {
       createComponent();
 
       await clickToEdit();
@@ -71,8 +72,8 @@ describe("ProfileAddressForm", () => {
       await fieldWrapper.trigger("input");
 
       expect(saveWrapper.attributes("disabled")).toBeTruthy();
-    });
-  });
+    }
+  );
 
   it("Delete button triggers the delete event", async () => {
     createComponent();

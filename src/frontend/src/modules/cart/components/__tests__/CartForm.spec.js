@@ -142,11 +142,12 @@ describe("CartForm", () => {
     expect(wrapper.emitted().changeAddress[0][0]).toBeNull();
   });
 
-  addressFields.forEach(async (name) => {
-    const [address] = ADDRESSES;
-    const value = `test-${name}`;
+  it.each(addressFields)(
+    "Emits the current field value when typing",
+    async (name) => {
+      const [address] = ADDRESSES;
+      const value = `test-${name}`;
 
-    it(`Emits the current ${name} value when typing`, async () => {
       createComponent({ propsData: { addresses: ADDRESSES, address } });
 
       const inputWrapper = wrapper.find(`[name="${name}"]`);
@@ -155,6 +156,6 @@ describe("CartForm", () => {
       await inputWrapper.trigger("input");
 
       expect(wrapper.emitted().updateAddress[0][0]).toEqual({ [name]: value });
-    });
-  });
+    }
+  );
 });

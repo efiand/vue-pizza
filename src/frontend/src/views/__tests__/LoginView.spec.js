@@ -59,25 +59,12 @@ describe("LoginView", () => {
     expect(wrapper.find(".login").exists()).toBeTruthy();
   });
 
-  it("Form cannot be submitted when password is empty", async () => {
+  it.each(["email", "pass"])("Form cannot be submitted when one field is empty", async (name) => {
     createComponent();
 
-    const emailWrapper = wrapper.find(`[name="email"]`);
-    emailWrapper.element.value = USER.email;
-    await emailWrapper.trigger("input");
-
-    const submitWrapper = wrapper.find(".login__button");
-    expect(submitWrapper.attributes("disabled")).toBeTruthy();
-
-    await emailWrapper.trigger("input");
-  });
-
-  it("Form cannot be submitted when email is empty", async () => {
-    createComponent();
-
-    const passwordWrapper = wrapper.find(`[name="pass"]`);
-    passwordWrapper.element.value = USER.email;
-    await passwordWrapper.trigger("input");
+    const fieldWrapper = wrapper.find(`[name="${name}"]`);
+    fieldWrapper.element.value = USER.email;
+    await fieldWrapper.trigger("input");
 
     const submitWrapper = wrapper.find(".login__button");
     expect(submitWrapper.attributes("disabled")).toBeTruthy();
