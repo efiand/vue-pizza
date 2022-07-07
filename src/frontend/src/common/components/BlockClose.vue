@@ -8,6 +8,7 @@
     >
       <span class="visually-hidden"><slot /></span>
     </RouterLink>
+
     <button
       v-else
       class="close"
@@ -22,11 +23,13 @@
 <script>
 export default {
   name: "BlockClose",
+
   props: {
     to: {
       type: String,
       default: null,
     },
+
     isWhite: {
       type: Boolean,
       default: false,

@@ -15,6 +15,7 @@
         @repeatOrder="repeatOrder"
       />
     </template>
+
     <p v-else class="orders__empty">У вас нет ни одного заказа</p>
   </div>
 </template>
@@ -26,23 +27,29 @@ import OrderCard from "@/modules/orders/components/OrderCard.vue";
 
 export default {
   name: "OrdersView",
+
   components: {
     OrderCard,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     ...mapState("Orders", ["orders"]),
   },
+
   beforeCreate() {
     this.$store.dispatch("Orders/getOrders");
   },
+
   methods: {
     ...mapActions("Orders", ["deleteOrder"]),
+
     repeatOrder(additions) {
       this.$store.commit(`Cart/${UPDATE_ORDER}`, additions);
       this.$router.push("/cart");

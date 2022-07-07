@@ -12,6 +12,7 @@
       :checked="checked"
       @change="$emit('change')"
     />
+
     <span>
       {{ option.name }}
       <small v-if="option.description" class="radio__description">
@@ -24,19 +25,23 @@
 <script>
 export default {
   name: "BlockRadio",
+
   props: {
     name: {
       type: String,
       required: true,
     },
+
     option: {
       type: Object,
       required: true,
     },
+
     checked: {
       type: Boolean,
       default: false,
     },
+
     big: {
       type: Boolean,
       default: false,

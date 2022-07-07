@@ -86,6 +86,7 @@
               :custom-counter="1"
             />
           </p>
+
           <BlockButton type="submit" :disabled="!isReady">
             Готовьте!
           </BlockButton>
@@ -109,25 +110,30 @@ import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 
 export default {
   name: "IndexView",
+
   components: {
     BuilderPizza,
     BuilderFillingSelector,
     OrderPrice,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       index: -1,
       pizza: this.createPizza(),
     };
   },
+
   computed: {
     ...mapState("Cart", ["currentOrder"]),
+
     isReady() {
       return (
         this.pizza.name &&
@@ -135,18 +141,22 @@ export default {
       );
     },
   },
+
   created() {
     const { i = -1 } = this.$route.query;
     const index = parseInt(i, 10);
+
     if (index > -1 && this.currentOrder.pizzas[index]) {
       this.pizza = cloneDeep(this.currentOrder.pizzas[index]);
       this.index = index;
     }
   },
+
   methods: {
     ...mapMutations("Cart", {
       updateOrder: UPDATE_ORDER,
     }),
+
     addToCart() {
       if (this.index > -1) {
         this.updateOrder({
@@ -163,6 +173,7 @@ export default {
 
       this.pizza = this.createPizza();
     },
+
     createPizza() {
       return {
         name: "",

@@ -22,11 +22,13 @@
 <script>
 export default {
   name: "BuilderPizzaFilling",
+
   props: {
     id: {
       type: Number,
       required: true,
     },
+
     quantity: {
       type: Number,
       required: true,

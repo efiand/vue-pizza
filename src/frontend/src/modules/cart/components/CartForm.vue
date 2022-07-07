@@ -8,9 +8,8 @@
         v-model="currentMode"
         :options="modes"
         @input="changeAddressByMode"
-      >
-      </BlockSelect
-    ></label>
+      />
+    </label>
 
     <BlockInput
       name="phone"
@@ -33,9 +32,9 @@
           required
           v-model="address.street"
           @input="$emit('updateAddress', { street: $event })"
-        >
-        </BlockInput>
+        />
       </div>
+
       <div class="cart-form__input cart-form__input--small">
         <BlockInput
           name="building"
@@ -44,9 +43,9 @@
           required
           v-model="address.building"
           @input="$emit('updateAddress', { building: $event })"
-        >
-        </BlockInput>
+        />
       </div>
+
       <div class="cart-form__input cart-form__input--small">
         <BlockInput
           name="flat"
@@ -54,8 +53,7 @@
           :readonly="currentMode !== 'new'"
           v-model="address.flat"
           @input="$emit('updateAddress', { flat: $event })"
-        >
-        </BlockInput>
+        />
       </div>
     </div>
   </div>
@@ -64,34 +62,41 @@
 <script>
 export default {
   name: "CartForm",
+
   props: {
     addresses: {
       type: Array,
       required: true,
     },
+
     address: {
       type: Object,
       default: null,
     },
+
     phone: {
       type: String,
       default: "",
     },
   },
+
   data() {
     return {
       currentMode: this.chooseMode(),
     };
   },
+
   computed: {
     currentPhone: {
       get() {
         return this.phone;
       },
+
       set(phone) {
         this.$emit("changePhone", phone);
       },
     },
+
     modes() {
       return [
         {
@@ -109,13 +114,16 @@ export default {
       ];
     },
   },
+
   methods: {
     chooseMode() {
       if (this.address) {
         return `${this.address.id || "new"}`;
       }
+
       return "self";
     },
+
     changeAddressByMode() {
       switch (this.currentMode) {
         case "self":

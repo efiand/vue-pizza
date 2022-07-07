@@ -17,6 +17,7 @@
           </Transition>
         </div>
       </template>
+
       <div v-else class="layout__content">
         <p v-if="!user">Доступ запрещён!</p>
         <p v-else>Ошибка загрузки данных</p>
@@ -31,15 +32,18 @@ import AppSidebar from "@/layouts/AppSidebar.vue";
 
 export default {
   name: "AppLayoutWithSidebar",
+
   components: {
     AppLayoutHeader,
     AppSidebar,
   },
+
   props: {
     content: {
       type: Object,
       default: null,
     },
+
     user: {
       type: Object,
       default: null,

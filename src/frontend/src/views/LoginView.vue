@@ -37,17 +37,20 @@
 <script>
 export default {
   name: "LoginView",
+
   data() {
     return {
       email: "",
       password: "",
     };
   },
+
   computed: {
     invalid() {
       return !this.email || !this.password || !/^.+@.+\..+$/.test(this.email);
     },
   },
+
   methods: {
     async login() {
       if (this.invalid) {

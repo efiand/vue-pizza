@@ -16,49 +16,60 @@
 <script>
 export default {
   name: "BlockInput",
+
   props: {
     label: {
       type: String,
       required: true,
     },
+
     bigLabel: {
       type: Boolean,
       default: false,
     },
+
     hideLabel: {
       type: Boolean,
       default: false,
     },
+
     name: {
       type: String,
       required: true,
     },
+
     type: {
       type: String,
       default: "text",
     },
+
     value: {
       type: String,
       required: true,
     },
+
     placeholder: {
       type: String,
       default: "",
     },
+
     readonly: {
       type: Boolean,
       default: false,
     },
+
     required: {
       type: Boolean,
       default: false,
     },
   },
+
   computed: {
     currentValue: {
       get() {
         return this.value;
       },
+
       set(value) {
         this.$emit("input", value);
       },

@@ -14,6 +14,7 @@ import { Message } from "@/common/constants";
 
 export default {
   name: "BlockLogo",
+
   data() {
     return {
       logoText: Message.LOGO,

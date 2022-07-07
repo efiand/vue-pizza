@@ -9,25 +9,30 @@
 <script>
 export default {
   name: "BlockSelect",
+
   props: {
     options: {
       type: Array,
       required: true,
     },
+
     name: {
       type: String,
       required: true,
     },
+
     value: {
       type: String,
       default: "",
     },
   },
+
   computed: {
     currentValue: {
       get() {
         return this.value;
       },
+
       set(value) {
         this.$emit("input", value);
       },

@@ -29,21 +29,26 @@ import ProductCard from "@/modules/product/components/ProductCard.vue";
 
 export default {
   name: "CartItem",
+
   components: { OrderPrice, ProductCard },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     pizza: {
       type: Object,
       required: true,
     },
+
     index: {
       type: Number,
       required: true,
     },
   },
+
   methods: {
     addPizza(quantity) {
       this.$emit("input", {

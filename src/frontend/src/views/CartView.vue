@@ -46,6 +46,7 @@
         :is-sending="isSending"
       />
     </form>
+
     <BlockContent v-else class="cart__content" title="Корзина">
       <BlockSheet class="cart__empty">
         <p>{{ emptyMessage }}</p>
@@ -73,6 +74,7 @@ import CartStatus from "@/modules/cart/components/CartStatus.vue";
 
 export default {
   name: "CartView",
+
   components: {
     CartList,
     CartMiscList,
@@ -80,16 +82,19 @@ export default {
     CartFooter,
     CartStatus,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     user: {
       type: Object,
       default: null,
     },
   },
+
   data() {
     return {
       isSending: false,
@@ -97,9 +102,12 @@ export default {
       emptyMessage: Message.EMPTY_CART,
     };
   },
+
   computed: {
     ...mapState("User", ["addresses"]),
+
     ...mapState("Cart", ["currentOrder"]),
+
     isValid() {
       return Boolean(
         this.currentOrder.phone &&
@@ -109,13 +117,16 @@ export default {
       );
     },
   },
+
   methods: {
     ...mapMutations("Cart", {
       updateOrder: UPDATE_ORDER,
     }),
+
     ...mapMutations("Orders", {
       addOrder: ADD_ORDER,
     }),
+
     updateAddress(override) {
       this.$emit("updateOrder", {
         address: {
@@ -124,9 +135,11 @@ export default {
         },
       });
     },
+
     leaveCart() {
       this.$router.push(this.user ? "/orders" : "/");
     },
+
     async handleOrder() {
       this.isSending = true;
 

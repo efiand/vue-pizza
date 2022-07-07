@@ -43,26 +43,32 @@ import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.
 
 export default {
   name: "ProfileView",
+
   components: {
     ProfileUser,
     ProfileAddressForm,
   },
+
   props: {
     user: {
       type: Object,
       default: null,
     },
   },
+
   data() {
     return {
       newAddress: null,
     };
   },
+
   computed: {
     ...mapState("User", ["addresses"]),
   },
+
   methods: {
     ...mapActions("User", ["updateAddress", "deleteAddress"]),
+
     async addAddress() {
       const { id = null } = await this.$store.dispatch(
         "User/addAddress",
@@ -73,6 +79,7 @@ export default {
         this.newAddress = null;
       }
     },
+
     createAddress,
   },
 };

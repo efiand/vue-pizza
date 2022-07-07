@@ -26,6 +26,7 @@
           Удалить
         </BlockButton>
       </div>
+
       <div class="order__button">
         <BlockButton
           :data-test="`repeat-order-${currentOrder.id}`"
@@ -68,6 +69,7 @@
           height="30"
           remote
         />
+
         <p>
           <span class="order__misc-name">{{ name }}</span>
           <b class="order__misc-price">
@@ -90,20 +92,24 @@ import ProductCard from "@/modules/product/components/ProductCard.vue";
 
 export default {
   name: "OrderCard",
+
   components: {
     OrderPrice,
     ProductCard,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     currentOrder: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     misc() {
       return this.currentOrder.misc
@@ -113,6 +119,7 @@ export default {
           quantity,
         }));
     },
+
     address() {
       if (!this.currentOrder.address) {
         return null;
@@ -121,6 +128,7 @@ export default {
       return formatAddress(this.currentOrder.address);
     },
   },
+
   methods: {
     repeatHandler() {
       const newOrder = cloneDeep(this.currentOrder);

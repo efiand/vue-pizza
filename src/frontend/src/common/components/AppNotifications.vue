@@ -13,6 +13,7 @@
 <script>
 export default {
   name: "AppNotifications",
+
   computed: {
     notifications() {
       return this.$store.state.Notifications.notifications;

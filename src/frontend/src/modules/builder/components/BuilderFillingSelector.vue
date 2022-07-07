@@ -37,21 +37,25 @@ import { MAX_INGREDIENT_QUANTITY } from "@/common/constants";
 
 export default {
   name: "BuilderFillingSelector",
+
   props: {
     ingredients: {
       type: Array,
       required: true,
     },
+
     value: {
       type: Array,
       required: true,
     },
   },
+
   data() {
     return {
       max: MAX_INGREDIENT_QUANTITY,
     };
   },
+
   computed: {
     mergedIngredients() {
       return this.ingredients.map((item) => {
@@ -66,6 +70,7 @@ export default {
       });
     },
   },
+
   methods: {
     inputHandler(quantity, i) {
       const newValue = this.value.slice();
