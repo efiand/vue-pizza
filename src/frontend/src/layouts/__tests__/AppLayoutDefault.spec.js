@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
-import { generateMockStore } from "@/store/mocks";
+import { generateMockStore, content } from "@/store/mocks";
 import "@/plugins/ui";
 import AppLayoutDefault from "@/layouts/AppLayoutDefault";
 
@@ -13,7 +13,6 @@ describe("AppLayoutDefault", () => {
 
   const createComponent = (options) => {
     wrapper = mount(AppLayoutDefault, {
-      ...options,
       localVue,
       store,
       mocks: {
@@ -22,6 +21,7 @@ describe("AppLayoutDefault", () => {
         },
       },
       stubs: ["RouterView", "RouterLink"],
+      ...options,
     });
   };
 
@@ -38,21 +38,16 @@ describe("AppLayoutDefault", () => {
     expect(wrapper.exists()).toBeTruthy();
   });
 
-  it("View is not rendered if it has not content", () => {
-    createComponent();
-    const viewWrapper = wrapper.find("routerview-stub");
-    expect(viewWrapper.exists()).toBeFalsy();
-  });
-
-  it("View is rendered if it has content", () => {
-    createComponent({ propsData: { content: store.state.content } });
-    const viewWrapper = wrapper.find("routerview-stub");
-    expect(viewWrapper.exists()).toBeTruthy();
-  });
-
   it("Header is rendered", () => {
     createComponent();
-    const headerWrapper = wrapper.find("header");
-    expect(headerWrapper.exists()).toBeTruthy();
+    expect(wrapper.find("header").exists()).toBeTruthy();
+  });
+
+  it("View is rendered if it has content", async () => {
+    createComponent();
+    expect(wrapper.find("routerview-stub").exists()).toBeFalsy();
+
+    await wrapper.setProps({ content });
+    expect(wrapper.find("routerview-stub").exists()).toBeTruthy();
   });
 });

@@ -35,49 +35,41 @@ describe("BlockPicture", () => {
     expect(wrapper.find("picture").exists()).toBeTruthy();
   });
 
-  it("Image tag with one picture has not srcset attribute", () => {
+  it("Image tag with one picture has not width/height by default", async () => {
     createComponent();
-    let imgWrapper = wrapper.find("img");
-    expect(imgWrapper.attributes("srcset")).toBeUndefined();
-  });
-
-  it("Image tag with one picture has not width/height by default", () => {
-    createComponent();
-    let imgWrapper = wrapper.find("img");
+    const imgWrapper = wrapper.find("img");
     expect(imgWrapper.attributes("width")).toBeUndefined();
     expect(imgWrapper.attributes("height")).toBeUndefined();
-  });
 
-  it("Image tag with one picture has not width/height by default", () => {
-    createComponent({ propsData: { ...propsData, ...size } });
-    let imgWrapper = wrapper.find("img");
+    await wrapper.setProps({ ...size });
     expect(imgWrapper.attributes("width")).toEqual(size.width);
     expect(imgWrapper.attributes("height")).toEqual(size.height);
   });
 
   it("Image alt is prop alt", () => {
     createComponent();
-    let imgWrapper = wrapper.find("img");
+    const imgWrapper = wrapper.find("img");
     expect(imgWrapper.attributes("alt")).toEqual(propsData.alt);
   });
 
-  it("It has not source tag when webp set is default (empty)", () => {
+  it("Image tag with one picture has not srcset attribute", async () => {
     createComponent();
-    let imgWrapper = wrapper.find("img");
+    const imgWrapper = wrapper.find("img");
     expect(imgWrapper.attributes("srcset")).toBeUndefined();
-  });
 
-  it("Image tag with two pictures has srcset attribute", () => {
-    createComponent({ propsData: { ...propsData, srcset } });
-    let imgWrapper = wrapper.find("img");
+    await wrapper.setProps({ srcset });
     expect(imgWrapper.attributes("srcset")).toEqual(
       accumulateSrc(srcset.slice(1), 2)
     );
   });
 
-  it("It has source tag when webp set is added", () => {
-    createComponent({ propsData: { ...propsData, webpset } });
-    let sourceWrapper = wrapper.find("source");
-    expect(sourceWrapper.attributes("srcset")).toEqual(accumulateSrc(webpset));
+  it("It has source tag when webp set is added", async () => {
+    createComponent();
+    expect(wrapper.find("source").exists()).toBeFalsy();
+
+    await wrapper.setProps({ webpset });
+    expect(wrapper.find("source").attributes("srcset")).toEqual(
+      accumulateSrc(webpset)
+    );
   });
 });

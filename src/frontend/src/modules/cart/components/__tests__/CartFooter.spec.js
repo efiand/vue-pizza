@@ -40,29 +40,15 @@ describe("CartFooter", () => {
     expect(priceWrapper.text()).toStrictEqual(MockPrice.ORDER);
   });
 
-  it("Submit button is disabled", () => {
+  it("Submit button is disabled if not isValid or isSending ", async () => {
     createComponent();
-
     const submitWrapper = wrapper.find(`.cart-footer__submit button`);
-
     expect(submitWrapper.attributes("disabled")).toBeTruthy();
-  });
 
-  it("Submit button is enabled then isValid prop passed", () => {
-    createComponent({ propsData: { ...propsData, isValid: true } });
-
-    const submitWrapper = wrapper.find(`.cart-footer__submit button`);
-
+    await wrapper.setProps({ isValid: true });
     expect(submitWrapper.attributes("disabled")).toBeFalsy();
-  });
 
-  it("Submit button is disabled then isSending prop passed", () => {
-    createComponent({
-      propsData: { ...propsData, isValid: true, isSending: true },
-    });
-
-    const submitWrapper = wrapper.find(`.cart-footer__submit button`);
-
+    await wrapper.setProps({ isSending: true });
     expect(submitWrapper.attributes("disabled")).toBeTruthy();
   });
 });

@@ -20,16 +20,14 @@ describe("AppNotifications", () => {
     mocks.$store.state["Notifications"].notifications = [];
   });
 
-  it("Doesn't render out when no notifications", () => {
+  it("Doesn't render out when no notifications", async () => {
     createComponent();
     expect(wrapper.find("ul.notifications").exists()).toBeFalsy();
-  });
 
-  it("Renders out when we have notifications", () => {
     mocks.$store.state["Notifications"].notifications = [
       { text: "text", type: "warning" },
     ];
-    createComponent();
+    await wrapper.vm.$nextTick();
     expect(wrapper.find("ul.notifications").exists()).toBeTruthy();
   });
 

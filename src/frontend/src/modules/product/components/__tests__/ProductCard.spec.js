@@ -36,7 +36,7 @@ describe("ProductCard", () => {
     expect(wrapper.find(".product__text h2").html()).toContain(pizza.name);
   });
 
-  it("Render product ibfo", () => {
+  it("Render product info", () => {
     const texts = [
       "45 см, на тонком тесте",
       "Соус: томатный",

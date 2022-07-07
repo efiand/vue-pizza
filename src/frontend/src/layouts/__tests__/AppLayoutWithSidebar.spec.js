@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import "@/plugins/ui";
-import { generateMockStore } from "@/store/mocks";
+import { generateMockStore, content } from "@/store/mocks";
 import { USER } from "@/store/mocks/data";
 import { adaptUserData } from "@/common/helpers";
 import routes from "@/router/routes";
@@ -46,29 +46,19 @@ describe("AppLayoutWithSidebar", () => {
     expect(wrapper.exists()).toBeTruthy();
   });
 
-  it("Sidebar is rendered if layout has user and content", () => {
-    createComponent({
-      propsData: { content: store.state.content, user: adaptUserData(USER) },
-    });
-    const sidebarWrapper = wrapper.find(".layout__sidebar");
-    expect(sidebarWrapper.exists()).toBeTruthy();
-  });
-
-  it("Sidebar is not rendered if layout has not content", () => {
-    createComponent({ propsData: { user: adaptUserData(USER) } });
-    const sidebarWrapper = wrapper.find(".layout__sidebar");
-    expect(sidebarWrapper.exists()).toBeFalsy();
-  });
-
-  it("Sidebar is not rendered if layout has not content", () => {
-    createComponent({ propsData: { content: store.state.content } });
-    const sidebarWrapper = wrapper.find(".layout__sidebar");
-    expect(sidebarWrapper.exists()).toBeFalsy();
-  });
-
   it("Header is rendered", () => {
     createComponent();
-    const headerWrapper = wrapper.find("header");
-    expect(headerWrapper.exists()).toBeTruthy();
+    expect(wrapper.find("header").exists()).toBeTruthy();
+  });
+
+  it("Sidebar is rendered if layout has user and content", async () => {
+    createComponent();
+    expect(wrapper.find(".layout__sidebar").exists()).toBeFalsy();
+
+    await wrapper.setProps({ user: adaptUserData(USER) });
+    expect(wrapper.find(".layout__sidebar").exists()).toBeFalsy();
+
+    await wrapper.setProps({ content });
+    expect(wrapper.find(".layout__sidebar").exists()).toBeTruthy();
   });
 });

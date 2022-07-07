@@ -60,75 +60,56 @@ describe("BlockInput", () => {
     expect(labelWrapper.html()).toContain(propsData.label);
   });
 
-  it("Input type is default type", () => {
+  it("Input type is default type but is prop type when prop added", async () => {
     createComponent();
     const inputWrapper = wrapper.find("input");
     expect(inputWrapper.attributes("type")).toBe(defaultType);
-  });
 
-  it("Input placeholder is empty string", () => {
-    createComponent();
-    const inputWrapper = wrapper.find("input");
-    expect(inputWrapper.attributes("placeholder")).toBe("");
-  });
-
-  it("Input is not readonly", () => {
-    createComponent();
-    const inputWrapper = wrapper.find("input");
-    expect(inputWrapper.attributes("readonly")).toBeUndefined();
-  });
-
-  it("Input is not required", () => {
-    createComponent();
-    const inputWrapper = wrapper.find("input");
-    expect(inputWrapper.attributes("required")).toBeUndefined();
-  });
-
-  it("Input has not big label", () => {
-    createComponent();
-    expect(wrapper.classes()).not.toContain(bigLabelClassName);
-  });
-
-  it("Label is not visually hidden", () => {
-    createComponent();
-    const labelWrapper = wrapper.find("span");
-    expect(labelWrapper.classes()).not.toContain(visuallyHiddenClassName);
-  });
-
-  it("Input type is prop type when prop added", () => {
-    createComponent({ propsData: { ...propsData, type: testType } });
-    const inputWrapper = wrapper.find("input");
+    await wrapper.setProps({ type: testType });
     expect(inputWrapper.attributes("type")).toBe(testType);
   });
 
-  it("Input placeholder is prop placeholder when prop added", () => {
-    createComponent({
-      propsData: { ...propsData, placeholder: testPlaceholder },
-    });
+  it("Input placeholder is empty string but is prop placeholder when prop added", async () => {
+    createComponent();
     const inputWrapper = wrapper.find("input");
+    expect(inputWrapper.attributes("placeholder")).toBe("");
+
+    await wrapper.setProps({ placeholder: testPlaceholder });
     expect(inputWrapper.attributes("placeholder")).toBe(testPlaceholder);
   });
 
-  it("Input is readonly when prop added", () => {
-    createComponent({ propsData: { ...propsData, readonly: true } });
+  it("Input is readonly when prop added", async () => {
+    createComponent();
     const inputWrapper = wrapper.find("input");
+    expect(inputWrapper.attributes("readonly")).toBeUndefined();
+
+    await wrapper.setProps({ readonly: true });
     expect(inputWrapper.attributes("readonly")).toBe("readonly");
   });
 
-  it("Input is required when prop added", () => {
-    createComponent({ propsData: { ...propsData, required: true } });
+  it("Input is required when prop added", async () => {
+    createComponent();
     const inputWrapper = wrapper.find("input");
+    expect(inputWrapper.attributes("required")).toBeUndefined();
+
+    await wrapper.setProps({ required: true });
     expect(inputWrapper.attributes("required")).toBe("required");
   });
 
-  it("Input has big label when prop added", () => {
-    createComponent({ propsData: { ...propsData, bigLabel: true } });
+  it("Input has big label when prop added", async () => {
+    createComponent();
+    expect(wrapper.classes()).not.toContain(bigLabelClassName);
+
+    await wrapper.setProps({ bigLabel: true });
     expect(wrapper.classes()).toContain(bigLabelClassName);
   });
 
-  it("Label is visually hidden when prop added", () => {
-    createComponent({ propsData: { ...propsData, hideLabel: true } });
+  it("Label is visually hidden when prop added", async () => {
+    createComponent();
     const labelWrapper = wrapper.find("span");
+    expect(labelWrapper.classes()).not.toContain(visuallyHiddenClassName);
+
+    await wrapper.setProps({ hideLabel: true });
     expect(labelWrapper.attributes("class")).toContain(visuallyHiddenClassName);
   });
 });

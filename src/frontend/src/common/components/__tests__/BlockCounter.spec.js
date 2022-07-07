@@ -116,19 +116,12 @@ describe("BlockCounter", () => {
     expect(wrapper.emitted().input[0][0]).toEqual(0);
   });
 
-  it("The plus button has not secondary class by default", () => {
+  it("The plus button has secondary class when prop passed", async () => {
     createComponent();
-
     const buttonWrapper = wrapper.find(".counter__button--plus");
-
     expect(buttonWrapper.classes()).not.toContain(secondaryClassName);
-  });
 
-  it("The plus button has secondary class when prop passed", () => {
-    createComponent({ propsData: { ...propsData, secondaryStyle: true } });
-
-    const buttonWrapper = wrapper.find(".counter__button--plus");
-
+    await wrapper.setProps({ secondaryStyle: true });
     expect(buttonWrapper.classes()).toContain(secondaryClassName);
   });
 });

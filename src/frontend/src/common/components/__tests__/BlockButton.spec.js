@@ -3,7 +3,6 @@ import BlockButton from "@/common/components/BlockButton";
 
 describe("BlockButton", () => {
   const slots = { default: "My button" };
-  const defaultBtnType = "button";
 
   let wrapper;
   const createComponent = (options) => {
@@ -31,47 +30,32 @@ describe("BlockButton", () => {
     expect(wrapper.emitted().click).toBeTruthy();
   });
 
-  it("Button type is button", () => {
+  it("Button type is button by default but is submit after adding prop", async () => {
     createComponent();
-    expect(wrapper.attributes("type")).toBe(defaultBtnType);
-  });
+    expect(wrapper.attributes("type")).toBe("button");
 
-  it("Button type is submit after adding prop", () => {
     const type = "submit";
-    createComponent({
-      propsData: {
-        type,
-      },
-    });
+    await wrapper.setProps({ type });
     expect(wrapper.attributes("type")).toBe(type);
   });
 
-  it("Button is not disabled", () => {
+  it("Button is disabled after adding prop", async () => {
     createComponent();
     expect(wrapper.attributes("disabled")).toBeUndefined();
+
+    await wrapper.setProps({ disabled: true });
+    expect(Boolean(wrapper.attributes("disabled"))).toBeTruthy();
   });
 
-  it("Button is disabled after adding prop", () => {
-    createComponent({
-      propsData: {
-        disabled: true,
-      },
-    });
-    expect(wrapper.attributes("disabled")).toBeTruthy();
-  });
-
-  it("Button has one class .button by default", () => {
-    createComponent();
-    expect(wrapper.attributes("class")).toStrictEqual("button");
-  });
-
-  it("Button has three class after adding props", () => {
+  it("Button has one class .button by default but three class after adding props", async () => {
     const classes = ["button", "button--bordered", "button--transparent"];
-    createComponent({
-      propsData: {
-        bordered: true,
-        transparent: true,
-      },
+
+    createComponent();
+    expect(wrapper.attributes("class")).toStrictEqual(classes[0]);
+
+    await wrapper.setProps({
+      bordered: true,
+      transparent: true,
     });
     expect(wrapper.classes()).toEqual(classes);
   });

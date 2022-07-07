@@ -50,23 +50,18 @@ describe("AppLayoutHeader", () => {
     expect(wrapper.find("header.header").exists()).toBeTruthy();
   });
 
-  it("Only logo is rendered when has no content", () => {
+  it("Cart and user blocks are rendered when add content", async () => {
     createComponent();
-
     expect(wrapper.find(".header__logo").exists()).toBeTruthy();
     expect(wrapper.find(".header__cart").exists()).toBeFalsy();
     expect(wrapper.find(".header__user").exists()).toBeFalsy();
-  });
 
-  it("All parts are rendered when has content", () => {
-    createComponent({ propsData: { content } });
-
-    expect(wrapper.find(".header__logo").exists()).toBeTruthy();
+    await wrapper.setProps({ content });
     expect(wrapper.find(".header__cart").exists()).toBeTruthy();
     expect(wrapper.find(".header__user").exists()).toBeTruthy();
   });
 
-  it("Profile link has image with user name", () => {
+  it("Profile link has image and text with user name", () => {
     createComponent({
       propsData: { content, user },
     });
@@ -74,28 +69,15 @@ describe("AppLayoutHeader", () => {
     expect(wrapper.find(".header__user img").attributes("alt")).toStrictEqual(
       USER.name
     );
-  });
-
-  it("Profile link has text with user name", () => {
-    createComponent({
-      propsData: { content, user },
-    });
-
     expect(wrapper.find(".header__user span").text()).toStrictEqual(USER.name);
   });
 
-  it("Link to login is rendered when has not user data", () => {
+  it("Link to login is rendered when has not user data, otherwise link to logout is rendered", async () => {
     createComponent({ propsData: { content } });
-
     expect(wrapper.find(".header__login").exists()).toBeTruthy();
     expect(wrapper.find(".header__logout").exists()).toBeFalsy();
-  });
 
-  it("Link to logout is rendered when has user data", () => {
-    createComponent({
-      propsData: { content, user },
-    });
-
+    await wrapper.setProps({ user });
     expect(wrapper.find(".header__login").exists()).toBeFalsy();
     expect(wrapper.find(".header__logout").exists()).toBeTruthy();
   });

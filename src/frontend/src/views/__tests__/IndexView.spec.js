@@ -112,24 +112,18 @@ describe("IndexView", () => {
     expect(quantity).toStrictEqual(1);
   });
 
-  it("Submit button is disabled", async () => {
+  it("Submit button is enabled when type name and choose one ingredient", async () => {
     createComponent();
     const submitWrapper = wrapper.find(`button[type="submit"]`);
     expect(submitWrapper.attributes("disabled")).toBeTruthy();
-  });
 
-  it("Submit button is enabled when type name amd choose one ingredient", async () => {
-    createComponent();
     const increaserWrapper = wrapper.find(`.counter__button--plus`);
     const nameWrapper = wrapper.find(`input[name="pizza_name"]`);
-    const submitWrapper = wrapper.find(`button[type="submit"]`);
-
     nameWrapper.element.value = "Test";
     await Promise.all([
       increaserWrapper.trigger("click"),
       nameWrapper.trigger("input"),
     ]);
-
     expect(submitWrapper.attributes("disabled")).toBeFalsy();
   });
 

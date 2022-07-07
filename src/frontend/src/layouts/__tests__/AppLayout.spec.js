@@ -28,19 +28,22 @@ describe("AppLayout", () => {
     wrapper.destroy();
   });
 
-  it.each(["AppLayoutDefault", "AppLayoutWithSidebar"])("Is rendered with app layout", async (layout) => {
-    createComponent({
-      mocks: {
-        $route: {
-          ...routes[0],
-          meta: {
-            layout,
+  it.each(["AppLayoutDefault", "AppLayoutWithSidebar"])(
+    "Is rendered with app layout",
+    async (layout) => {
+      createComponent({
+        mocks: {
+          $route: {
+            ...routes[0],
+            meta: {
+              layout,
+            },
           },
         },
-      },
-    });
-    await wrapper.vm.$nextTick();
-    await wrapper.vm.$nextTick();
-    expect(wrapper.find(`[data-test="${layout}"]`).exists()).toBeTruthy();
-  });
+      });
+      await wrapper.vm.$nextTick();
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find(`[data-test="${layout}"]`).exists()).toBeTruthy();
+    }
+  );
 });

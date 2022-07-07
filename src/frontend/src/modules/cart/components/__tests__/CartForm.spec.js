@@ -28,21 +28,15 @@ describe("CartForm", () => {
     expect(wrapper.find(".cart-form").exists()).toBeTruthy();
   });
 
-  it("Select has 2 options", () => {
+  it("Select has 2 options by default but 4 options, when there are two addresses", async () => {
     createComponent({ propsData: { addresses: [] } });
-
-    const { wrappers } = wrapper.findAll(`[name="mode"] option`);
-
-    expect(wrappers.length).toStrictEqual(2);
+    let { wrappers } = wrapper.findAll(`[name="mode"] option`);
+    expect(wrapper.vm.modes.length).toStrictEqual(2);
     expect(wrappers.length).toStrictEqual(wrapper.vm.modes.length);
-  });
 
-  it("Select has 4 options, when there are two addresses", () => {
-    createComponent({ propsData: { addresses: ADDRESSES } });
-
-    const { wrappers } = wrapper.findAll(`[name="mode"] option`);
-
-    expect(wrappers.length).toStrictEqual(4);
+    await wrapper.setProps({ addresses: ADDRESSES });
+    wrappers = wrapper.findAll(`[name="mode"] option`).wrappers;
+    expect(wrapper.vm.modes.length).toStrictEqual(4);
     expect(wrappers.length).toStrictEqual(wrapper.vm.modes.length);
     expect(wrappers[2].text()).toStrictEqual(ADDRESSES[0].name);
   });

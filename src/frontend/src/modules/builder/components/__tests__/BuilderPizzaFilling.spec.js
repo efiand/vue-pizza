@@ -4,11 +4,11 @@ import BuilderPizzaFilling from "@/modules/builder/components/BuilderPizzaFillin
 describe("BuilderPizzaFilling", () => {
   let wrapper;
 
-  const createComponent = (quantity = 1) => {
+  const createComponent = () => {
     wrapper = shallowMount(BuilderPizzaFilling, {
       propsData: {
         id: 1,
-        quantity,
+        quantity: 1,
       },
     });
   };
@@ -17,21 +17,17 @@ describe("BuilderPizzaFilling", () => {
     wrapper.destroy();
   });
 
-  it("Is rendered with 1 image by default", () => {
+  it("Is rendered with 1 (by default), 2, 3 images", async () => {
     createComponent();
     expect(wrapper.find(`.pizza-filling--ingredient--1`).exists()).toBeTruthy();
     expect(wrapper.find(`.pizza-filling--second`).exists()).toBeFalsy();
     expect(wrapper.find(`.pizza-filling--third`).exists()).toBeFalsy();
-  });
 
-  it("Is rendered with 2 images", () => {
-    createComponent(2);
+    await wrapper.setProps({ quantity: 2 });
     expect(wrapper.find(`.pizza-filling--second`).exists()).toBeTruthy();
     expect(wrapper.find(`.pizza-filling--third`).exists()).toBeFalsy();
-  });
 
-  it("Is rendered with 3 images", () => {
-    createComponent(3);
+    await wrapper.setProps({ quantity: 3 });
     expect(wrapper.find(`.pizza-filling--second`).exists()).toBeTruthy();
     expect(wrapper.find(`.pizza-filling--third`).exists()).toBeTruthy();
   });

@@ -57,30 +57,27 @@ describe("BlockRadio", () => {
     expect(optionWrapper.html()).toContain(propsData.option.name);
   });
 
-  it("Input option does not include option description by default", () => {
+  it("Input option include option description when prop passed", async () => {
+    const option = {
+      id: "option",
+      name: "Option name",
+      description: "Description",
+    };
+
     createComponent();
-    const descriptionWrapper = wrapper.find("small");
-    expect(descriptionWrapper.element).toBeUndefined();
+    expect(wrapper.find("small").exists()).toBeFalsy();
+
+    await wrapper.setProps({ option });
+    expect(wrapper.find("small").html()).toContain(option.description);
   });
 
-  it("Input option include option description when prop passed", () => {
-    propsData.option.description = "Description";
-    createComponent();
-    const descriptionWrapper = wrapper.find("small");
-    expect(descriptionWrapper.html()).toContain(propsData.option.description);
-  });
-
-  it("Input include small class by default", () => {
+  it("Input include small class by default and change to big class when prop passed", async () => {
     createComponent();
     const inputWrapper = wrapper.find("input");
     expect(inputWrapper.classes()).toContain(smallClassName);
     expect(inputWrapper.classes()).not.toContain(bigClassName);
-  });
 
-  it("Input include big class when prop passed", () => {
-    propsData.big = true;
-    createComponent();
-    const inputWrapper = wrapper.find("input");
+    await wrapper.setProps({ big: true });
     expect(inputWrapper.classes()).toContain(bigClassName);
     expect(inputWrapper.classes()).not.toContain(smallClassName);
   });

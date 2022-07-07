@@ -3,10 +3,6 @@ import BlockEditButton from "@/common/components/BlockEditButton";
 
 describe("BlockEditButton", () => {
   const slots = { default: "My button" };
-  const defaultBtnType = "button";
-  const propsData = {
-    type: "submit",
-  };
 
   let wrapper;
   const createComponent = (options) => {
@@ -35,15 +31,12 @@ describe("BlockEditButton", () => {
     expect(wrapper.emitted().click).toBeTruthy();
   });
 
-  it("Button type is button", () => {
+  it("Button type is button by default but is submit after adding prop", async () => {
     createComponent();
-    expect(wrapper.attributes("type")).toBe(defaultBtnType);
-  });
+    expect(wrapper.attributes("type")).toBe("button");
 
-  it("Button type is submit after adding prop", () => {
-    createComponent({
-      propsData,
-    });
-    expect(wrapper.attributes("type")).toBe(propsData.type);
+    const type = "submit";
+    await wrapper.setProps({ type });
+    expect(wrapper.attributes("type")).toBe(type);
   });
 });

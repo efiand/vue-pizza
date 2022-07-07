@@ -38,14 +38,11 @@ describe("BlockClose", () => {
     expect(wrapper.emitted().close).toBeTruthy();
   });
 
-  it("It is button", () => {
+  it("It is a button by default and become a white link when props passed", async () => {
     createComponent();
     expect(wrapper.find("button.close").exists()).toBeTruthy();
-  });
 
-  it("It is white link when props passed", () => {
-    createComponent({ propsData });
-    const linkWrapper = wrapper.find("a.close.close--white");
-    expect(linkWrapper.exists()).toBeTruthy();
+    await wrapper.setProps(propsData);
+    expect(wrapper.find("a.close.close--white").exists()).toBeTruthy();
   });
 });

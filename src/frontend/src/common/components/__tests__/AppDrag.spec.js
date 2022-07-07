@@ -30,13 +30,11 @@ describe("AppDrag", () => {
     expect(wrapper.html()).toContain(slots.default);
   });
 
-  it("Wrapper is draggable by default", () => {
+  it("Wrapper is draggable by default but is not draggable with prop", async () => {
     createComponent();
     expect(wrapper.attributes("draggable")).toStrictEqual("true");
-  });
 
-  it("Wrapper is not draggable with prop", () => {
-    createComponent({ propsData: { ...propsData, draggable: false } });
+    await wrapper.setProps({ draggable: false });
     expect(wrapper.attributes("draggable")).toStrictEqual("false");
   });
 

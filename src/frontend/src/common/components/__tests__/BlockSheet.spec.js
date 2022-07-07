@@ -24,16 +24,12 @@ describe("BlockSheet", () => {
     expect(wrapper.html()).toContain(slots.default);
   });
 
-  it("BlockSubheading does not exists when title is not exists", () => {
+  it("BlockSubheading does not exists when title is not exists", async () => {
     createComponent();
-    const subheadingWrapper = wrapper.find("blocksubheading-stub");
-    expect(subheadingWrapper.element).toBeUndefined();
-  });
+    expect(wrapper.find("blocksubheading-stub").exists()).toBeFalsy();
 
-  it("Title is slot of BlockSubheading", () => {
     const title = "Title";
-    createComponent({ propsData: { title } });
-    const subheadingWrapper = wrapper.find("blocksubheading-stub");
-    expect(subheadingWrapper.html()).toContain(title);
+    await wrapper.setProps({ title });
+    expect(wrapper.find("blocksubheading-stub").text()).toStrictEqual(title);
   });
 });
