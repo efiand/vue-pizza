@@ -4,16 +4,11 @@ import BlockButton from "@/common/components/BlockButton";
 describe("BlockButton", () => {
   const slots = { default: "My button" };
   const defaultBtnType = "button";
-  const listeners = { click: null };
 
   let wrapper;
   const createComponent = (options) => {
     wrapper = shallowMount(BlockButton, options);
   };
-
-  beforeEach(() => {
-    listeners.click = jest.fn();
-  });
 
   afterEach(() => {
     wrapper.destroy();
@@ -30,9 +25,10 @@ describe("BlockButton", () => {
   });
 
   it("Raises the click event on click", async () => {
-    createComponent({ listeners });
+    createComponent();
+
     await wrapper.find("button").trigger("click");
-    expect(listeners.click).toHaveBeenCalled();
+    expect(wrapper.emitted().click).toBeTruthy();
   });
 
   it("Button type is button", () => {

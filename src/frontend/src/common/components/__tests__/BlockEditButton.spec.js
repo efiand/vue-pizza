@@ -4,7 +4,6 @@ import BlockEditButton from "@/common/components/BlockEditButton";
 describe("BlockEditButton", () => {
   const slots = { default: "My button" };
   const defaultBtnType = "button";
-  const listeners = { click: null };
   const propsData = {
     type: "submit",
   };
@@ -13,10 +12,6 @@ describe("BlockEditButton", () => {
   const createComponent = (options) => {
     wrapper = shallowMount(BlockEditButton, options);
   };
-
-  beforeEach(() => {
-    listeners.click = jest.fn();
-  });
 
   afterEach(() => {
     wrapper.destroy();
@@ -34,9 +29,10 @@ describe("BlockEditButton", () => {
   });
 
   it("Raises the click event on click", async () => {
-    createComponent({ listeners });
+    createComponent();
+
     await wrapper.find("button").trigger("click");
-    expect(listeners.click).toHaveBeenCalled();
+    expect(wrapper.emitted().click).toBeTruthy();
   });
 
   it("Button type is button", () => {

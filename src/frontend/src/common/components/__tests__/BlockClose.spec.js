@@ -3,7 +3,6 @@ import BlockClose from "@/common/components/BlockClose";
 
 describe("BlockClose", () => {
   const slots = { default: "Close" };
-  const listeners = { close: null };
   const propsData = {
     isWhite: true,
     to: "/", // Пропс отвечает за генерацию ссылки вместо кнопки
@@ -14,10 +13,6 @@ describe("BlockClose", () => {
   const createComponent = (options) => {
     wrapper = shallowMount(BlockClose, { ...options, stubs });
   };
-
-  beforeEach(() => {
-    listeners.close = jest.fn();
-  });
 
   afterEach(() => {
     wrapper.destroy();
@@ -35,9 +30,12 @@ describe("BlockClose", () => {
   });
 
   it("Raises the close event on click", async () => {
-    createComponent({ listeners });
-    await wrapper.find(".close").trigger("click");
-    expect(listeners.close).toHaveBeenCalled();
+    createComponent();
+
+    const closerWrapper = wrapper.find(".close");
+    await closerWrapper.trigger("click");
+
+    expect(wrapper.emitted().close).toBeTruthy();
   });
 
   it("It is button", () => {
