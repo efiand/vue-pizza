@@ -1,6 +1,5 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import { cloneDeep } from "lodash";
-import Vuex from "vuex";
 import "@/plugins/ui";
 import flushPromises from "flush-promises";
 import { adaptUserData } from "@/common/helpers";
@@ -8,9 +7,6 @@ import { SET_ADDRESSES } from "@/store/mutation-types";
 import { generateMockStore } from "@/store/mocks";
 import { USER, ADDRESSES } from "@/store/mocks/data";
 import ProfileView from "@/views/ProfileView";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 describe("ProfileView", () => {
   const title = "Мои данные";
@@ -35,7 +31,6 @@ describe("ProfileView", () => {
 
   const createComponent = (options) => {
     wrapper = mount(ProfileView, {
-      localVue,
       store,
       mocks,
       propsData: { user: adaptUserData(USER) },

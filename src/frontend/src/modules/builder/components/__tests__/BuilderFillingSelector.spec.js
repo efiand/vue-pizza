@@ -1,10 +1,8 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import "@/plugins/ui";
 import { content } from "@/store/mocks";
 import { MOCK_ORDER } from "@/store/mocks/data";
 import BuilderFillingSelector from "@/modules/builder/components/BuilderFillingSelector";
-
-const localVue = createLocalVue();
 
 describe("BuilderFillingSelector", () => {
   const INGREDIENTS = MOCK_ORDER.pizzas[0].ingredients.slice();
@@ -16,7 +14,6 @@ describe("BuilderFillingSelector", () => {
 
   const createComponent = (options = {}) => {
     wrapper = mount(BuilderFillingSelector, {
-      localVue,
       ...options,
       propsData: {
         ...DEFAULT_PROPS,

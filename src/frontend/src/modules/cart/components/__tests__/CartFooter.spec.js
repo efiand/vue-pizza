@@ -1,17 +1,14 @@
-import { createLocalVue, mount, RouterLinkStub } from "@vue/test-utils";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import "@/plugins/ui";
 import { content } from "@/store/mocks";
 import { MOCK_ORDER, MockPrice } from "@/store/mocks/data";
 import CartFooter from "@/modules/cart/components/CartFooter";
-
-const localVue = createLocalVue();
 
 describe("CartFooter", () => {
   let wrapper;
 
   const createComponent = (options) => {
     wrapper = mount(CartFooter, {
-      localVue,
       stubs: { RouterLink: RouterLinkStub },
       propsData: {
         content,

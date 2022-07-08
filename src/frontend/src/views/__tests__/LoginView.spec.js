@@ -1,13 +1,9 @@
-import { createLocalVue, mount, RouterLinkStub } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import flushPromises from "flush-promises";
 import "@/plugins/ui";
 import { generateMockStore } from "@/store/mocks";
 import { USER } from "@/store/mocks/data";
 import LoginView from "@/views/LoginView";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 export const Res = {
   SUCCESS: {
@@ -30,7 +26,6 @@ describe("LoginView", () => {
 
   const createComponent = (options) => {
     wrapper = mount(LoginView, {
-      localVue,
       store,
       stubs,
       ...options,

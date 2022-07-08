@@ -1,5 +1,4 @@
-import { createLocalVue, mount, RouterLinkStub } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import "@/plugins/ui";
 import flushPromises from "flush-promises";
 import { UPDATE_ORDER } from "@/store/mutation-types";
@@ -7,9 +6,6 @@ import { generateMockStore, content } from "@/store/mocks";
 import { USER, MOCK_ORDER, MockPrice } from "@/store/mocks/data";
 import { adaptUserData } from "@/common/helpers";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 describe("AppLayoutHeader", () => {
   const mocks = {
@@ -26,7 +22,6 @@ describe("AppLayoutHeader", () => {
 
   const createComponent = (options) => {
     wrapper = mount(AppLayoutHeader, {
-      localVue,
       store,
       stubs: {
         RouterLink: RouterLinkStub,

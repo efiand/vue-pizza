@@ -1,10 +1,8 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import "@/plugins/ui";
 import { USER } from "@/store/mocks/data";
 import { adaptUserData } from "@/common/helpers";
 import ProfileUser from "@/modules/profile/components/ProfileUser";
-
-const localVue = createLocalVue();
 
 describe("ProfileUser", () => {
   const user = adaptUserData(USER);
@@ -12,7 +10,6 @@ describe("ProfileUser", () => {
 
   const createComponent = () => {
     wrapper = mount(ProfileUser, {
-      localVue,
       propsData: { user },
     });
   };

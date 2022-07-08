@@ -1,4 +1,4 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import { cloneDeep } from "lodash";
 import "@/plugins/ui";
 import { content } from "@/store/mocks";
@@ -6,8 +6,6 @@ import { ADDRESSES, MOCK_ORDER, MockPrice } from "@/store/mocks/data";
 import { findItemById } from "@/common/utils";
 import { formatAddress } from "@/modules/profile/helpers";
 import OrderCard from "@/modules/orders/components/OrderCard";
-
-const localVue = createLocalVue();
 
 const createOrder = (order, addition) => ({
   id: 1,
@@ -21,7 +19,6 @@ describe("OrderCard", () => {
 
   const createComponent = (options) => {
     wrapper = mount(OrderCard, {
-      localVue,
       propsData: { content, currentOrder },
       ...options,
     });

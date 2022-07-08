@@ -1,11 +1,9 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import { cloneDeep } from "lodash";
 import "@/plugins/ui";
 import { ADDRESSES } from "@/store/mocks/data";
 import { formatAddress } from "@/modules/profile/helpers";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";
-
-const localVue = createLocalVue();
 
 describe("ProfileAddressForm", () => {
   let address;
@@ -15,7 +13,6 @@ describe("ProfileAddressForm", () => {
 
   const createComponent = (options) => {
     wrapper = mount(ProfileAddressForm, {
-      localVue,
       propsData: { address },
       ...options,
     });

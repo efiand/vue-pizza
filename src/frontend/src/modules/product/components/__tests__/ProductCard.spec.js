@@ -1,10 +1,8 @@
-import { createLocalVue, mount, RouterLinkStub } from "@vue/test-utils";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import "@/plugins/ui";
 import { content } from "@/store/mocks";
 import { MOCK_ORDER } from "@/store/mocks/data";
 import ProductCard from "@/modules/product/components/ProductCard";
-
-const localVue = createLocalVue();
 
 describe("ProductCard", () => {
   const [pizza] = MOCK_ORDER.pizzas;
@@ -12,7 +10,6 @@ describe("ProductCard", () => {
 
   const createComponent = () => {
     wrapper = mount(ProductCard, {
-      localVue,
       stubs: { RouterLink: RouterLinkStub },
       propsData: {
         content,

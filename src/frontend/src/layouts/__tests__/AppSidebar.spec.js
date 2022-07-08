@@ -1,12 +1,8 @@
-import { createLocalVue, mount, RouterLinkStub } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import "@/plugins/ui";
 import { generateMockStore } from "@/store/mocks";
 import routes from "@/router/routes";
 import AppSidebar from "@/layouts/AppSidebar";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 const routeWithSidebarTitles = routes
   .filter((route) => route.meta?.layout)
@@ -18,7 +14,6 @@ describe("AppSidebar", () => {
 
   const createComponent = () => {
     wrapper = mount(AppSidebar, {
-      localVue,
       store,
       mocks: {
         $route: {

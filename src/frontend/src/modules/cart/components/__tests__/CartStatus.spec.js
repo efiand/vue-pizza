@@ -1,16 +1,12 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import "@/plugins/ui";
 import CartStatus from "@/modules/cart/components/CartStatus";
-
-const localVue = createLocalVue();
 
 describe("CartStatus", () => {
   let wrapper;
 
   const createComponent = () => {
-    wrapper = mount(CartStatus, {
-      localVue,
-    });
+    wrapper = mount(CartStatus);
   };
 
   afterEach(() => {

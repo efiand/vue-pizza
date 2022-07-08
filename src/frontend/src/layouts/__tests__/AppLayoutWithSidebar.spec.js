@@ -1,5 +1,4 @@
-import { createLocalVue, mount } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount } from "@vue/test-utils";
 import "@/plugins/ui";
 import { generateMockStore, content } from "@/store/mocks";
 import { USER } from "@/store/mocks/data";
@@ -7,16 +6,12 @@ import { adaptUserData } from "@/common/helpers";
 import routes from "@/router/routes";
 import AppLayoutWithSidebar from "@/layouts/AppLayoutWithSidebar";
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
 describe("AppLayoutWithSidebar", () => {
   let store;
   let wrapper;
 
   const createComponent = (options) => {
     wrapper = mount(AppLayoutWithSidebar, {
-      localVue,
       store,
       mocks: {
         $route: {

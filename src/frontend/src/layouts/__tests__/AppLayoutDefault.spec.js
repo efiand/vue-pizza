@@ -1,11 +1,7 @@
-import { createLocalVue, mount } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount } from "@vue/test-utils";
 import { generateMockStore, content } from "@/store/mocks";
 import "@/plugins/ui";
 import AppLayoutDefault from "@/layouts/AppLayoutDefault";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 describe("AppLayoutDefault", () => {
   let store;
@@ -13,7 +9,6 @@ describe("AppLayoutDefault", () => {
 
   const createComponent = (options) => {
     wrapper = mount(AppLayoutDefault, {
-      localVue,
       store,
       mocks: {
         $route: {

@@ -1,5 +1,4 @@
-import { createLocalVue, mount, RouterLinkStub } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import "@/plugins/ui";
 import flushPromises from "flush-promises";
 import { UPDATE_ORDER } from "@/store/mutation-types";
@@ -8,9 +7,6 @@ import { MOCK_ORDER, ADDRESSES, MockPrice } from "@/store/mocks/data";
 import { Message } from "@/common/constants";
 import { wait } from "@/common/utils";
 import CartView from "@/views/CartView";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 describe("CartView", () => {
   const LEAVE_TIMEOUT = 600;
@@ -26,7 +22,6 @@ describe("CartView", () => {
 
   const createComponent = (options = {}) => {
     wrapper = mount(CartView, {
-      localVue,
       store,
       stubs: { RouterLink: RouterLinkStub },
       ...options,

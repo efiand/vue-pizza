@@ -1,14 +1,10 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import { cloneDeep } from "lodash";
-import Vuex from "vuex";
 import "@/plugins/ui";
 import flushPromises from "flush-promises";
 import { generateMockStore, content } from "@/store/mocks";
 import { MOCK_ORDER } from "@/store/mocks/data";
 import OrdersView from "@/views/OrdersView";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 const getServeredOrder = (payload, i = 0) => {
   const order = cloneDeep(payload);
@@ -43,7 +39,6 @@ describe("OrdersView", () => {
 
   const createComponent = async (options) => {
     wrapper = mount(OrdersView, {
-      localVue,
       store,
       mocks,
       propsData: { content },

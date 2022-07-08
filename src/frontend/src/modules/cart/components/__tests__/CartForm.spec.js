@@ -1,10 +1,8 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import "@/plugins/ui";
 import { ADDRESSES } from "@/store/mocks/data";
 import { createAddress } from "@/common/helpers";
 import CartForm from "@/modules/cart/components/CartForm";
-
-const localVue = createLocalVue();
 
 describe("CartForm", () => {
   const addressFields = ["street", "building", "flat"];
@@ -13,7 +11,6 @@ describe("CartForm", () => {
 
   const createComponent = (options) => {
     wrapper = mount(CartForm, {
-      localVue,
       ...options,
     });
   };

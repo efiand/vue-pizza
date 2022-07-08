@@ -1,9 +1,7 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import "@/plugins/ui";
 import { MOCK_ORDER } from "@/store/mocks/data";
 import BuilderPizza from "@/modules/builder/components/BuilderPizza";
-
-const localVue = createLocalVue();
 
 describe("BuilderPizza", () => {
   const [{ doughId, sauceId, sizeId, ingredients }] = MOCK_ORDER.pizzas;
@@ -11,7 +9,6 @@ describe("BuilderPizza", () => {
 
   const createComponent = (options) => {
     wrapper = mount(BuilderPizza, {
-      localVue,
       propsData: {
         doughId,
         sauceId,

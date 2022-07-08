@@ -1,13 +1,9 @@
-import { createLocalVue, mount } from "@vue/test-utils";
-import Vuex from "vuex";
+import { mount } from "@vue/test-utils";
 import "@/plugins/ui";
 import { UPDATE_ORDER } from "@/store/mutation-types";
 import { generateMockStore, content } from "@/store/mocks";
 import { MOCK_ORDER } from "@/store/mocks/data";
 import IndexView from "@/views/IndexView";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 
 describe("IndexView", () => {
   let store;
@@ -15,7 +11,6 @@ describe("IndexView", () => {
 
   const createComponent = (options) => {
     wrapper = mount(IndexView, {
-      localVue,
       store,
       stubs: ["RouterView"],
       mocks: {
