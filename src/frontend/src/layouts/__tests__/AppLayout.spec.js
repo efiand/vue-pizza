@@ -19,10 +19,6 @@ describe("AppLayout", () => {
     store = generateMockStore();
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it.each(["AppLayoutDefault", "AppLayoutWithSidebar"])(
     "Is rendered with app layout",
     async (layout) => {

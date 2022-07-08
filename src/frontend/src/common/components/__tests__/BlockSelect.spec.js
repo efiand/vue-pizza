@@ -27,10 +27,6 @@ describe("BlockSelect", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("select.select").exists()).toBeTruthy();

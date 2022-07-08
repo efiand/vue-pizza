@@ -45,10 +45,6 @@ describe("LoginView", () => {
     store.$api.auth.getMe = jest.fn(() => Promise.resolve(USER));
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".login").exists()).toBeTruthy();

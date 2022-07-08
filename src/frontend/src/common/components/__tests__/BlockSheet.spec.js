@@ -11,10 +11,6 @@ describe("BlockSheet", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".sheet").exists()).toBeTruthy();

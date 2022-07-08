@@ -11,10 +11,6 @@ describe("BlockLogo", () => {
     wrapper = mount(BlockLogo, { stubs });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("a.logo").exists()).toBeTruthy();

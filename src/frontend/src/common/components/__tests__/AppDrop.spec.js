@@ -8,10 +8,6 @@ describe("AppDrop", () => {
     wrapper = shallowMount(AppDrop, options);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(`[data-test="AppDrop"]`).exists()).toBeTruthy();

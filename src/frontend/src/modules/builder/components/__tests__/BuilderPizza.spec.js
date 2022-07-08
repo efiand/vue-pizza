@@ -19,10 +19,6 @@ describe("BuilderPizza", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered with correct CSS classes", () => {
     createComponent();
     const pizzaWrapper = wrapper.find(

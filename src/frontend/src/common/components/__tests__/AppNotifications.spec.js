@@ -9,14 +9,13 @@ describe("AppNotifications", () => {
       },
     },
   };
-
   let wrapper;
+
   const createComponent = () => {
     wrapper = shallowMount(AppNotifications, { mocks });
   };
 
   afterEach(() => {
-    wrapper.destroy();
     mocks.$store.state["Notifications"].notifications = [];
   });
 

@@ -22,10 +22,6 @@ describe("BuilderFillingSelector", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".filling").exists()).toBeTruthy();

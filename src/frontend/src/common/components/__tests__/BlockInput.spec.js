@@ -19,10 +19,6 @@ describe("BlockInput", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("label.input").exists()).toBeTruthy();

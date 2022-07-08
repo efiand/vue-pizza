@@ -11,10 +11,6 @@ describe("BlockPopup", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".popup").exists()).toBeTruthy();

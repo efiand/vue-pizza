@@ -27,10 +27,6 @@ describe("IndexView", () => {
     store = generateMockStore();
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".index").exists()).toBeTruthy();

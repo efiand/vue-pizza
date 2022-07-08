@@ -24,10 +24,6 @@ describe("OrderCard", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
 

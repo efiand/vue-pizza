@@ -58,10 +58,6 @@ describe("OrdersView", () => {
     store.$notifier.success = jest.fn();
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
 

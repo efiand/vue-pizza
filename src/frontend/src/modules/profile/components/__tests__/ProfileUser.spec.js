@@ -14,10 +14,6 @@ describe("ProfileUser", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
 

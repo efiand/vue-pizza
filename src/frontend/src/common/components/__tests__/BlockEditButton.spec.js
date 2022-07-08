@@ -8,10 +8,6 @@ describe("BlockEditButton", () => {
     wrapper = shallowMount(BlockEditButton, options);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("button.edit").exists()).toBeTruthy();

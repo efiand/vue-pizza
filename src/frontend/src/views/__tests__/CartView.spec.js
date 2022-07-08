@@ -41,10 +41,6 @@ describe("CartView", () => {
     store.commit(`Cart/${UPDATE_ORDER}`, MOCK_ORDER);
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".cart").exists()).toBeTruthy();

@@ -21,10 +21,6 @@ describe("BlockRadio", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("label.radio").exists()).toBeTruthy();

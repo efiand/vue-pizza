@@ -9,10 +9,6 @@ describe("CartStatus", () => {
     wrapper = mount(CartStatus);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".cart-status").exists()).toBeTruthy();

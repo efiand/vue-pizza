@@ -15,10 +15,6 @@ describe("CartForm", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent({ propsData: { addresses: [] } });
 

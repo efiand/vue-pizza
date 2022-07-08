@@ -13,10 +13,6 @@ describe("BuilderPizzaFilling", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered with 1 (by default), 2, 3 images", async () => {
     createComponent();
     expect(wrapper.find(`.pizza-filling--ingredient--1`).exists()).toBeTruthy();

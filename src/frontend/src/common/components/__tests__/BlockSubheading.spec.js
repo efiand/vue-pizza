@@ -7,10 +7,6 @@ describe("BlockSubheading", () => {
     wrapper = shallowMount(BlockSubheading, options);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("h2.subheading").exists()).toBeTruthy();

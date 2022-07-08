@@ -9,10 +9,6 @@ describe("CartMore", () => {
     wrapper = shallowMount(CartMore, options);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered as link", () => {
     createComponent({ stubs: { RouterLink: RouterLinkStub } });
     expect(wrapper.find("a.cart-more").exists()).toBeTruthy();

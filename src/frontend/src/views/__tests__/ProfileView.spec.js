@@ -54,10 +54,6 @@ describe("ProfileView", () => {
     store.commit(`User/${SET_ADDRESSES}`, addresses);
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
 

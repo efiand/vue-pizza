@@ -19,10 +19,6 @@ describe("CartMiscList", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".additional-list").exists()).toBeTruthy();

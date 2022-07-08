@@ -7,10 +7,6 @@ describe("BlockButton", () => {
     wrapper = shallowMount(BlockButton, options);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("button.button").exists()).toBeTruthy();

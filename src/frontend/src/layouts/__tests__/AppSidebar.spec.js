@@ -35,10 +35,6 @@ describe("AppSidebar", () => {
     store = generateMockStore();
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".sidebar").exists()).toBeTruthy();

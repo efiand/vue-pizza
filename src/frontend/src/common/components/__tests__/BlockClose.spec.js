@@ -12,10 +12,6 @@ describe("BlockClose", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".close").exists()).toBeTruthy();

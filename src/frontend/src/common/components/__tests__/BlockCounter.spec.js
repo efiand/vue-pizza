@@ -8,10 +8,6 @@ describe("BlockCounter", () => {
     wrapper = shallowMount(BlockCounter, options);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
 

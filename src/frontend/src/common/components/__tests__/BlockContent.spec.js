@@ -18,10 +18,6 @@ describe("BlockContent", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".content").exists()).toBeTruthy();

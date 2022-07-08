@@ -8,10 +8,6 @@ describe("BlockHeading", () => {
     wrapper = shallowMount(BlockHeading, options);
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("h1.heading").exists()).toBeTruthy();

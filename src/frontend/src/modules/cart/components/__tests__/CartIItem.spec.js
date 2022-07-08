@@ -21,10 +21,6 @@ describe("CartItem", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".cart-item").exists()).toBeTruthy();

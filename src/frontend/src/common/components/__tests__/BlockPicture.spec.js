@@ -19,10 +19,6 @@ describe("BlockPicture", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find("picture").exists()).toBeTruthy();

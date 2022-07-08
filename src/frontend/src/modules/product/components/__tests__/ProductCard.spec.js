@@ -18,10 +18,6 @@ describe("ProductCard", () => {
     });
   };
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
     expect(wrapper.find(".product").exists()).toBeTruthy();

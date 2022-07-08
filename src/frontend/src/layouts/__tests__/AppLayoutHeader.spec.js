@@ -35,10 +35,6 @@ describe("AppLayoutHeader", () => {
     store.$api.auth.logout = jest.fn();
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
 

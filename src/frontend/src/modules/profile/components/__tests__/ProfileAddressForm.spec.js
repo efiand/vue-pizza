@@ -22,10 +22,6 @@ describe("ProfileAddressForm", () => {
     address = cloneDeep(ADDRESSES[0]);
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   it("Is rendered", () => {
     createComponent();
 
