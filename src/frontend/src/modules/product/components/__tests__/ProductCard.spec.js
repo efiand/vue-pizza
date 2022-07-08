@@ -7,14 +7,13 @@ import ProductCard from "@/modules/product/components/ProductCard";
 const localVue = createLocalVue();
 
 describe("ProductCard", () => {
-  const stubs = { RouterLink: RouterLinkStub };
   const [pizza] = MOCK_ORDER.pizzas;
   let wrapper;
 
   const createComponent = () => {
     wrapper = mount(ProductCard, {
       localVue,
-      stubs,
+      stubs: { RouterLink: RouterLinkStub },
       propsData: {
         content,
         pizza,

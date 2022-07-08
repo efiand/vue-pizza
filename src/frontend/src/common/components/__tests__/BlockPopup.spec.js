@@ -2,12 +2,13 @@ import { shallowMount } from "@vue/test-utils";
 import BlockPopup from "@/common/components/BlockPopup";
 
 describe("BlockPopup", () => {
-  const slots = { default: "Popup content" };
-  const stubs = ["BlockClose"];
-
   let wrapper;
+
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockPopup, { ...options, stubs });
+    wrapper = shallowMount(BlockPopup, {
+      stubs: ["BlockClose"],
+      ...options,
+    });
   };
 
   afterEach(() => {
@@ -20,6 +21,7 @@ describe("BlockPopup", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     expect(wrapper.html()).toContain(slots.default);
   });

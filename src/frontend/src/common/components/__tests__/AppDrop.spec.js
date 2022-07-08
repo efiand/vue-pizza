@@ -3,7 +3,6 @@ import AppDrop from "@/common/components/AppDrop";
 
 describe("AppDrop", () => {
   let wrapper;
-  const slots = { default: "Test" };
 
   const createComponent = (options) => {
     wrapper = shallowMount(AppDrop, options);
@@ -19,6 +18,7 @@ describe("AppDrop", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     expect(wrapper.html()).toContain(slots.default);
   });

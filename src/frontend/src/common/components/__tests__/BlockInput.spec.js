@@ -2,21 +2,21 @@ import { shallowMount } from "@vue/test-utils";
 import BlockInput from "@/common/components/BlockInput";
 
 describe("BlockInput", () => {
-  const propsData = {
-    label: "Label",
-    name: "name",
-    value: "value",
+  const DEFAULT_PROPS = {
+    label: "Test",
+    name: "Test",
+    value: "Test",
   };
-  const defaultType = "text";
-  const testType = "tel";
-  const testValue = "test";
-  const testPlaceholder = "test placeholder";
-  const bigLabelClassName = "input--big-label";
-  const visuallyHiddenClassName = "visually-hidden";
-
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = shallowMount(BlockInput, { propsData, ...options });
+
+  const createComponent = (options = {}) => {
+    wrapper = shallowMount(BlockInput, {
+      ...options,
+      propsData: {
+        ...DEFAULT_PROPS,
+        ...options.propsData,
+      },
+    });
   };
 
   afterEach(() => {
@@ -29,8 +29,9 @@ describe("BlockInput", () => {
   });
 
   it("It sets the initial model value", () => {
-    createComponent();
-    expect(wrapper.find("input").element.value).toBe(propsData.value);
+    const value = "Test";
+    createComponent({ propsData: { value } });
+    expect(wrapper.find("input").element.value).toBe(value);
   });
 
   it("It emits an input event when typing", async () => {
@@ -42,31 +43,39 @@ describe("BlockInput", () => {
 
   it("Emits the current input value when typing", async () => {
     createComponent();
+
     const inputWrapper = wrapper.find("input");
+    const testValue = "Test";
     inputWrapper.element.value = testValue;
+
     await inputWrapper.trigger("input");
     expect(wrapper.emitted().input[0][0]).toEqual(testValue);
   });
 
   it("Input name is prop name", () => {
-    createComponent();
+    const name = "Test";
+    createComponent({ propsData: { name } });
+
     const inputWrapper = wrapper.find("input");
-    expect(inputWrapper.attributes("name")).toBe(propsData.name);
+    expect(inputWrapper.attributes("name")).toBe(name);
   });
 
   it("Input label is prop label", () => {
-    createComponent();
+    const label = "Test";
+    createComponent({ propsData: { label } });
+
     const labelWrapper = wrapper.find("span");
-    expect(labelWrapper.html()).toContain(propsData.label);
+    expect(labelWrapper.html()).toContain(label);
   });
 
   it("Input type is default type but is prop type when prop added", async () => {
     createComponent();
     const inputWrapper = wrapper.find("input");
-    expect(inputWrapper.attributes("type")).toBe(defaultType);
+    expect(inputWrapper.attributes("type")).toBe("text");
 
-    await wrapper.setProps({ type: testType });
-    expect(inputWrapper.attributes("type")).toBe(testType);
+    const type = "tel";
+    await wrapper.setProps({ type });
+    expect(inputWrapper.attributes("type")).toBe(type);
   });
 
   it("Input placeholder is empty string but is prop placeholder when prop added", async () => {
@@ -74,8 +83,9 @@ describe("BlockInput", () => {
     const inputWrapper = wrapper.find("input");
     expect(inputWrapper.attributes("placeholder")).toBe("");
 
-    await wrapper.setProps({ placeholder: testPlaceholder });
-    expect(inputWrapper.attributes("placeholder")).toBe(testPlaceholder);
+    const placeholder = "Test";
+    await wrapper.setProps({ placeholder });
+    expect(inputWrapper.attributes("placeholder")).toBe(placeholder);
   });
 
   it("Input is readonly when prop added", async () => {
@@ -97,6 +107,7 @@ describe("BlockInput", () => {
   });
 
   it("Input has big label when prop added", async () => {
+    const bigLabelClassName = "input--big-label";
     createComponent();
     expect(wrapper.classes()).not.toContain(bigLabelClassName);
 
@@ -105,7 +116,9 @@ describe("BlockInput", () => {
   });
 
   it("Label is visually hidden when prop added", async () => {
+    const visuallyHiddenClassName = "visually-hidden";
     createComponent();
+
     const labelWrapper = wrapper.find("span");
     expect(labelWrapper.classes()).not.toContain(visuallyHiddenClassName);
 

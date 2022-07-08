@@ -3,27 +3,20 @@ import { accumulateSrc } from "@/common/helpers";
 import BlockPicture from "@/common/components/BlockPicture";
 
 describe("BlockPicture", () => {
-  const srcset = [
-    "http://localhost:3000/public/img/users/user.jpg",
-    "http://localhost:3000/public/img/users/user@2x.jpg",
-  ];
-  const webpset = [
-    "http://localhost:3000/public/img/users/user.webp",
-    "http://localhost:3000/public/img/users/user@2x.webp",
-  ];
-  const size = {
-    width: "32",
-    height: "32",
-  };
-  const propsData = {
-    alt: "Вася Пупкин",
+  const DEFAULT_PROPS = {
     remote: true,
     srcset: ["http://localhost:3000/public/img/users/user.jpg"],
   };
-
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = shallowMount(BlockPicture, { propsData, ...options });
+
+  const createComponent = (options = {}) => {
+    wrapper = shallowMount(BlockPicture, {
+      ...options,
+      propsData: {
+        ...DEFAULT_PROPS,
+        ...options.propsData,
+      },
+    });
   };
 
   afterEach(() => {
@@ -41,15 +34,19 @@ describe("BlockPicture", () => {
     expect(imgWrapper.attributes("width")).toBeUndefined();
     expect(imgWrapper.attributes("height")).toBeUndefined();
 
-    await wrapper.setProps({ ...size });
-    expect(imgWrapper.attributes("width")).toEqual(size.width);
-    expect(imgWrapper.attributes("height")).toEqual(size.height);
+    const width = "32";
+    const height = "32";
+    await wrapper.setProps({ width, height });
+    expect(imgWrapper.attributes("width")).toEqual(width);
+    expect(imgWrapper.attributes("height")).toEqual(height);
   });
 
   it("Image alt is prop alt", () => {
-    createComponent();
+    const alt = "Test";
+    createComponent({ propsData: { alt } });
+
     const imgWrapper = wrapper.find("img");
-    expect(imgWrapper.attributes("alt")).toEqual(propsData.alt);
+    expect(imgWrapper.attributes("alt")).toEqual(alt);
   });
 
   it("Image tag with one picture has not srcset attribute", async () => {
@@ -57,6 +54,11 @@ describe("BlockPicture", () => {
     const imgWrapper = wrapper.find("img");
     expect(imgWrapper.attributes("srcset")).toBeUndefined();
 
+    const srcset = [
+      "http://localhost:3000/public/img/users/user.jpg",
+      "http://localhost:3000/public/img/users/user@2x.jpg",
+      "http://localhost:3000/public/img/users/user@4x.jpg",
+    ];
     await wrapper.setProps({ srcset });
     expect(imgWrapper.attributes("srcset")).toEqual(
       accumulateSrc(srcset.slice(1), 2)
@@ -67,6 +69,11 @@ describe("BlockPicture", () => {
     createComponent();
     expect(wrapper.find("source").exists()).toBeFalsy();
 
+    const webpset = [
+      "http://localhost:3000/public/img/users/user.webp",
+      "http://localhost:3000/public/img/users/user@2x.webp",
+      "http://localhost:3000/public/img/users/user@4x.webp",
+    ];
     await wrapper.setProps({ webpset });
     expect(wrapper.find("source").attributes("srcset")).toEqual(
       accumulateSrc(webpset)

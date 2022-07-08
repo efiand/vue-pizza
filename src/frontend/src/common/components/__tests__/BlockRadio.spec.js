@@ -2,19 +2,23 @@ import { shallowMount } from "@vue/test-utils";
 import BlockRadio from "@/common/components/BlockRadio";
 
 describe("BlockRadio", () => {
-  const propsData = {
-    name: "name",
+  const DEFAULT_PROPS = {
+    name: "Test",
     option: {
-      id: "option",
-      name: "Option name",
+      id: "Test",
+      name: "Test",
     },
   };
-  const bigClassName = "radio__input--big";
-  const smallClassName = "radio__input--small";
-
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = shallowMount(BlockRadio, { propsData, ...options });
+
+  const createComponent = (options = {}) => {
+    wrapper = shallowMount(BlockRadio, {
+      ...options,
+      propsData: {
+        ...DEFAULT_PROPS,
+        ...options.propsData,
+      },
+    });
   };
 
   afterEach(() => {
@@ -27,41 +31,63 @@ describe("BlockRadio", () => {
   });
 
   it("It sets the initial model value", () => {
-    createComponent();
+    const option = {
+      id: "Test",
+      name: "Test",
+    };
+    createComponent({
+      propsData: {
+        option,
+      },
+    });
+
     const inputWrapper = wrapper.find("input");
-    expect(inputWrapper.element.value).toBe(propsData.option.id);
+    expect(inputWrapper.element.value).toBe(option.id);
   });
 
   it("It is not checked by default", () => {
     createComponent();
+
     const inputWrapper = wrapper.find("input");
     expect(inputWrapper.attributes("checked")).toBeUndefined();
   });
 
   it("It emits an change event when changed and add checked attribute", async () => {
     createComponent();
+
     const inputWrapper = wrapper.find("input");
     await inputWrapper.trigger("change");
     expect(wrapper.emitted().change).toBeTruthy();
   });
 
   it("Input name is prop name", () => {
-    createComponent();
+    const name = "Test";
+    createComponent({ propsData: { name } });
+
     const inputWrapper = wrapper.find("input");
-    expect(inputWrapper.attributes("name")).toBe(propsData.name);
+    expect(inputWrapper.attributes("name")).toBe(name);
   });
 
   it("Input option include option name", () => {
-    createComponent();
+    const option = {
+      id: "Test",
+      name: "Test",
+    };
+    createComponent({
+      propsData: {
+        option,
+      },
+    });
+
     const optionWrapper = wrapper.find("span");
-    expect(optionWrapper.html()).toContain(propsData.option.name);
+    expect(optionWrapper.html()).toContain(option.name);
   });
 
   it("Input option include option description when prop passed", async () => {
     const option = {
-      id: "option",
-      name: "Option name",
-      description: "Description",
+      id: "Test",
+      name: "Test",
+      description: "Test",
     };
 
     createComponent();
@@ -72,7 +98,10 @@ describe("BlockRadio", () => {
   });
 
   it("Input include small class by default and change to big class when prop passed", async () => {
+    const bigClassName = "radio__input--big";
+    const smallClassName = "radio__input--small";
     createComponent();
+
     const inputWrapper = wrapper.find("input");
     expect(inputWrapper.classes()).toContain(smallClassName);
     expect(inputWrapper.classes()).not.toContain(bigClassName);

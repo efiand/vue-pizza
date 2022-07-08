@@ -16,7 +16,6 @@ describe("AppLayoutWithSidebar", () => {
 
   const createComponent = (options) => {
     wrapper = mount(AppLayoutWithSidebar, {
-      ...options,
       localVue,
       store,
       mocks: {
@@ -30,6 +29,7 @@ describe("AppLayoutWithSidebar", () => {
         },
       },
       stubs: ["RouterView", "RouterLink"],
+      ...options,
     });
   };
 

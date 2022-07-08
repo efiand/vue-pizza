@@ -19,19 +19,21 @@ describe("CartView", () => {
       push: jest.fn(),
     },
   };
-  const propsData = { content };
-  const stubs = { RouterLink: RouterLinkStub };
+  const DEFAULT_PROPS = { content };
   const phone = "911";
   let store;
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = (options = {}) => {
     wrapper = mount(CartView, {
       localVue,
       store,
-      stubs,
-      propsData,
+      stubs: { RouterLink: RouterLinkStub },
       ...options,
+      propsData: {
+        ...DEFAULT_PROPS,
+        ...options.propsData,
+      },
     });
   };
 
@@ -281,7 +283,6 @@ describe("CartView", () => {
     createComponent({
       mocks,
       propsData: {
-        ...propsData,
         user: {},
       },
     });

@@ -2,12 +2,13 @@ import { shallowMount } from "@vue/test-utils";
 import BlockSheet from "@/common/components/BlockSheet";
 
 describe("BlockSheet", () => {
-  const slots = { default: "Sheet" };
-  const stubs = ["BlockSubheading"];
-
   let wrapper;
+
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockSheet, { ...options, stubs });
+    wrapper = shallowMount(BlockSheet, {
+      stubs: ["BlockSubheading"],
+      ...options,
+    });
   };
 
   afterEach(() => {
@@ -20,6 +21,7 @@ describe("BlockSheet", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     expect(wrapper.html()).toContain(slots.default);
   });

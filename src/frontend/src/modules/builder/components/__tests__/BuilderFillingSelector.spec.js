@@ -7,20 +7,21 @@ import BuilderFillingSelector from "@/modules/builder/components/BuilderFillingS
 const localVue = createLocalVue();
 
 describe("BuilderFillingSelector", () => {
-  let pizzaIngredients;
-  let propsData;
+  const INGREDIENTS = MOCK_ORDER.pizzas[0].ingredients.slice();
+  const DEFAULT_PROPS = {
+    ingredients: content.ingredients,
+    value: INGREDIENTS,
+  };
   let wrapper;
 
-  const createComponent = (options) => {
-    pizzaIngredients = MOCK_ORDER.pizzas[0].ingredients.slice();
-    propsData = {
-      ingredients: content.ingredients,
-      value: pizzaIngredients,
-    };
+  const createComponent = (options = {}) => {
     wrapper = mount(BuilderFillingSelector, {
       localVue,
-      propsData,
       ...options,
+      propsData: {
+        ...DEFAULT_PROPS,
+        ...options.propsData,
+      },
     });
   };
 
@@ -36,9 +37,7 @@ describe("BuilderFillingSelector", () => {
   it("All ingredients render with correct counters", () => {
     createComponent();
     wrapper.findAll(".counter__input").wrappers.forEach((counter, i) => {
-      expect(+counter.element.value).toStrictEqual(
-        pizzaIngredients[i].quantity
-      );
+      expect(+counter.element.value).toStrictEqual(INGREDIENTS[i].quantity);
     });
   });
 
@@ -46,7 +45,7 @@ describe("BuilderFillingSelector", () => {
     createComponent();
     const spyOnUpdate = jest.spyOn(wrapper.vm, "inputHandler");
     const increaserWrapper = wrapper.find(`.counter__button--plus`);
-    const { quantity } = pizzaIngredients[0];
+    const { quantity } = INGREDIENTS[0];
 
     await increaserWrapper.trigger("click");
     expect(spyOnUpdate).toHaveBeenCalledWith(quantity + 1, 0);
@@ -62,9 +61,9 @@ describe("BuilderFillingSelector", () => {
   });
 
   it("Ingredient with max quantity is not draggable", async () => {
-    const value = pizzaIngredients.slice();
+    const value = INGREDIENTS.slice();
     value[0].quantity = 3;
-    createComponent({ propsData: { ...propsData, value } });
+    createComponent({ propsData: { value } });
 
     const ingredientWrapper = wrapper.find(`[data-test="ingredient-1"]`);
     expect(ingredientWrapper.attributes("draggable")).toStrictEqual("false");

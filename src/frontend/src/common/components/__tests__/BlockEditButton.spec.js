@@ -2,9 +2,8 @@ import { shallowMount } from "@vue/test-utils";
 import BlockEditButton from "@/common/components/BlockEditButton";
 
 describe("BlockEditButton", () => {
-  const slots = { default: "My button" };
-
   let wrapper;
+
   const createComponent = (options) => {
     wrapper = shallowMount(BlockEditButton, options);
   };
@@ -19,6 +18,7 @@ describe("BlockEditButton", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     const textWrapper = wrapper.find("span.visually-hidden");
     expect(textWrapper.html()).toContain(slots.default);

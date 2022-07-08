@@ -2,19 +2,13 @@ import { shallowMount } from "@vue/test-utils";
 import BlockCounter from "@/common/components/BlockCounter";
 
 describe("BlockCounter", () => {
-  const propsData = {
-    value: 0,
-    max: 3,
-  };
-  const secondaryClassName = "counter__button--secondary";
-
   let wrapper;
+
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockCounter, { propsData, ...options });
+    wrapper = shallowMount(BlockCounter, options);
   };
 
   afterEach(() => {
-    propsData.value = 0;
     wrapper.destroy();
   });
 
@@ -25,9 +19,14 @@ describe("BlockCounter", () => {
   });
 
   it("It sets the initial model value", () => {
-    createComponent();
+    const value = 0;
+    createComponent({
+      propsData: {
+        value,
+      },
+    });
 
-    expect(+wrapper.find("input").element.value).toBe(propsData.value);
+    expect(+wrapper.find("input").element.value).toBe(value);
   });
 
   it("It emits an input event when typing", async () => {
@@ -59,8 +58,11 @@ describe("BlockCounter", () => {
   });
 
   it("The click on the minus button decrease value", async () => {
-    propsData.value++;
-    createComponent();
+    createComponent({
+      propsData: {
+        value: 1,
+      },
+    });
 
     await wrapper.find(".counter__button--minus").trigger("click");
 
@@ -76,7 +78,7 @@ describe("BlockCounter", () => {
   });
 
   it("The plus button is disabled when value is max", () => {
-    createComponent({ propsData: { ...propsData, value: propsData.max } });
+    createComponent({ propsData: { value: 3, max: 3 } });
 
     expect(wrapper.find(".counter__button--plus").attributes("disabled")).toBe(
       "disabled"
@@ -84,14 +86,15 @@ describe("BlockCounter", () => {
   });
 
   it("If typed value is greater than max, value and max are equal", async () => {
-    createComponent();
+    const max = 3;
+    createComponent({ propsData: { max } });
 
     const inputWrapper = wrapper.find("input");
 
     inputWrapper.element.value = "4";
     await inputWrapper.trigger("input");
 
-    expect(wrapper.emitted().input[0][0]).toEqual(propsData.max);
+    expect(wrapper.emitted().input[0][0]).toEqual(max);
   });
 
   it("If typed value is less than 0, value is 0", async () => {
@@ -117,7 +120,9 @@ describe("BlockCounter", () => {
   });
 
   it("The plus button has secondary class when prop passed", async () => {
+    const secondaryClassName = "counter__button--secondary";
     createComponent();
+
     const buttonWrapper = wrapper.find(".counter__button--plus");
     expect(buttonWrapper.classes()).not.toContain(secondaryClassName);
 

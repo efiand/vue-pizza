@@ -2,23 +2,29 @@ import { shallowMount } from "@vue/test-utils";
 import BlockSelect from "@/common/components/BlockSelect";
 
 describe("BlockSelect", () => {
-  const propsData = {
+  const DEFAULT_PROPS = {
     name: "name",
     options: [
       {
         id: "1",
-        name: "Option 1 name",
+        name: "Test 1",
       },
       {
         id: "2",
-        name: "Option 2 name",
+        name: "Test 2",
       },
     ],
   };
-
   let wrapper;
-  const createComponent = () => {
-    wrapper = shallowMount(BlockSelect, { propsData });
+
+  const createComponent = (options = {}) => {
+    wrapper = shallowMount(BlockSelect, {
+      ...options,
+      propsData: {
+        ...DEFAULT_PROPS,
+        ...options.propsData,
+      },
+    });
   };
 
   afterEach(() => {
@@ -43,13 +49,22 @@ describe("BlockSelect", () => {
   });
 
   it("Select name is prop name", () => {
-    createComponent();
-    expect(wrapper.attributes("name")).toBe(propsData.name);
+    const name = "Test";
+    createComponent({ propsData: { name } });
+
+    expect(wrapper.attributes("name")).toBe(name);
   });
 
   it("Select option include option name", () => {
-    createComponent();
+    const options = [
+      {
+        id: "1",
+        name: "Test 1",
+      },
+    ];
+    createComponent({ propsData: { options } });
+
     const optionWrapper = wrapper.find("option:nth-child(1)");
-    expect(optionWrapper.html()).toContain(propsData.options[0].name);
+    expect(optionWrapper.html()).toContain(options[0].name);
   });
 });

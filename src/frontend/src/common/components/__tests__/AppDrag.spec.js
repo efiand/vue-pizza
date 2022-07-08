@@ -3,16 +3,18 @@ import { DATA_TRANSFER_PAYLOAD } from "@/common/constants";
 import AppDrag from "@/common/components/AppDrag";
 
 describe("AppDrag", () => {
-  let wrapper;
-  const propsData = {
+  const DEFAULT_PROPS = {
     transferData: { test: true },
   };
-  const slots = { default: "Test" };
+  let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = (options = {}) => {
     wrapper = shallowMount(AppDrag, {
-      propsData,
       ...options,
+      propsData: {
+        ...DEFAULT_PROPS,
+        ...options.propsData,
+      },
     });
   };
 
@@ -26,6 +28,7 @@ describe("AppDrag", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     expect(wrapper.html()).toContain(slots.default);
   });
@@ -39,7 +42,10 @@ describe("AppDrag", () => {
   });
 
   it("Transfer data after start drag", async () => {
-    createComponent();
+    const transferData = { test: true };
+    createComponent({
+      propsData: { transferData },
+    });
     const eventStub = {
       dataTransfer: {
         data: {},
@@ -56,6 +62,6 @@ describe("AppDrag", () => {
     expect(spyOnDrag).toHaveBeenCalled();
     expect(
       JSON.parse(eventStub.dataTransfer.data[DATA_TRANSFER_PAYLOAD])
-    ).toEqual(propsData.transferData);
+    ).toEqual(transferData);
   });
 });

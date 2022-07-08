@@ -7,17 +7,16 @@ import CartFooter from "@/modules/cart/components/CartFooter";
 const localVue = createLocalVue();
 
 describe("CartFooter", () => {
-  const propsData = {
-    content,
-    currentOrder: MOCK_ORDER,
-  };
   let wrapper;
 
   const createComponent = (options) => {
     wrapper = mount(CartFooter, {
       localVue,
       stubs: { RouterLink: RouterLinkStub },
-      propsData,
+      propsData: {
+        content,
+        currentOrder: MOCK_ORDER,
+      },
       ...options,
     });
   };

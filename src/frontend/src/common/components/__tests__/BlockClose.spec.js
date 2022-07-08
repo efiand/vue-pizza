@@ -2,16 +2,14 @@ import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 import BlockClose from "@/common/components/BlockClose";
 
 describe("BlockClose", () => {
-  const slots = { default: "Close" };
-  const propsData = {
-    isWhite: true,
-    to: "/", // Пропс отвечает за генерацию ссылки вместо кнопки
-  };
   const stubs = { RouterLink: RouterLinkStub };
-
   let wrapper;
+
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockClose, { ...options, stubs });
+    wrapper = shallowMount(BlockClose, {
+      stubs,
+      ...options,
+    });
   };
 
   afterEach(() => {
@@ -24,6 +22,7 @@ describe("BlockClose", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     const textWrapper = wrapper.find("span.visually-hidden");
     expect(textWrapper.html()).toContain(slots.default);
@@ -42,7 +41,10 @@ describe("BlockClose", () => {
     createComponent();
     expect(wrapper.find("button.close").exists()).toBeTruthy();
 
-    await wrapper.setProps(propsData);
+    await wrapper.setProps({
+      isWhite: true,
+      to: "/", // Пропс отвечает за генерацию ссылки вместо кнопки
+    });
     expect(wrapper.find("a.close.close--white").exists()).toBeTruthy();
   });
 });

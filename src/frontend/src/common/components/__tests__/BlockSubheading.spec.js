@@ -2,8 +2,6 @@ import { shallowMount } from "@vue/test-utils";
 import BlockSubheading from "@/common/components/BlockSubheading";
 
 describe("BlockSubheading", () => {
-  const slots = { default: "Subheading" };
-
   let wrapper;
   const createComponent = (options) => {
     wrapper = shallowMount(BlockSubheading, options);
@@ -19,6 +17,7 @@ describe("BlockSubheading", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     expect(wrapper.html()).toContain(slots.default);
   });

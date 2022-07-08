@@ -26,12 +26,12 @@ describe("AppLayoutHeader", () => {
 
   const createComponent = (options) => {
     wrapper = mount(AppLayoutHeader, {
-      ...options,
       localVue,
       store,
       stubs: {
         RouterLink: RouterLinkStub,
       },
+      ...options,
     });
   };
 
@@ -67,9 +67,9 @@ describe("AppLayoutHeader", () => {
     });
 
     expect(wrapper.find(".header__user img").attributes("alt")).toStrictEqual(
-      USER.name
+      user.name
     );
-    expect(wrapper.find(".header__user span").text()).toStrictEqual(USER.name);
+    expect(wrapper.find(".header__user span").text()).toStrictEqual(user.name);
   });
 
   it("Link to login is rendered when has not user data, otherwise link to logout is rendered", async () => {

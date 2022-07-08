@@ -2,8 +2,6 @@ import { shallowMount } from "@vue/test-utils";
 import BlockButton from "@/common/components/BlockButton";
 
 describe("BlockButton", () => {
-  const slots = { default: "My button" };
-
   let wrapper;
   const createComponent = (options) => {
     wrapper = shallowMount(BlockButton, options);
@@ -19,6 +17,7 @@ describe("BlockButton", () => {
   });
 
   it("Renders out the slot content", () => {
+    const slots = { default: "Test" };
     createComponent({ slots });
     expect(wrapper.html()).toContain(slots.default);
   });
