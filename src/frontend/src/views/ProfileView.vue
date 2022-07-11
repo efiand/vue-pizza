@@ -44,6 +44,11 @@ import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.
 export default {
   name: "ProfileView",
 
+  meta: {
+    layout: "AppLayoutWithSidebar",
+    title: "Мои данные",
+  },
+
   components: {
     ProfileUser,
     ProfileAddressForm,

@@ -4,8 +4,11 @@ import routes from "@/router/routes";
 
 Vue.use(Router);
 
-export default new Router({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
-});
+export default Promise.all(routes).then(
+  (routes) =>
+    new Router({
+      mode: "history",
+      base: process.env.BASE_URL,
+      routes,
+    })
+);

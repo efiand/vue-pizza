@@ -28,6 +28,11 @@ import OrderCard from "@/modules/orders/components/OrderCard.vue";
 export default {
   name: "OrdersView",
 
+  meta: {
+    layout: "AppLayoutWithSidebar",
+    title: "История заказов",
+  },
+
   components: {
     OrderCard,
   },
