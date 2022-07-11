@@ -70,7 +70,7 @@ export default {
 
         // Если новый адрес пользователя добавлен через корзину, надо обновить профайл
         if (order.userId && order.address && !order.address.id) {
-          await dispatch("User/getAddresses", null, { root: true });
+          await dispatch("Profile/getAddresses", null, { root: true });
           this.$notifier.info("В «Мои данные» добавлен новый адрес");
         }
 

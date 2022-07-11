@@ -1,7 +1,7 @@
 import { cloneDeep } from "lodash";
 import Vuex from "vuex";
 import store from "@/store";
-import { User, Cart, Orders, Notifications } from "@/store/modules";
+import { Profile, Cart, Orders, Notifications } from "@/store/modules";
 import { adaptContentEntity } from "@/common/helpers";
 import { DOUGH, SAUCES, SIZES, INGREDIENTS, MISC } from "./data";
 import { notify } from "@/plugins/vuex-plugins";
@@ -20,7 +20,7 @@ const initState = () => ({
 });
 
 export const generateMockStore = (actions) => {
-  const modulesCopy = cloneDeep({ User, Cart, Orders, Notifications });
+  const modulesCopy = cloneDeep({ Profile, Cart, Orders, Notifications });
   if (actions) {
     Object.entries(actions).forEach(([module, actions]) => {
       modulesCopy[module] = { ...modulesCopy[module], actions };

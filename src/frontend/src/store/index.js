@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { CREATE_CONTENT, UPDATE_ORDER } from "@/store/mutation-types";
-import { User, Cart, Orders, Notifications } from "@/store/modules";
+import { Profile, Cart, Orders, Notifications } from "@/store/modules";
 import { notify } from "@/plugins/vuex-plugins";
 import { adaptContentEntity } from "@/common/helpers";
 
@@ -41,6 +41,6 @@ export default new Vuex.Store({
       this.$notifier.delete(notificationId);
     },
   },
-  modules: { User, Cart, Orders, Notifications },
+  modules: { Profile, Cart, Orders, Notifications },
   plugins: [notify],
 });

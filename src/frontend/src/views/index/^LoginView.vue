@@ -58,7 +58,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch("User/login", {
+        await this.$store.dispatch("Profile/login", {
           email: this.email,
           password: this.password,
         });

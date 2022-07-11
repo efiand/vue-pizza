@@ -14,7 +14,7 @@ const generateRoute = (path) => {
     path.shift();
   }
 
-  // Обработка корневых файлов. Например: файлы views/IndexView.vue, views/UserView.vue
+  // Обработка корневых файлов. Например: файлы views/IndexView.vue, views/ProfileView.vue
   if (path.length === 1) {
     const shortcut = path[0].toLowerCase();
 
