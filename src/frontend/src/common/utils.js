@@ -12,5 +12,8 @@ export const spacifyNumber = (number, delimiter = "\u00A0") => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter);
 };
 
+export const capitalize = (str) =>
+  `${str.slice(0, 1).toUpperCase()}${str.slice(1)}`;
+
 export const wait = (ms = 0) =>
   new Promise((resolve) => setTimeout(resolve, ms));
