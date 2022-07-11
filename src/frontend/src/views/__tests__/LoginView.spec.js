@@ -3,7 +3,7 @@ import flushPromises from "flush-promises";
 import "@/plugins/ui";
 import { generateMockStore } from "@/store/mocks";
 import { USER } from "@/store/mocks/data";
-import LoginView from "@/views/LoginView";
+import LoginView from "@/views/index/^LoginView";
 
 export const Res = {
   SUCCESS: {

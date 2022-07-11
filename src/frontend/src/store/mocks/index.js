@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 import Vuex from "vuex";
-import { mutations } from "@/store";
+import store from "@/store";
 import { User, Cart, Orders, Notifications } from "@/store/modules";
 import { adaptContentEntity } from "@/common/helpers";
 import { DOUGH, SAUCES, SIZES, INGREDIENTS, MISC } from "./data";
@@ -29,7 +29,7 @@ export const generateMockStore = (actions) => {
 
   return new Vuex.Store({
     state: initState(),
-    mutations,
+    mutations: store.mutations,
     modules: modulesCopy,
     plugins: [notify],
   });

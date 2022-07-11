@@ -17,12 +17,12 @@ describe("Test utilities", () => {
 
   it("Test findItemById", () => {
     const list = [{ id: 2 }, { id: 1 }, { id: "test" }];
-    expect(findItemById(list, 1)).toEqual(list[1]);
-    expect(findItemById(list, "test")).toEqual(list[2]);
+    expect(findItemById(list, 1)).toStrictEqual(list[1]);
+    expect(findItemById(list, "test")).toStrictEqual(list[2]);
   });
 
   it("Test spacifyNumber", () => {
-    expect(spacifyNumber(1004003)).toEqual("1\u00A0004\u00A0003");
-    expect(spacifyNumber("1000000000", "-")).toEqual("1-000-000-000");
+    expect(spacifyNumber(1004003)).toStrictEqual("1\u00A0004\u00A0003");
+    expect(spacifyNumber("1000000000", "-")).toStrictEqual("1-000-000-000");
   });
 });
