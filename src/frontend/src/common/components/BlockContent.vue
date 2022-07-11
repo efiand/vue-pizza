@@ -9,6 +9,7 @@
 <script>
 export default {
   name: "BlockContent",
+
   props: {
     title: {
       type: String,

@@ -17,14 +17,18 @@
 
     <ProfileAddressForm
       v-if="newAddress"
-      class="profile__address"
+      class="profile__address profile__address--new"
       :address="newAddress"
       @change="addAddress"
       @delete="newAddress = null"
     />
 
     <div v-if="!newAddress" class="profile__button">
-      <BlockButton bordered @click="newAddress = createAddress(user.id)">
+      <BlockButton
+        data-test="new-address"
+        bordered
+        @click="newAddress = createAddress(user.id)"
+      >
         Добавить новый адрес
       </BlockButton>
     </div>
@@ -39,26 +43,32 @@ import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.
 
 export default {
   name: "ProfileView",
+
   components: {
     ProfileUser,
     ProfileAddressForm,
   },
+
   props: {
     user: {
       type: Object,
       default: null,
     },
   },
+
   data() {
     return {
       newAddress: null,
     };
   },
+
   computed: {
     ...mapState("User", ["addresses"]),
   },
+
   methods: {
     ...mapActions("User", ["updateAddress", "deleteAddress"]),
+
     async addAddress() {
       const { id = null } = await this.$store.dispatch(
         "User/addAddress",
@@ -69,6 +79,7 @@ export default {
         this.newAddress = null;
       }
     },
+
     createAddress,
   },
 };

@@ -7,24 +7,29 @@ import { findItemById, spacifyNumber } from "@/common/utils";
 
 export default {
   name: "OrderPrice",
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     pizzas: {
       type: Array,
       required: true,
     },
+
     misc: {
       type: Array,
       default: () => [],
     },
+
     customCounter: {
       type: Number,
       default: 0,
     },
   },
+
   computed: {
     orderPrice() {
       const pizzasPrice = this.pizzas.reduce(
@@ -32,6 +37,7 @@ export default {
           sum + this.getPizzaPrice(pizza, this.customCounter || pizza.quantity),
         0
       );
+
       const miscPrice = this.misc.length
         ? this.misc.reduce((sum, { miscId, quantity }) => {
             const { price } = findItemById(this.content.misc, miscId);
@@ -42,10 +48,13 @@ export default {
       return spacifyNumber(pizzasPrice + miscPrice);
     },
   },
+
   methods: {
     getPizzaPrice({ doughId, sauceId, sizeId, ingredients }, quantity) {
       const doughPrice = findItemById(this.content.dough, doughId).price;
       const saucesPrice = findItemById(this.content.sauces, sauceId).price;
+      const { multiplier } = findItemById(this.content.sizes, sizeId);
+
       const ingredientsPrice = ingredients.reduce(
         (sum, { ingredientId, quantity }) => {
           const { price } = findItemById(
@@ -56,7 +65,6 @@ export default {
         },
         0
       );
-      const { multiplier } = findItemById(this.content.sizes, sizeId);
 
       const sum = doughPrice + saucesPrice + ingredientsPrice;
       return sum * multiplier * quantity;

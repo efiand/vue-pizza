@@ -62,7 +62,7 @@
       <div>
         <BlockInput
           label="Название пиццы:"
-          hideLabel
+          hide-label
           placeholder="Введите название пиццы"
           name="pizza_name"
           v-model="pizza.name"
@@ -70,9 +70,9 @@
 
         <BuilderPizza
           class="index__pizza"
-          :doughId="pizza.doughId"
-          :sizeId="pizza.sizeId"
-          :sauceId="pizza.sauceId"
+          :dough-id="pizza.doughId"
+          :size-id="pizza.sizeId"
+          :sauce-id="pizza.sauceId"
           :ingredients="pizza.ingredients"
           @change="pizza.ingredients = $event"
         />
@@ -83,9 +83,10 @@
             <OrderPrice
               :content="content"
               :pizzas="[pizza]"
-              :customCounter="1"
+              :custom-counter="1"
             />
           </p>
+
           <BlockButton type="submit" :disabled="!isReady">
             Готовьте!
           </BlockButton>
@@ -109,25 +110,30 @@ import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 
 export default {
   name: "IndexView",
+
   components: {
     BuilderPizza,
     BuilderFillingSelector,
     OrderPrice,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       index: -1,
       pizza: this.createPizza(),
     };
   },
+
   computed: {
     ...mapState("Cart", ["currentOrder"]),
+
     isReady() {
       return (
         this.pizza.name &&
@@ -135,18 +141,22 @@ export default {
       );
     },
   },
+
   created() {
     const { i = -1 } = this.$route.query;
     const index = parseInt(i, 10);
-    if (index > -1) {
+
+    if (index > -1 && this.currentOrder.pizzas[index]) {
       this.pizza = cloneDeep(this.currentOrder.pizzas[index]);
       this.index = index;
     }
   },
+
   methods: {
     ...mapMutations("Cart", {
       updateOrder: UPDATE_ORDER,
     }),
+
     addToCart() {
       if (this.index > -1) {
         this.updateOrder({
@@ -163,6 +173,7 @@ export default {
 
       this.pizza = this.createPizza();
     },
+
     createPizza() {
       return {
         name: "",

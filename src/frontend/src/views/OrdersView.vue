@@ -10,42 +10,50 @@
         :key="`order-${i}`"
         class="orders__card"
         :content="content"
-        :currentOrder="order"
+        :current-order="order"
         @deleteOrder="deleteOrder"
-        @updateOrder="updateOrder"
+        @repeatOrder="repeatOrder"
       />
     </template>
-    <p v-else>У вас нет ни одного заказа</p>
+
+    <p v-else class="orders__empty">У вас нет ни одного заказа</p>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { UPDATE_ORDER } from "@/store/mutation-types";
 import OrderCard from "@/modules/orders/components/OrderCard.vue";
 
 export default {
   name: "OrdersView",
+
   components: {
     OrderCard,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     ...mapState("Orders", ["orders"]),
   },
+
   beforeCreate() {
     this.$store.dispatch("Orders/getOrders");
   },
+
   methods: {
-    ...mapMutations("Cart", {
-      updateOrder: UPDATE_ORDER,
-    }),
     ...mapActions("Orders", ["deleteOrder"]),
+
+    repeatOrder(additions) {
+      this.$store.commit(`Cart/${UPDATE_ORDER}`, additions);
+      this.$router.push("/cart");
+    },
   },
 };
 </script>

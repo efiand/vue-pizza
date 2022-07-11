@@ -18,7 +18,7 @@
           <BlockCounter
             class="additional-list__counter"
             v-model.number="misc.quantity"
-            secondaryStyle
+            secondary-style
             @input="inputHandler($event, i)"
           />
 
@@ -36,16 +36,19 @@ import { spacifyNumber } from "@/common/utils";
 
 export default {
   name: "CartMiscList",
+
   props: {
     misc: {
       type: Array,
       required: true,
     },
+
     value: {
       type: Array,
       required: true,
     },
   },
+
   computed: {
     mergedMisc() {
       return this.misc.map((item) => {
@@ -60,8 +63,10 @@ export default {
       });
     },
   },
+
   methods: {
     spacifyNumber,
+
     inputHandler(quantity, i) {
       const newValue = this.value.slice();
       newValue[i].quantity = quantity;

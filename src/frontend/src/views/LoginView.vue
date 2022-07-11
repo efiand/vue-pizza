@@ -6,7 +6,7 @@
       <BlockSubheading>Авторизуйтесь на сайте</BlockSubheading>
     </div>
 
-    <form method="post" @submit.prevent="login">
+    <form class="login__form" method="post" @submit.prevent="login">
       <div class="login__input">
         <BlockInput
           label="E-mail"
@@ -37,29 +37,35 @@
 <script>
 export default {
   name: "LoginView",
+
   data() {
     return {
       email: "",
       password: "",
     };
   },
+
   computed: {
     invalid() {
-      return !this.email || !this.password;
+      return !this.email || !this.password || !/^.+@.+\..+$/.test(this.email);
     },
   },
+
   methods: {
     async login() {
       if (this.invalid) {
         return;
       }
 
-      await this.$store.dispatch("User/login", {
-        email: this.email,
-        password: this.password,
-      });
-
-      await this.$router.push("/");
+      try {
+        await this.$store.dispatch("User/login", {
+          email: this.email,
+          password: this.password,
+        });
+        this.$router.push("/");
+      } catch (err) {
+        this.password = "";
+      }
     },
   },
 };

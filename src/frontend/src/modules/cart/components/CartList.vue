@@ -17,17 +17,21 @@ import CartItem from "@/modules/cart/components/CartItem.vue";
 
 export default {
   name: "CartList",
+
   components: { CartItem },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     pizzas: {
       type: Array,
       required: true,
     },
   },
+
   methods: {
     changePizzas(pizza) {
       const pizzas = this.pizzas.slice();
@@ -38,6 +42,7 @@ export default {
       } else {
         pizzas[currentIndex] = pizza;
       }
+
       this.$emit("changePizzas", pizzas);
     },
   },

@@ -16,19 +16,23 @@
 <script>
 export default {
   name: "BlockButton",
+
   props: {
     type: {
       type: String,
       default: "button",
     },
+
     disabled: {
       type: Boolean,
       default: false,
     },
+
     bordered: {
       type: Boolean,
       default: false,
     },
+
     transparent: {
       type: Boolean,
       default: false,

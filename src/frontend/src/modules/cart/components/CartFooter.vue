@@ -5,10 +5,12 @@
     <p class="cart-footer__text">
       Перейти к конструктору<br />чтоб собрать ещё одну пиццу
     </p>
+
     <div class="cart-footer__price">
       <b>
         Итого:
         <OrderPrice
+          class="cart-footer__price-value"
           :content="content"
           :pizzas="currentOrder.pizzas"
           :misc="currentOrder.misc"
@@ -30,23 +32,28 @@ import CartMore from "@/modules/cart/components/CartMore.vue";
 
 export default {
   name: "AppLayoutFooter",
+
   components: {
     OrderPrice,
     CartMore,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     currentOrder: {
       type: Object,
       required: true,
     },
+
     isSending: {
       type: Boolean,
       default: false,
     },
+
     isValid: {
       type: Boolean,
       default: false,

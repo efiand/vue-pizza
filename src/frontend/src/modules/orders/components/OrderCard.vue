@@ -2,13 +2,14 @@
   <BlockSheet class="order">
     <div class="order__wrapper">
       <div class="order__number">
-        <b>Заказ #11199929</b>
+        <b>Заказ #{{ currentOrder.id }}</b>
       </div>
 
       <div class="order__sum">
         <span>
           Сумма заказа:
           <OrderPrice
+            class="order__price"
             :content="content"
             :pizzas="currentOrder.pizzas"
             :misc="currentOrder.misc"
@@ -17,12 +18,22 @@
       </div>
 
       <div class="order__button">
-        <BlockButton bordered @click="$emit('deleteOrder', currentOrder)">
+        <BlockButton
+          bordered
+          :data-test="`delete-order-${currentOrder.id}`"
+          @click="$emit('deleteOrder', currentOrder)"
+        >
           Удалить
         </BlockButton>
       </div>
+
       <div class="order__button">
-        <BlockButton @click="repeatHandler">Повторить</BlockButton>
+        <BlockButton
+          :data-test="`repeat-order-${currentOrder.id}`"
+          @click="repeatHandler"
+        >
+          Повторить
+        </BlockButton>
       </div>
     </div>
 
@@ -36,13 +47,21 @@
 
         <p class="order__price">
           {{ pizza.counter > 1 ? `${pizza.counter}x` : "" }}
-          <OrderPrice :content="content" :pizzas="[pizza]" :customCounter="1" />
+          <OrderPrice
+            :content="content"
+            :pizzas="[pizza]"
+            :custom-counter="1"
+          />
         </p>
       </li>
     </ul>
 
     <ul v-if="misc.length" class="order__additional">
-      <li v-for="{ id, image, name, price, quantity } of misc" :key="id">
+      <li
+        v-for="{ id, image, name, price, quantity } of misc"
+        :key="id"
+        class="order__misc"
+      >
         <BlockPicture
           :srcset="[image]"
           :alt="name"
@@ -50,9 +69,12 @@
           height="30"
           remote
         />
+
         <p>
-          <span>{{ name }}</span>
-          <b>{{ quantity > 1 ? `${quantity}x` : "" }}{{ price }} ₽</b>
+          <span class="order__misc-name">{{ name }}</span>
+          <b class="order__misc-price">
+            {{ quantity > 1 ? `${quantity}x` : "" }}{{ price }} ₽
+          </b>
         </p>
       </li>
     </ul>
@@ -70,20 +92,24 @@ import ProductCard from "@/modules/product/components/ProductCard.vue";
 
 export default {
   name: "OrderCard",
+
   components: {
     OrderPrice,
     ProductCard,
   },
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     currentOrder: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     misc() {
       return this.currentOrder.misc
@@ -93,6 +119,7 @@ export default {
           quantity,
         }));
     },
+
     address() {
       if (!this.currentOrder.address) {
         return null;
@@ -101,13 +128,13 @@ export default {
       return formatAddress(this.currentOrder.address);
     },
   },
+
   methods: {
     repeatHandler() {
       const newOrder = cloneDeep(this.currentOrder);
       delete newOrder.id;
 
-      this.$emit("updateOrder", newOrder);
-      this.$router.push("/cart");
+      this.$emit("repeatOrder", newOrder);
     },
   },
 };

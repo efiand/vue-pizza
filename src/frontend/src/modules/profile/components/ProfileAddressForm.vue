@@ -1,7 +1,7 @@
 <template>
   <BlockSheet class="address-form" :class="{ 'address-form--opened': edited }">
     <div class="address-form__header">
-      <b>
+      <b class="address-form__title">
         {{ currentAddress.id ? `Адрес № ${currentAddress.id}` : "Новый адрес"
         }}{{ edited || !currentAddress.name ? "" : `. ${currentAddress.name}` }}
       </b>
@@ -24,6 +24,7 @@
             v-model="currentAddress.name"
           />
         </div>
+
         <div class="address-form__input address-form__input--size--normal">
           <BlockInput
             label="Улица*"
@@ -33,6 +34,7 @@
             v-model="currentAddress.street"
           />
         </div>
+
         <div class="address-form__input address-form__input--size--small">
           <BlockInput
             label="Дом*"
@@ -42,6 +44,7 @@
             v-model="currentAddress.building"
           />
         </div>
+
         <div class="address-form__input address-form__input--size--small">
           <BlockInput
             label="Квартира"
@@ -50,6 +53,7 @@
             v-model="currentAddress.flat"
           />
         </div>
+
         <div class="address-form__input">
           <BlockInput
             label="Комментарий"
@@ -61,17 +65,30 @@
       </div>
 
       <div class="address-form__buttons">
-        <BlockButton transparent @click="$emit('delete')">
+        <BlockButton
+          data-test="delete-address"
+          transparent
+          @click="$emit('delete')"
+        >
           Удалить
         </BlockButton>
-        <BlockButton :disabled="disabled" @click="changeHandler">
+
+        <BlockButton
+          data-test="save-address"
+          :disabled="disabled"
+          @click="changeHandler"
+        >
           Сохранить
         </BlockButton>
       </div>
     </template>
+
     <template v-else>
-      <p>{{ formattedAddress }}</p>
-      <p v-if="currentAddress.comment">{{ currentAddress.comment }}</p>
+      <p data-test="address-output">{{ formattedAddress }}</p>
+
+      <p data-test="comment-output" v-if="currentAddress.comment">
+        {{ currentAddress.comment }}
+      </p>
     </template>
   </BlockSheet>
 </template>
@@ -81,29 +98,35 @@ import { formatAddress } from "@/modules/profile/helpers";
 
 export default {
   name: "ProfileAddressForm",
+
   props: {
     address: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       edited: !this.address.id,
     };
   },
+
   computed: {
     currentAddress() {
       return this.address;
     },
+
     formattedAddress() {
       return formatAddress(this.currentAddress);
     },
+
     disabled() {
       const { name, street, building } = this.currentAddress;
       return !name || !street || !building;
     },
   },
+
   methods: {
     changeHandler() {
       this.$emit("change");

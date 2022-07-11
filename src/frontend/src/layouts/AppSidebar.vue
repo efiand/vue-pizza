@@ -17,9 +17,11 @@
 <script>
 export default {
   name: "AppSidebar",
+
   computed: {
     sideRoutes() {
       const { routes } = this.$router.options;
+
       return routes.filter(
         ({ meta = {} }) => meta.layout === "AppLayoutWithSidebar"
       );

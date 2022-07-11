@@ -1,5 +1,5 @@
 <template>
-  <div class="counter counter--orange">
+  <div class="counter">
     <button
       type="button"
       class="counter__button counter__button--minus"
@@ -8,16 +8,18 @@
     >
       <span class="visually-hidden">Меньше</span>
     </button>
+
     <input
       type="text"
       name="counter"
       class="counter__input"
       v-model.number="currentValue"
     />
+
     <button
       type="button"
       class="counter__button counter__button--plus"
-      :class="{ 'counter__button--orange': secondaryStyle }"
+      :class="{ 'counter__button--secondary': secondaryStyle }"
       :disabled="currentValue === max"
       @click="currentValue++"
     >
@@ -33,25 +35,30 @@ const MAX_COUNT = 99;
 
 export default {
   name: "BlockCounter",
+
   props: {
     value: {
       type: Number,
       default: 0,
     },
+
     max: {
       type: Number,
       default: MAX_COUNT,
     },
+
     secondaryStyle: {
       type: Boolean,
       default: false,
     },
   },
+
   computed: {
     currentValue: {
       get() {
         return this.value;
       },
+
       set(value) {
         this.$emit("input", Math.min(getPositiveIntFromValue(value), this.max));
       },
@@ -171,7 +178,7 @@ export default {
     }
   }
 
-  &--orange {
+  &--secondary {
     background-color: $orange-200;
 
     &:hover:not(:active):not(:disabled) {

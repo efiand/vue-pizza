@@ -23,11 +23,10 @@ export default {
   },
   actions: {
     async getOrders({ commit }) {
-      const orders = await this.$api.orders.get();
-
-      commit(
-        SET_ORDERS,
-        orders.map((order) => {
+      let orders;
+      try {
+        orders = await this.$api.orders.get();
+        orders = orders.map((order) => {
           order.address = order.orderAddress;
 
           if (order.address) {
@@ -55,8 +54,14 @@ export default {
           delete order.orderMisc;
 
           return order;
-        })
-      );
+        });
+      } catch (err) {
+        console.error(err);
+        orders = [];
+        this.$notifier.error("Ошибка получения списка заказов");
+      }
+
+      commit(SET_ORDERS, orders);
     },
     async addOrder({ commit, dispatch }, order) {
       try {

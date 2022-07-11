@@ -11,6 +11,7 @@
         />
       </RouterLink>
     </div>
+
     <div v-if="content" class="header__user">
       <template v-if="user">
         <RouterLink to="/profile">
@@ -29,6 +30,7 @@
           <span>Выйти</span>
         </a>
       </template>
+
       <RouterLink v-else class="header__login" to="/login">
         <span>Войти</span>
       </RouterLink>
@@ -42,20 +44,25 @@ import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 
 export default {
   name: "AppLayoutHeader",
+
   components: { OrderPrice },
+
   props: {
     content: {
       type: Object,
       default: null,
     },
+
     user: {
       type: Object,
       default: null,
     },
   },
+
   computed: {
     ...mapState("Cart", ["currentOrder"]),
   },
+
   methods: {
     async logout() {
       await this.$store.dispatch("User/logout");

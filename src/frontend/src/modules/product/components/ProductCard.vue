@@ -6,8 +6,10 @@
       width="56"
       height="56"
     />
+
     <div class="product__text">
-      <h2>{{ pizza.name }}</h2>
+      <h2 data-id="product-title">{{ pizza.name }}</h2>
+
       <ul>
         <li>{{ size }}, на {{ dough }} тесте</li>
         <li>Соус: {{ sauce }}</li>
@@ -22,29 +24,35 @@ import { findItemById } from "@/common/utils";
 
 export default {
   name: "ProductCard",
+
   props: {
     content: {
       type: Object,
       required: true,
     },
+
     pizza: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     dough() {
       const { name } = findItemById(this.content.dough, this.pizza.doughId);
       return `${name.slice(0, -1).toLowerCase()}м`;
     },
+
     sauce() {
       const { name } = findItemById(this.content.sauces, this.pizza.sauceId);
       return name.toLowerCase();
     },
+
     size() {
       const { name } = findItemById(this.content.sizes, this.pizza.sizeId);
       return name;
     },
+
     ingredients() {
       return this.content.ingredients
         .filter(

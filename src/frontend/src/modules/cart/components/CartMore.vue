@@ -2,6 +2,12 @@
   <RouterLink class="cart-more" to="/">Хочу еще одну</RouterLink>
 </template>
 
+<script>
+export default {
+  name: "CartMore",
+};
+</script>
+
 <style lang="scss">
 .cart-more {
   box-sizing: border-box;
