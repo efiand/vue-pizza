@@ -44,14 +44,14 @@ describe("ProfileView", () => {
     store.$api.addresses.post = jest.fn((address) =>
       Promise.resolve({
         ...address,
-        id: store.state.User.addresses.length + 1,
+        id: store.state.Profile.addresses.length + 1,
       })
     );
     store.$api.addresses.put = jest.fn();
     store.$api.addresses.delete = jest.fn();
     store.$notifier.success = jest.fn();
 
-    store.commit(`User/${SET_ADDRESSES}`, addresses);
+    store.commit(`Profile/${SET_ADDRESSES}`, addresses);
   });
 
   it("Is rendered", () => {

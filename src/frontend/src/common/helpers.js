@@ -48,7 +48,7 @@ export const createResources = (notifier) => ({
 
 export const setAuth = (store) => {
   store.$api.auth.setAuthHeader();
-  store.dispatch("User/getMe");
+  store.dispatch("Profile/getMe");
 };
 
 export const getFileName = (url) => url.replace(/^.*\/(.*?)\..*$/, "$1");

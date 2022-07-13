@@ -104,7 +104,7 @@ export default {
   },
 
   computed: {
-    ...mapState("User", ["addresses"]),
+    ...mapState("Profile", ["addresses"]),
 
     ...mapState("Cart", ["currentOrder"]),
 

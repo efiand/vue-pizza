@@ -18,7 +18,7 @@ export default {
   computed: {
     ...mapState(["content"]),
 
-    ...mapState("User", ["user"]),
+    ...mapState("Profile", ["user"]),
 
     layoutName() {
       const { layout = DEFAULT_LAYOUT } = this.$route.meta || {};

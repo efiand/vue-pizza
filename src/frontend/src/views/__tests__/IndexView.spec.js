@@ -3,7 +3,7 @@ import "@/plugins/ui";
 import { UPDATE_ORDER } from "@/store/mutation-types";
 import { generateMockStore, content } from "@/store/mocks";
 import { MOCK_ORDER } from "@/store/mocks/data";
-import IndexView from "@/views/IndexView";
+import IndexView from "@/views/index/IndexView";
 
 describe("IndexView", () => {
   let store;

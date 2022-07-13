@@ -44,6 +44,11 @@ import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.
 export default {
   name: "ProfileView",
 
+  meta: {
+    layout: "AppLayoutWithSidebar",
+    title: "Мои данные",
+  },
+
   components: {
     ProfileUser,
     ProfileAddressForm,
@@ -63,15 +68,15 @@ export default {
   },
 
   computed: {
-    ...mapState("User", ["addresses"]),
+    ...mapState("Profile", ["addresses"]),
   },
 
   methods: {
-    ...mapActions("User", ["updateAddress", "deleteAddress"]),
+    ...mapActions("Profile", ["updateAddress", "deleteAddress"]),
 
     async addAddress() {
       const { id = null } = await this.$store.dispatch(
-        "User/addAddress",
+        "Profile/addAddress",
         this.newAddress
       );
 

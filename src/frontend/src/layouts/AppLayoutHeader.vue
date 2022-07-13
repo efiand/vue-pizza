@@ -65,7 +65,7 @@ export default {
 
   methods: {
     async logout() {
-      await this.$store.dispatch("User/logout");
+      await this.$store.dispatch("Profile/logout");
       this.$notifier.success("Вы успешно вышли");
 
       if (this.$route.path !== "/") {
