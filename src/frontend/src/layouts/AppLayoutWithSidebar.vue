@@ -19,8 +19,8 @@
       </template>
 
       <div v-else class="layout__content">
-        <p v-if="!user">Доступ запрещён!</p>
-        <p v-else>Ошибка загрузки данных</p>
+        <p v-if="!user" key="fallback-deny">Доступ запрещён!</p>
+        <p v-else key="fallback-error">Ошибка загрузки данных</p>
       </div>
     </main>
   </div>
