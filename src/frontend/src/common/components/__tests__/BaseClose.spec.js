@@ -1,12 +1,12 @@
 import { shallowMount, RouterLinkStub } from "@vue/test-utils";
-import BlockClose from "@/common/components/BlockClose";
+import BaseClose from "@/common/components/BaseClose";
 
-describe("BlockClose", () => {
+describe("BaseClose", () => {
   const stubs = { RouterLink: RouterLinkStub };
   let wrapper;
 
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockClose, {
+    wrapper = shallowMount(BaseClose, {
       stubs,
       ...options,
     });

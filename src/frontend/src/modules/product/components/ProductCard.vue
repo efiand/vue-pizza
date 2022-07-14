@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <BlockPicture
+    <BasePicture
       :srcset="['product.svg']"
       :alt="pizza.name"
       width="56"

@@ -1,9 +1,9 @@
 <template>
   <ul class="additional-list">
-    <BlockSheet v-for="(misc, i) in mergedMisc" :key="misc.id">
+    <BaseSheet v-for="(misc, i) in mergedMisc" :key="misc.id">
       <li class="additional-list__item">
         <p class="additional-list__description">
-          <BlockPicture
+          <BasePicture
             class="additional-list__img"
             :srcset="[misc.image]"
             :alt="misc.name"
@@ -15,7 +15,7 @@
         </p>
 
         <div class="additional-list__wrapper">
-          <BlockCounter
+          <BaseCounter
             class="additional-list__counter"
             v-model.number="misc.quantity"
             secondary-style
@@ -27,7 +27,7 @@
           </div>
         </div>
       </li>
-    </BlockSheet>
+    </BaseSheet>
   </ul>
 </template>
 

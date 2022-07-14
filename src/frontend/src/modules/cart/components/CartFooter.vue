@@ -19,13 +19,13 @@
     </div>
 
     <div class="cart-footer__submit">
-      <BlockButton
+      <BaseButton
         class="cart-footer__button"
         type="submit"
         :disabled="!isValid || isSending"
       >
         Оформить заказ
-      </BlockButton>
+      </BaseButton>
     </div>
   </footer>
 </template>

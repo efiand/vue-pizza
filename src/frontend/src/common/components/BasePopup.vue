@@ -1,6 +1,6 @@
 <template>
   <div class="popup">
-    <BlockClose @close="$emit('close')">Закрыть попап.</BlockClose>
+    <BaseClose @close="$emit('close')">Закрыть попап.</BaseClose>
 
     <slot />
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "BlockPopup",
+  name: "BasePopup",
 };
 </script>
 

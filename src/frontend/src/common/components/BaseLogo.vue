@@ -1,6 +1,6 @@
 <template>
   <RouterLink class="logo" to="/">
-    <BlockPicture
+    <BasePicture
       :srcset="['logo.svg']"
       :alt="logoText"
       width="90"
@@ -13,7 +13,7 @@
 import { Message } from "@/common/constants";
 
 export default {
-  name: "BlockLogo",
+  name: "BaseLogo",
 
   data() {
     return {

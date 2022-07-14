@@ -1,11 +1,11 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockEditButton from "@/common/components/BlockEditButton";
+import BaseEditButton from "@/common/components/BaseEditButton";
 
-describe("BlockEditButton", () => {
+describe("BaseEditButton", () => {
   let wrapper;
 
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockEditButton, options);
+    wrapper = shallowMount(BaseEditButton, options);
   };
 
   it("Is rendered", () => {

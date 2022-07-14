@@ -2,7 +2,7 @@
   <li class="cart-item">
     <ProductCard class="cart-item__product" :content="content" :pizza="pizza" />
 
-    <BlockCounter
+    <BaseCounter
       class="cart-item__counter"
       v-model.number="pizza.quantity"
       secondary-style
@@ -26,7 +26,7 @@ import OrderPrice from "@/modules/orders/components/OrderPrice.vue";
 import ProductCard from "@/modules/product/components/ProductCard.vue";
 
 export default {
-  name: "CartItem",
+  name: "CartListItem",
 
   components: { OrderPrice, ProductCard },
 

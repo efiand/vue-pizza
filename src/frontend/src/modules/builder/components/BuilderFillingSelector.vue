@@ -21,7 +21,7 @@
           </span>
         </AppDrag>
 
-        <BlockCounter
+        <BaseCounter
           class="filling__counter"
           v-model.number="ingredient.quantity"
           :max="max"

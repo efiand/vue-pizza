@@ -1,8 +1,8 @@
 <template>
   <div class="sheet">
-    <BlockSubheading v-if="title" class="sheet__title">
+    <BaseSubheading v-if="title" class="sheet__title">
       {{ title }}
-    </BlockSubheading>
+    </BaseSubheading>
 
     <slot />
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "BlockSheet",
+  name: "BaseSheet",
   props: {
     title: {
       type: String,

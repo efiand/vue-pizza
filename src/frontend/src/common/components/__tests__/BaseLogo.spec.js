@@ -1,14 +1,14 @@
 import { mount, RouterLinkStub } from "@vue/test-utils";
 import "@/plugins/ui";
 import { Message } from "@/common/constants";
-import BlockLogo from "@/common/components/BlockLogo";
+import BaseLogo from "@/common/components/BaseLogo";
 
-describe("BlockLogo", () => {
+describe("BaseLogo", () => {
   const stubs = { RouterLink: RouterLinkStub };
 
   let wrapper;
   const createComponent = () => {
-    wrapper = mount(BlockLogo, { stubs });
+    wrapper = mount(BaseLogo, { stubs });
   };
 
   it("Is rendered", () => {

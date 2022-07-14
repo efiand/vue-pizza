@@ -1,8 +1,8 @@
 import { shallowMount } from "@vue/test-utils";
 import { accumulateSrc } from "@/common/helpers";
-import BlockPicture from "@/common/components/BlockPicture";
+import BasePicture from "@/common/components/BasePicture";
 
-describe("BlockPicture", () => {
+describe("BasePicture", () => {
   const DEFAULT_PROPS = {
     remote: true,
     srcset: ["http://localhost:3000/public/img/users/user.jpg"],
@@ -10,7 +10,7 @@ describe("BlockPicture", () => {
   let wrapper;
 
   const createComponent = (options = {}) => {
-    wrapper = shallowMount(BlockPicture, {
+    wrapper = shallowMount(BasePicture, {
       ...options,
       propsData: {
         ...DEFAULT_PROPS,

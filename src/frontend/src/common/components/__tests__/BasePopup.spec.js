@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockPopup from "@/common/components/BlockPopup";
+import BasePopup from "@/common/components/BasePopup";
 
-describe("BlockPopup", () => {
+describe("BasePopup", () => {
   let wrapper;
 
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockPopup, {
-      stubs: ["BlockClose"],
+    wrapper = shallowMount(BasePopup, {
+      stubs: ["BaseClose"],
       ...options,
     });
   };
@@ -24,7 +24,7 @@ describe("BlockPopup", () => {
 
   it("Raises the close event on close", () => {
     createComponent();
-    wrapper.find("blockclose-stub").vm.$emit("close");
+    wrapper.find("baseclose-stub").vm.$emit("close");
     expect(wrapper.emitted().close).toBeTruthy();
   });
 });

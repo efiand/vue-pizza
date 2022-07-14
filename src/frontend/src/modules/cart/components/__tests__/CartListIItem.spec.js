@@ -2,16 +2,16 @@ import { mount, RouterLinkStub } from "@vue/test-utils";
 import "@/plugins/ui";
 import { content } from "@/store/mocks";
 import { MOCK_ORDER } from "@/store/mocks/data";
-import CartItem from "@/modules/cart/components/CartItem";
+import CartListItem from "@/modules/cart/components/CartListItem";
 
-describe("CartItem", () => {
+describe("CartListItem", () => {
   const stubs = { RouterLink: RouterLinkStub };
   let wrapper;
 
   const createComponent = () => {
     const index = 0;
 
-    wrapper = mount(CartItem, {
+    wrapper = mount(CartListItem, {
       stubs,
       propsData: {
         content,

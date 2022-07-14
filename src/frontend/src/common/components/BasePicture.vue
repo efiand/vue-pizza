@@ -18,7 +18,7 @@
 import { accumulateSrc } from "@/common/helpers";
 
 export default {
-  name: "BlockPicture",
+  name: "BasePicture",
 
   props: {
     srcset: {

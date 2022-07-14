@@ -1,6 +1,6 @@
 <template>
   <main class="content">
-    <BlockHeading class="content__title">{{ title }}</BlockHeading>
+    <BaseHeading class="content__title">{{ title }}</BaseHeading>
 
     <slot />
   </main>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "BlockContent",
+  name: "BaseContent",
 
   props: {
     title: {

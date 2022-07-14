@@ -1,5 +1,5 @@
 <template>
-  <BlockSheet class="order">
+  <BaseSheet class="order">
     <div class="order__wrapper">
       <div class="order__number">Заказ #{{ currentOrder.id }}</div>
 
@@ -14,22 +14,22 @@
         </OrderPrice>
       </div>
 
-      <BlockButton
+      <BaseButton
         class="order__button"
         bordered
         :data-test="`delete-order-${currentOrder.id}`"
         @click="$emit('deleteOrder', currentOrder)"
       >
         Удалить
-      </BlockButton>
+      </BaseButton>
 
-      <BlockButton
+      <BaseButton
         class="order__button"
         :data-test="`repeat-order-${currentOrder.id}`"
         @click="repeatHandler"
       >
         Повторить
-      </BlockButton>
+      </BaseButton>
     </div>
 
     <ul class="order__list" v-if="currentOrder.pizzas.length">
@@ -58,7 +58,7 @@
         v-for="{ id, image, name, price, quantity } of misc"
         :key="id"
       >
-        <BlockPicture
+        <BasePicture
           className="left"
           :srcset="[image]"
           :alt="name"
@@ -76,7 +76,7 @@
     </ul>
 
     <p class="order__address" v-if="address">Адрес доставки: {{ address }}</p>
-  </BlockSheet>
+  </BaseSheet>
 </template>
 
 <script>

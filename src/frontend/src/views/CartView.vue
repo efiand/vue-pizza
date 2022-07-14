@@ -7,15 +7,15 @@
       method="post"
       @submit.prevent="handleOrder"
     >
-      <BlockContent class="cart__content" title="Корзина">
-        <BlockSheet>
+      <BaseContent class="cart__content" title="Корзина">
+        <BaseSheet>
           <CartList
             class="cart__list"
             :content="content"
             :pizzas="currentOrder.pizzas"
             @changePizzas="updateOrder({ pizzas: $event })"
           />
-        </BlockSheet>
+        </BaseSheet>
 
         <div class="cart__additional">
           <CartMiscList
@@ -36,7 +36,7 @@
             @order="handleOrder"
           />
         </div>
-      </BlockContent>
+      </BaseContent>
 
       <CartFooter
         class="cart__footer"
@@ -47,16 +47,16 @@
       />
     </form>
 
-    <BlockContent v-else class="cart__content" title="Корзина">
-      <BlockSheet class="cart__empty">
+    <BaseContent v-else class="cart__content" title="Корзина">
+      <BaseSheet class="cart__empty">
         <p>{{ emptyMessage }}</p>
-      </BlockSheet>
-    </BlockContent>
+      </BaseSheet>
+    </BaseContent>
 
     <Transition name="fade" @after-leave="leaveCart">
-      <BlockPopup class="cart__popup" v-if="isSended" @close="isSended = false">
+      <BasePopup class="cart__popup" v-if="isSended" @close="isSended = false">
         <CartStatus @close="isSended = false" />
-      </BlockPopup>
+      </BasePopup>
     </Transition>
   </div>
 </template>

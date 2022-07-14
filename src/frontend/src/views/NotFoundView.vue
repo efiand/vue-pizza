@@ -1,5 +1,5 @@
 <template>
-  <BlockContent :title="title" />
+  <BaseContent :title="title" />
 </template>
 
 <script>

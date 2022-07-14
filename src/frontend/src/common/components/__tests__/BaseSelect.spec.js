@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockSelect from "@/common/components/BlockSelect";
+import BaseSelect from "@/common/components/BaseSelect";
 
-describe("BlockSelect", () => {
+describe("BaseSelect", () => {
   const DEFAULT_PROPS = {
     name: "name",
     options: [
@@ -18,7 +18,7 @@ describe("BlockSelect", () => {
   let wrapper;
 
   const createComponent = (options = {}) => {
-    wrapper = shallowMount(BlockSelect, {
+    wrapper = shallowMount(BaseSelect, {
       ...options,
       propsData: {
         ...DEFAULT_PROPS,

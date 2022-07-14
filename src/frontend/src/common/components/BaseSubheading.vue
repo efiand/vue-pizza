@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "BlockSubheading",
+  name: "BaseSubheading",
 };
 </script>
 

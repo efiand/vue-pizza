@@ -1,15 +1,15 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockContent from "@/common/components/BlockContent";
+import BaseContent from "@/common/components/BaseContent";
 
-describe("BlockContent", () => {
+describe("BaseContent", () => {
   const DEFAULT_PROPS = {
     title: "Test",
   };
   let wrapper;
 
   const createComponent = (options = {}) => {
-    wrapper = shallowMount(BlockContent, {
-      stubs: ["BlockHeading"],
+    wrapper = shallowMount(BaseContent, {
+      stubs: ["BaseHeading"],
       ...options,
       propsData: {
         ...DEFAULT_PROPS,
@@ -29,12 +29,12 @@ describe("BlockContent", () => {
     expect(wrapper.html()).toContain(slots.default);
   });
 
-  it("Title is slot of BlockHeading", () => {
+  it("Title is slot of BaseHeading", () => {
     const title = "Test";
     createComponent({
       propsData: { title },
     });
-    const headingWrapper = wrapper.find("blockheading-stub");
+    const headingWrapper = wrapper.find("baseheading-stub");
     expect(headingWrapper.html()).toContain(title);
   });
 });

@@ -1,11 +1,11 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockCounter from "@/common/components/BlockCounter";
+import BaseCounter from "@/common/components/BaseCounter";
 
-describe("BlockCounter", () => {
+describe("BaseCounter", () => {
   let wrapper;
 
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockCounter, options);
+    wrapper = shallowMount(BaseCounter, options);
   };
 
   it("Is rendered", () => {

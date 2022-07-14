@@ -34,7 +34,7 @@ import { getPositiveIntFromValue } from "@/common/utils.js";
 const MAX_COUNT = 99;
 
 export default {
-  name: "BlockCounter",
+  name: "BaseCounter",
 
   props: {
     value: {

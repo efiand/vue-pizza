@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockInput from "@/common/components/BlockInput";
+import BaseInput from "@/common/components/BaseInput";
 
-describe("BlockInput", () => {
+describe("BaseInput", () => {
   const DEFAULT_PROPS = {
     label: "Test",
     name: "Test",
@@ -10,7 +10,7 @@ describe("BlockInput", () => {
   let wrapper;
 
   const createComponent = (options = {}) => {
-    wrapper = shallowMount(BlockInput, {
+    wrapper = shallowMount(BaseInput, {
       ...options,
       propsData: {
         ...DEFAULT_PROPS,

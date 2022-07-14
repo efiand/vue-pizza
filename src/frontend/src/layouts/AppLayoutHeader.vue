@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <BlockLogo class="header__logo" />
+    <BaseLogo class="header__logo" />
 
     <div v-if="content" class="header__cart">
       <RouterLink class="header__cart-link" to="/cart">
@@ -15,8 +15,8 @@
 
     <div v-if="content" class="header__user">
       <template v-if="user">
-        <RouterLink to="/profile">
-          <BlockPicture
+        <RouterLink class="header__user-link" to="/profile">
+          <BasePicture
             className="userpic"
             :srcset="[user.srcset.x1, user.srcset.x2]"
             :webpset="[user.webpset.x1, user.webpset.x2]"
@@ -94,7 +94,6 @@ export default {
 }
 
 .header__cart {
-  margin-right: 10px;
   margin-left: auto;
 }
 
@@ -145,6 +144,7 @@ export default {
   color: $white;
 }
 
+.header__user-link,
 .header__logout,
 .header__login {
   display: block;

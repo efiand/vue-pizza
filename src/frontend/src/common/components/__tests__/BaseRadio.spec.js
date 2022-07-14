@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockRadio from "@/common/components/BlockRadio";
+import BaseRadio from "@/common/components/BaseRadio";
 
-describe("BlockRadio", () => {
+describe("BaseRadio", () => {
   const DEFAULT_PROPS = {
     name: "Test",
     option: {
@@ -12,7 +12,7 @@ describe("BlockRadio", () => {
   let wrapper;
 
   const createComponent = (options = {}) => {
-    wrapper = shallowMount(BlockRadio, {
+    wrapper = shallowMount(BaseRadio, {
       ...options,
       propsData: {
         ...DEFAULT_PROPS,

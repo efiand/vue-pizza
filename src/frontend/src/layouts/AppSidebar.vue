@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <BlockLogo class="sidebar__logo" />
+    <BaseLogo class="sidebar__logo" />
 
     <RouterLink
       v-for="{ name, meta, path } of sideRoutes"
@@ -40,7 +40,7 @@ export default {
   margin-bottom: 30px;
   padding-top: 10px;
   padding-bottom: 11px;
-  padding-left: 40px;
+  padding-left: 41px;
   background-color: $green-500;
 }
 

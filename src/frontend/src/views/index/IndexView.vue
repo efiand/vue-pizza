@@ -1,14 +1,14 @@
 <template>
-  <BlockContent class="index" title="Конструктор пиццы">
+  <BaseContent class="index" title="Конструктор пиццы">
     <form
       class="index__body"
       action="#"
       method="post"
       @submit.prevent="addToCart"
     >
-      <BlockSheet title="Выберите тесто">
+      <BaseSheet title="Выберите тесто">
         <div class="index__content">
-          <BlockRadio
+          <BaseRadio
             v-for="option of content.dough"
             :key="`dough-${option.id}`"
             :class="`index__dough-radio`"
@@ -20,11 +20,11 @@
             @change="pizza.doughId = option.id"
           />
         </div>
-      </BlockSheet>
+      </BaseSheet>
 
-      <BlockSheet title="Выберите размер">
+      <BaseSheet title="Выберите размер">
         <div class="index__content">
-          <BlockRadio
+          <BaseRadio
             v-for="option of content.sizes"
             :key="`size-${option.id}`"
             class="index__size-radio"
@@ -37,12 +37,12 @@
             @change="pizza.sizeId = option.id"
           />
         </div>
-      </BlockSheet>
+      </BaseSheet>
 
-      <BlockSheet title="Выберите ингредиенты">
+      <BaseSheet title="Выберите ингредиенты">
         <div class="index__content">
           <p>Основной соус:</p>
-          <BlockRadio
+          <BaseRadio
             v-for="option of content.sauces"
             :key="`sauce-${option.id}`"
             class="index__sauce-radio"
@@ -58,10 +58,10 @@
             @input="pizza.ingredients = $event"
           />
         </div>
-      </BlockSheet>
+      </BaseSheet>
 
       <div>
-        <BlockInput
+        <BaseInput
           label="Название пиццы:"
           hide-label
           placeholder="Введите название пиццы"
@@ -88,9 +88,9 @@
             />
           </p>
 
-          <BlockButton type="submit" :disabled="!isReady">
+          <BaseButton type="submit" :disabled="!isReady">
             Готовьте!
-          </BlockButton>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -98,7 +98,7 @@
     <Transition appear appear-active-class="fade-appear-active">
       <RouterView />
     </Transition>
-  </BlockContent>
+  </BaseContent>
 </template>
 
 <script>

@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "BlockRadio",
+  name: "BaseRadio",
 
   props: {
     name: {

@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <BlockPicture
+    <BasePicture
       :srcset="[user.srcset.x2, user.srcset.x4]"
       :webpset="[user.webpset.x2, user.webpset.x4]"
       :alt="user.name"

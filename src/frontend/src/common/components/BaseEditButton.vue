@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "BlockEditButton",
+  name: "BaseEditButton",
 
   props: {
     type: {

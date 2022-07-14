@@ -1,10 +1,10 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockButton from "@/common/components/BlockButton";
+import BaseButton from "@/common/components/BaseButton";
 
-describe("BlockButton", () => {
+describe("BaseButton", () => {
   let wrapper;
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockButton, options);
+    wrapper = shallowMount(BaseButton, options);
   };
 
   it("Is rendered", () => {

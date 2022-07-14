@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "BlockInput",
+  name: "BaseInput",
 
   props: {
     label: {

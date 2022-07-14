@@ -1,8 +1,8 @@
 <template>
   <div class="profile">
-    <BlockHeading class="profile__title">
+    <BaseHeading class="profile__title">
       {{ $route.meta.title }}
-    </BlockHeading>
+    </BaseHeading>
 
     <ProfileUser class="profile__user" :user="user" />
 
@@ -23,7 +23,7 @@
       @delete="newAddress = null"
     />
 
-    <BlockButton
+    <BaseButton
       v-if="!newAddress"
       class="profile__button"
       data-test="new-address"
@@ -31,7 +31,7 @@
       @click="newAddress = createAddress(user.id)"
     >
       Добавить новый адрес
-    </BlockButton>
+    </BaseButton>
   </div>
 </template>
 

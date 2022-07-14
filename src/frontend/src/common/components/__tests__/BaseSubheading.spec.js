@@ -1,10 +1,10 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockSubheading from "@/common/components/BlockSubheading";
+import BaseSubheading from "@/common/components/BaseSubheading";
 
-describe("BlockSubheading", () => {
+describe("BaseSubheading", () => {
   let wrapper;
   const createComponent = (options) => {
-    wrapper = shallowMount(BlockSubheading, options);
+    wrapper = shallowMount(BaseSubheading, options);
   };
 
   it("Is rendered", () => {
