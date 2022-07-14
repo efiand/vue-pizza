@@ -1,8 +1,8 @@
 <template>
   <div class="orders">
-    <BlockHeading class="orders__title">
+    <BaseHeading class="orders__title">
       {{ $route.meta.title }}
-    </BlockHeading>
+    </BaseHeading>
 
     <template v-if="orders.length">
       <OrderCard
@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .orders__card {
   margin-bottom: 32px;
 }

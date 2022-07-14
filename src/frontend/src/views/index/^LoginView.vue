@@ -1,14 +1,14 @@
 <template>
   <div class="login">
-    <BlockClose to="/" isWhite>Закрыть форму авторизации.</BlockClose>
+    <BaseClose to="/" isWhite>Закрыть форму авторизации.</BaseClose>
 
     <div class="login__title">
-      <BlockSubheading>Авторизуйтесь на сайте</BlockSubheading>
+      <BaseSubheading>Авторизуйтесь на сайте</BaseSubheading>
     </div>
 
     <form class="login__form" method="post" @submit.prevent="login">
       <div class="login__input">
-        <BlockInput
+        <BaseInput
           label="E-mail"
           name="email"
           type="email"
@@ -18,7 +18,7 @@
       </div>
 
       <div class="login__input">
-        <BlockInput
+        <BaseInput
           label="Пароль"
           name="pass"
           type="password"
@@ -27,9 +27,9 @@
         />
       </div>
 
-      <BlockButton class="login__button" type="submit" :disabled="invalid">
+      <BaseButton class="login__button" type="submit" :disabled="invalid">
         Авторизоваться
-      </BlockButton>
+      </BaseButton>
     </form>
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login {
   @include pf_center-all;
 

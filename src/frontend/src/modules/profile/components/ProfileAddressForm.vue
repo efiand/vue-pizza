@@ -1,5 +1,5 @@
 <template>
-  <BlockSheet class="address-form" :class="{ 'address-form--opened': edited }">
+  <BaseSheet class="address-form" :class="{ 'address-form--opened': edited }">
     <div class="address-form__header">
       <b class="address-form__title">
         {{ currentAddress.id ? `Адрес № ${currentAddress.id}` : "Новый адрес"
@@ -7,16 +7,14 @@
       </b>
 
       <div v-if="!edited" class="address-form__edit">
-        <BlockEditButton @click="edited = true">
-          Изменить адрес
-        </BlockEditButton>
+        <BaseEditButton @click="edited = true"> Изменить адрес </BaseEditButton>
       </div>
     </div>
 
     <template v-if="edited">
       <div class="address-form__wrapper">
         <div class="address-form__input">
-          <BlockInput
+          <BaseInput
             label="Название адреса*"
             name="name"
             placeholder="Введите название адреса"
@@ -26,7 +24,7 @@
         </div>
 
         <div class="address-form__input address-form__input--size--normal">
-          <BlockInput
+          <BaseInput
             label="Улица*"
             name="street"
             placeholder="Введите название улицы"
@@ -36,7 +34,7 @@
         </div>
 
         <div class="address-form__input address-form__input--size--small">
-          <BlockInput
+          <BaseInput
             label="Дом*"
             name="building"
             placeholder="Введите номер дома"
@@ -46,7 +44,7 @@
         </div>
 
         <div class="address-form__input address-form__input--size--small">
-          <BlockInput
+          <BaseInput
             label="Квартира"
             name="flat"
             placeholder="Введите № квартиры"
@@ -55,7 +53,7 @@
         </div>
 
         <div class="address-form__input">
-          <BlockInput
+          <BaseInput
             label="Комментарий"
             name="comment"
             placeholder="Введите комментарий"
@@ -65,32 +63,40 @@
       </div>
 
       <div class="address-form__buttons">
-        <BlockButton
+        <BaseButton
+          class="address-form__button"
           data-test="delete-address"
           transparent
           @click="$emit('delete')"
         >
           Удалить
-        </BlockButton>
+        </BaseButton>
 
-        <BlockButton
+        <BaseButton
+          class="address-form__button"
           data-test="save-address"
           :disabled="disabled"
           @click="changeHandler"
         >
           Сохранить
-        </BlockButton>
+        </BaseButton>
       </div>
     </template>
 
     <template v-else>
-      <p data-test="address-output">{{ formattedAddress }}</p>
+      <p class="address-form__text" data-test="address-output">
+        {{ formattedAddress }}
+      </p>
 
-      <p data-test="comment-output" v-if="currentAddress.comment">
+      <p
+        class="address-form__text"
+        data-test="comment-output"
+        v-if="currentAddress.comment"
+      >
         {{ currentAddress.comment }}
       </p>
     </template>
-  </BlockSheet>
+  </BaseSheet>
 </template>
 
 <script>
@@ -136,7 +142,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .address-form {
   $bl: &;
 
@@ -151,21 +157,17 @@ export default {
       padding-bottom: 18px;
     }
   }
+}
 
-  p {
-    @include r-s16-h19;
+.address-form__text {
+  @include r-s16-h19;
 
-    margin-top: 0;
-    margin-bottom: 16px;
-    padding: 0 16px;
-  }
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding: 0 16px;
 
-  small {
-    @include l-s11-h13;
-
-    display: block;
-
-    padding: 0 16px;
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -198,11 +200,11 @@ export default {
   justify-content: flex-end;
 
   padding: 0 16px;
+}
 
-  button {
-    margin-left: 16px;
-    padding: 16px 27px;
-  }
+.address-form__button {
+  margin-left: 16px;
+  padding: 16px 27px;
 }
 
 .address-form__header {

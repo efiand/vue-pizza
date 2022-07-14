@@ -1,14 +1,14 @@
 <template>
-  <BlockContent class="index" title="Конструктор пиццы">
+  <BaseContent class="index" title="Конструктор пиццы">
     <form
       class="index__body"
       action="#"
       method="post"
       @submit.prevent="addToCart"
     >
-      <BlockSheet title="Выберите тесто">
+      <BaseSheet title="Выберите тесто">
         <div class="index__content">
-          <BlockRadio
+          <BaseRadio
             v-for="option of content.dough"
             :key="`dough-${option.id}`"
             :class="`index__dough-radio`"
@@ -20,14 +20,15 @@
             @change="pizza.doughId = option.id"
           />
         </div>
-      </BlockSheet>
+      </BaseSheet>
 
-      <BlockSheet title="Выберите размер">
+      <BaseSheet title="Выберите размер">
         <div class="index__content">
-          <BlockRadio
+          <BaseRadio
             v-for="option of content.sizes"
             :key="`size-${option.id}`"
-            :class="`index__size-radio index__size-radio--${option.id}`"
+            class="index__size-radio"
+            :className="`size-${option.id}`"
             :style="`--bg: url(${option.image})`"
             name="size"
             :option="option"
@@ -36,12 +37,12 @@
             @change="pizza.sizeId = option.id"
           />
         </div>
-      </BlockSheet>
+      </BaseSheet>
 
-      <BlockSheet title="Выберите ингредиенты">
+      <BaseSheet title="Выберите ингредиенты">
         <div class="index__content">
           <p>Основной соус:</p>
-          <BlockRadio
+          <BaseRadio
             v-for="option of content.sauces"
             :key="`sauce-${option.id}`"
             class="index__sauce-radio"
@@ -57,10 +58,10 @@
             @input="pizza.ingredients = $event"
           />
         </div>
-      </BlockSheet>
+      </BaseSheet>
 
       <div>
-        <BlockInput
+        <BaseInput
           label="Название пиццы:"
           hide-label
           placeholder="Введите название пиццы"
@@ -78,7 +79,7 @@
         />
 
         <div class="index__result">
-          <p>
+          <p class="index__result-text">
             Итого:
             <OrderPrice
               :content="content"
@@ -87,9 +88,9 @@
             />
           </p>
 
-          <BlockButton type="submit" :disabled="!isReady">
+          <BaseButton type="submit" :disabled="!isReady">
             Готовьте!
-          </BlockButton>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -97,7 +98,7 @@
     <Transition appear appear-active-class="fade-appear-active">
       <RouterView />
     </Transition>
-  </BlockContent>
+  </BaseContent>
 </template>
 
 <script>
@@ -191,7 +192,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .index {
   width: 920px;
 }
@@ -211,28 +212,11 @@ export default {
 
 .index__dough-radio {
   margin-right: 40px;
-
-  input {
-    margin-right: 14px;
-  }
 }
 
 .index__size-radio {
   & + & {
     margin-left: 30px;
-  }
-
-  input {
-    margin-right: 10px;
-    background-color: $green-100;
-  }
-
-  &--1 input {
-    background-size: 18px;
-  }
-
-  &--2 input {
-    background-size: 29px;
   }
 }
 
@@ -254,15 +238,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  p {
-    @include b-s24-h28;
+.index__result-text {
+  @include b-s24-h28;
 
-    margin: 0;
-  }
-
-  button {
-    margin-left: 12px;
-  }
+  margin: 0 12px 0 0;
 }
 </style>

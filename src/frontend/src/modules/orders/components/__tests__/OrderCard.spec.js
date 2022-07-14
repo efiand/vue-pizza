@@ -49,7 +49,7 @@ describe("OrderCard", () => {
   it("The card component renders the correct content using the header example", () => {
     createComponent();
 
-    const titleWrapper = wrapper.find(`[data-id="product-title"]`);
+    const titleWrapper = wrapper.find(".product__title");
 
     expect(titleWrapper.text()).toStrictEqual(currentOrder.pizzas[0].name);
   });

@@ -3,7 +3,8 @@
     <label class="cart-form__select">
       <span class="cart-form__label">Получение заказа:</span>
 
-      <BlockSelect
+      <BaseSelect
+        class="cart-form__select-control"
         name="mode"
         v-model="currentMode"
         :options="modes"
@@ -11,7 +12,7 @@
       />
     </label>
 
-    <BlockInput
+    <BaseInput
       name="phone"
       label="Контактный телефон:"
       big-label
@@ -25,7 +26,7 @@
       </span>
 
       <div class="cart-form__input">
-        <BlockInput
+        <BaseInput
           name="street"
           label="Улица*"
           :readonly="currentMode !== 'new'"
@@ -36,7 +37,7 @@
       </div>
 
       <div class="cart-form__input cart-form__input--small">
-        <BlockInput
+        <BaseInput
           name="building"
           label="Дом*"
           :readonly="currentMode !== 'new'"
@@ -47,7 +48,7 @@
       </div>
 
       <div class="cart-form__input cart-form__input--small">
-        <BlockInput
+        <BaseInput
           name="flat"
           label="Квартира"
           :readonly="currentMode !== 'new'"
@@ -147,7 +148,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cart-form {
   display: flex;
   align-items: center;
@@ -159,13 +160,13 @@ export default {
   align-items: center;
   margin-right: auto;
 
-  span {
+  .cart-form__label {
     margin-right: 16px;
   }
+}
 
-  select {
-    max-width: 172px;
-  }
+.cart-form__select-control {
+  max-width: 172px;
 }
 
 .cart-form__label {

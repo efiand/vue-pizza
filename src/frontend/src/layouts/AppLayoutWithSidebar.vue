@@ -19,8 +19,8 @@
       </template>
 
       <div v-else class="layout__content">
-        <p v-if="!user">Доступ запрещён!</p>
-        <p v-else>Ошибка загрузки данных</p>
+        <p v-if="!user" key="fallback-deny">Доступ запрещён!</p>
+        <p v-else key="fallback-error">Ошибка загрузки данных</p>
       </div>
     </main>
   </div>
@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .layout__sidebar {
   position: fixed;
   z-index: 2;
