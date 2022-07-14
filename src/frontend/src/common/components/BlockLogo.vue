@@ -22,11 +22,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.logo {
-  img {
-    display: block;
-  }
-}
-</style>

@@ -8,7 +8,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .heading {
   @include b-s36-h42;
 }

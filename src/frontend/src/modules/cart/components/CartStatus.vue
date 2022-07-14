@@ -4,7 +4,9 @@
       Спасибо за заказ
     </BlockSubheading>
 
-    <p>Мы начали готовить Ваш заказ, скоро привезём его вам &semi;&rpar;</p>
+    <p class="cart-status__text">
+      Мы начали готовить Ваш заказ, скоро привезём его вам &semi;&rpar;
+    </p>
 
     <BlockButton class="cart-status__button" @click="$emit('close')">
       Отлично, я жду!
@@ -18,14 +20,14 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cart-status {
   text-align: center;
+}
 
-  p {
-    margin-top: 24px;
-    margin-bottom: 24px;
-  }
+.cart-status__text {
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .cart-status__title {

@@ -165,13 +165,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cart__order {
   display: flex;
   flex-direction: column;
-  min-height: calc(
-    100vh - 61px
-  ); // Учитываем высоту хедера, чтобы прибить футер к низу
+
+  // Учитываем высоту хедера, чтобы прибить футер к низу
+  min-height: calc(100vh - 61px);
 }
 
 .cart__content {

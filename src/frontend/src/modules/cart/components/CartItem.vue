@@ -10,9 +10,7 @@
     />
 
     <div class="cart-item__price">
-      <b>
-        <OrderPrice :content="content" :pizzas="[pizza]" />
-      </b>
+      <OrderPrice :content="content" :pizzas="[pizza]" />
     </div>
 
     <div class="cart-item__button">
@@ -60,7 +58,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cart-item {
   display: flex;
   align-items: flex-start;
@@ -90,15 +88,12 @@ export default {
 }
 
 .cart-item__price {
+  @include b-s16-h19;
+
   min-width: 100px;
   margin-right: 36px;
   margin-left: 10px;
-
   text-align: right;
-
-  b {
-    @include b-s16-h19;
-  }
 }
 
 .cart-item__edit {

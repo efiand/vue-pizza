@@ -45,6 +45,14 @@ describe("BlockPicture", () => {
     expect(imgWrapper.attributes("alt")).toEqual(alt);
   });
 
+  it("Image class modifier is prop className", () => {
+    const className = "test";
+    createComponent({ propsData: { className } });
+
+    const imgWrapper = wrapper.find("img");
+    expect(imgWrapper.classes()).toContain("picture--test");
+  });
+
   it("Image tag with one picture has not srcset attribute", async () => {
     createComponent();
     const imgWrapper = wrapper.find("img");

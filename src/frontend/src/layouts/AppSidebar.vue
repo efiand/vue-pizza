@@ -30,7 +30,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sidebar {
   background-color: rgba($green-500, 0.05);
 }
@@ -40,11 +40,8 @@ export default {
   margin-bottom: 30px;
   padding-top: 10px;
   padding-bottom: 11px;
+  padding-left: 40px;
   background-color: $green-500;
-
-  img {
-    margin-left: 40px;
-  }
 }
 
 .sidebar__link {

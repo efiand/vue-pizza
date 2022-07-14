@@ -3,8 +3,9 @@
     <BlockLogo class="header__logo" />
 
     <div v-if="content" class="header__cart">
-      <RouterLink to="/cart">
+      <RouterLink class="header__cart-link" to="/cart">
         <OrderPrice
+          class="header__linktext"
           :content="content"
           :pizzas="currentOrder.pizzas"
           :misc="currentOrder.misc"
@@ -16,6 +17,7 @@
       <template v-if="user">
         <RouterLink to="/profile">
           <BlockPicture
+            className="userpic"
             :srcset="[user.srcset.x1, user.srcset.x2]"
             :webpset="[user.webpset.x1, user.webpset.x2]"
             :alt="user.name"
@@ -23,16 +25,16 @@
             height="32"
             remote
           />
-          <span>{{ user.name }}</span>
+          <span class="header__linktext">{{ user.name }}</span>
         </RouterLink>
 
         <a class="header__logout" href="/" @click.prevent="logout">
-          <span>Выйти</span>
+          <span class="header__linktext">Выйти</span>
         </a>
       </template>
 
       <RouterLink v-else class="header__login" to="/login">
-        <span>Войти</span>
+        <span class="header__linktext">Войти</span>
       </RouterLink>
     </div>
   </header>
@@ -76,7 +78,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   position: relative;
   z-index: 2;
@@ -94,89 +96,78 @@ export default {
 .header__cart {
   margin-right: 10px;
   margin-left: auto;
+}
 
-  a {
-    @include b-s16-h19;
+.header__cart-link {
+  @include b-s16-h19;
 
-    display: block;
+  display: block;
 
-    padding-top: 21px;
-    padding-right: 15px;
-    padding-bottom: 21px;
-    padding-left: 58px;
+  padding-top: 21px;
+  padding-right: 15px;
+  padding-bottom: 21px;
+  padding-left: 58px;
 
-    transition: 0.3s;
+  transition: 0.3s;
 
-    color: $white;
-    background-color: $green-500;
-    background-image: url("~@/assets/img/cart.svg");
-    background-repeat: no-repeat;
-    background-position: 20px center;
-    background-size: 29px 27px;
+  color: $white;
+  background-color: $green-500;
+  background-image: url("~@/assets/img/cart.svg");
+  background-repeat: no-repeat;
+  background-position: 20px center;
+  background-size: 29px 27px;
 
-    &:hover:not(:active) {
-      background-color: $green-400;
-    }
+  &:hover:not(:active) {
+    background-color: $green-400;
+  }
 
-    &:active {
-      background-color: $green-600;
-    }
+  &:active {
+    background-color: $green-600;
+  }
 
-    &:focus {
-      opacity: 0.5;
-    }
+  &:focus {
+    opacity: 0.5;
   }
 }
 
 .header__user {
   display: flex;
   align-items: center;
+}
 
-  a {
-    display: block;
+.header__linktext {
+  @include r-s14-h16;
 
-    padding-top: 14px;
-    padding-right: 20px;
-    padding-bottom: 14px;
-    padding-left: 20px;
+  display: inline-block;
 
-    transition: 0.3s;
+  vertical-align: middle;
 
-    background-color: $green-500;
+  color: $white;
+}
 
-    &:hover:not(:active) {
-      background-color: $green-400;
-    }
+.header__logout,
+.header__login {
+  display: block;
 
-    &:active {
-      background-color: $green-600;
-    }
+  padding-top: 14px;
+  padding-right: 20px;
+  padding-bottom: 14px;
+  padding-left: 20px;
 
-    &:focus {
-      opacity: 0.5;
-    }
+  transition: 0.3s;
+
+  background-color: $green-500;
+
+  &:hover:not(:active) {
+    background-color: $green-400;
   }
 
-  img {
-    display: inline-block;
-
-    width: 32px;
-    height: 32px;
-    margin-right: 8px;
-
-    vertical-align: middle;
-
-    border-radius: 50%;
+  &:active {
+    background-color: $green-600;
   }
 
-  span {
-    @include r-s14-h16;
-
-    display: inline-block;
-
-    vertical-align: middle;
-
-    color: $white;
+  &:focus {
+    opacity: 0.5;
   }
 }
 

@@ -23,15 +23,15 @@
       @delete="newAddress = null"
     />
 
-    <div v-if="!newAddress" class="profile__button">
-      <BlockButton
-        data-test="new-address"
-        bordered
-        @click="newAddress = createAddress(user.id)"
-      >
-        Добавить новый адрес
-      </BlockButton>
-    </div>
+    <BlockButton
+      v-if="!newAddress"
+      class="profile__button"
+      data-test="new-address"
+      bordered
+      @click="newAddress = createAddress(user.id)"
+    >
+      Добавить новый адрес
+    </BlockButton>
   </div>
 </template>
 
@@ -90,7 +90,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .profile__title {
   margin: 0 0 27px;
 }
@@ -105,9 +105,6 @@ export default {
 
 .profile__button {
   margin: 40px 0;
-
-  button {
-    padding: 12px 23px;
-  }
+  padding: 12px 23px;
 }
 </style>

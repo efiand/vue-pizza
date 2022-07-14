@@ -11,7 +11,7 @@
             height="60"
             remote
           />
-          <span>{{ misc.name }}</span>
+          <span class="additional-list__title">{{ misc.name }}</span>
         </p>
 
         <div class="additional-list__wrapper">
@@ -103,15 +103,15 @@ export default {
   margin-bottom: 15px;
   padding-top: 15px;
   padding-bottom: 15px;
+}
 
-  span {
-    @include b-s14-h16;
+.additional-list__title {
+  @include b-s14-h16;
 
-    display: inline;
+  display: inline;
 
-    width: 100px;
-    margin-right: 15px;
-  }
+  width: 100px;
+  margin-right: 15px;
 }
 
 .additional-list__img {

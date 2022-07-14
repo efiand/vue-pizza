@@ -106,4 +106,12 @@ describe("BlockRadio", () => {
     expect(inputWrapper.classes()).toContain(bigClassName);
     expect(inputWrapper.classes()).not.toContain(smallClassName);
   });
+
+  it("Input class modifier is prop className", () => {
+    const className = "test";
+    createComponent({ propsData: { className } });
+
+    const inputWrapper = wrapper.find("input");
+    expect(inputWrapper.classes()).toContain("radio__input--test");
+  });
 });

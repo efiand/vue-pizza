@@ -10,11 +10,12 @@
     />
 
     <div class="user__name">
-      <span>{{ user.name }}</span>
+      {{ user.name }}
     </div>
 
     <p class="user__phone">
-      Контактный телефон: <span>{{ user.phone }}</span>
+      Контактный телефон:
+      <span class="user__phone-value">{{ user.phone }}</span>
     </p>
   </div>
 </template>
@@ -32,7 +33,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user {
   display: flex;
   flex-wrap: wrap;
@@ -43,12 +44,6 @@ export default {
   @include b-s20-h23;
 
   margin-left: 30px;
-
-  span {
-    display: inline-block;
-
-    vertical-align: middle;
-  }
 }
 
 .user__phone {
@@ -56,9 +51,9 @@ export default {
 
   width: 100%;
   margin-top: 20px;
+}
 
-  span {
-    font-weight: 400;
-  }
+.user__phone-value {
+  font-weight: 400;
 }
 </style>

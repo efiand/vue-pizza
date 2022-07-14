@@ -1,6 +1,6 @@
 <template>
   <div class="filling">
-    <p>Начинка:</p>
+    <p class="filling__title">Начинка:</p>
 
     <ul class="filling__list">
       <li
@@ -82,14 +82,14 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .filling {
   width: 100%;
+}
 
-  p {
-    margin-top: 24px;
-    margin-bottom: 16px;
-  }
+.filling__title {
+  margin-top: 24px;
+  margin-bottom: 16px;
 }
 
 .filling__list {

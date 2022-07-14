@@ -8,9 +8,9 @@
     />
 
     <div class="product__text">
-      <h2 data-id="product-title">{{ pizza.name }}</h2>
+      <h2 class="product__title">{{ pizza.name }}</h2>
 
-      <ul>
+      <ul class="product__list">
         <li>{{ size }}, на {{ dough }} тесте</li>
         <li>Соус: {{ sauce }}</li>
         <li>Начинка: {{ ingredients }}</li>
@@ -68,7 +68,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .product {
   display: flex;
   align-items: center;
@@ -76,17 +76,17 @@ export default {
 
 .product__text {
   margin-left: 15px;
+}
 
-  h2 {
-    @include b-s18-h21;
+.product__title {
+  @include b-s18-h21;
 
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
+  margin-top: 0;
+  margin-bottom: 10px;
+}
 
-  ul {
-    @include clear-list;
-    @include l-s11-h13;
-  }
+.product__list {
+  @include clear-list;
+  @include l-s11-h13;
 }
 </style>

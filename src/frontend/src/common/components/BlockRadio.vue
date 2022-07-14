@@ -5,6 +5,7 @@
       :class="{
         'radio__input--big': big,
         'radio__input--small': !big,
+        [`radio__input--${className}`]: className,
       }"
       type="radio"
       :name="name"
@@ -46,11 +47,16 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    className: {
+      type: String,
+      default: "",
+    },
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .radio {
   display: flex;
   align-items: center;
@@ -68,6 +74,7 @@ export default {
   &--big {
     width: 36px;
     height: 36px;
+    margin-right: 14px;
     background-image: var(--bg, none);
     background-repeat: no-repeat;
     background-position: center;
@@ -108,6 +115,21 @@ export default {
         border-color: $purple-800;
       }
     }
+  }
+
+  &--size-1,
+  &--size-2,
+  &--size-3 {
+    margin-right: 10px;
+    background-color: $green-100;
+  }
+
+  &--size-1 {
+    background-size: 18px;
+  }
+
+  &--size-2 {
+    background-size: 29px;
   }
 }
 

@@ -4,6 +4,7 @@
       <span class="cart-form__label">Получение заказа:</span>
 
       <BlockSelect
+        class="cart-form__select-control"
         name="mode"
         v-model="currentMode"
         :options="modes"
@@ -147,7 +148,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cart-form {
   display: flex;
   align-items: center;
@@ -159,13 +160,13 @@ export default {
   align-items: center;
   margin-right: auto;
 
-  span {
+  .cart-form__label {
     margin-right: 16px;
   }
+}
 
-  select {
-    max-width: 172px;
-  }
+.cart-form__select-control {
+  max-width: 172px;
 }
 
 .cart-form__label {

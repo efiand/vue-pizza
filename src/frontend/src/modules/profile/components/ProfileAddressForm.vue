@@ -66,6 +66,7 @@
 
       <div class="address-form__buttons">
         <BlockButton
+          class="address-form__button"
           data-test="delete-address"
           transparent
           @click="$emit('delete')"
@@ -74,6 +75,7 @@
         </BlockButton>
 
         <BlockButton
+          class="address-form__button"
           data-test="save-address"
           :disabled="disabled"
           @click="changeHandler"
@@ -84,9 +86,15 @@
     </template>
 
     <template v-else>
-      <p data-test="address-output">{{ formattedAddress }}</p>
+      <p class="address-form__text" data-test="address-output">
+        {{ formattedAddress }}
+      </p>
 
-      <p data-test="comment-output" v-if="currentAddress.comment">
+      <p
+        class="address-form__text"
+        data-test="comment-output"
+        v-if="currentAddress.comment"
+      >
         {{ currentAddress.comment }}
       </p>
     </template>
@@ -136,7 +144,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .address-form {
   $bl: &;
 
@@ -151,21 +159,17 @@ export default {
       padding-bottom: 18px;
     }
   }
+}
 
-  p {
-    @include r-s16-h19;
+.address-form__text {
+  @include r-s16-h19;
 
-    margin-top: 0;
-    margin-bottom: 16px;
-    padding: 0 16px;
-  }
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding: 0 16px;
 
-  small {
-    @include l-s11-h13;
-
-    display: block;
-
-    padding: 0 16px;
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -198,11 +202,11 @@ export default {
   justify-content: flex-end;
 
   padding: 0 16px;
+}
 
-  button {
-    margin-left: 16px;
-    padding: 16px 27px;
-  }
+.address-form__button {
+  margin-left: 16px;
+  padding: 16px 27px;
 }
 
 .address-form__header {

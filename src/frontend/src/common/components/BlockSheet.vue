@@ -20,16 +20,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sheet {
   font-size: 16px;
   line-height: 19px;
   border-radius: 8px;
   box-shadow: $shadow-light;
-
-  p {
-    margin: 0;
-  }
 }
 
 .sheet__title {
