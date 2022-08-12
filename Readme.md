@@ -20,10 +20,6 @@
 
 <https://docs.docker.com/compose/install/>
 
-## Node js документация и установка
-
-<https://nodejs.org/en/download/>
-
 ## Pre-commit документация и установка
 
 * Установить пакет локально, [следуя инструкциям](https://pre-commit.com/#installation)
@@ -89,30 +85,6 @@ password: user@example.com
 ```
 http://localhost:3000/explorer/
 ```
-
-## Запуск и просмотр готовой верстки проекта
-
-Перейдите в директорию:
-
-```
-template/
-```
-
-Установите зависимости, выполнив команду:
-
-```
-npm install
-```
-
-Запустите проект командой:
-
-```
-npm start
-```
-
-Шаблон и вёрстка будут доступны по адресу: `http://localhost:9999`.
-
-Вёрстку можно посмотреть в директории `template/src`.
 
 ## Развертывание проекта на Windows 10 Home Edition (build 1909)
 
