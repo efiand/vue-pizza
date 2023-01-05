@@ -11,7 +11,7 @@
           <BaseRadio
             v-for="option of content.dough"
             :key="`dough-${option.id}`"
-            :class="`index__dough-radio`"
+            class="index__dough-radio"
             :style="`--bg: url(${option.image})`"
             name="dough"
             :option="option"
